@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f63d5">
+<title>BBSS - Send Money</title>
+<style>
+:root{--bg:#0d120f;--card:#141c17;--line:#2c3a31;--text:#f4f3eb;--muted:#9ba69e;--green:#55c58f;--blue:#1f63d5;--gold:#e8b85c;--red:#ed7b72}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#17251d 0,transparent 32%),var(--bg);color:var(--text);font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,sans-serif;line-height:1.55}.wrap{max-width:760px;margin:auto;padding:22px 14px 60px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:18px}.back,.home{border:1px solid var(--line);background:#111914;color:#fff;text-decoration:none;padding:9px 12px;border-radius:10px;cursor:pointer}.hero,.card{background:linear-gradient(155deg,var(--card),#111914);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 14px 38px rgba(0,0,0,.24)}.hero{margin-bottom:14px}.hero h1{margin:0 0 6px;font-size:28px}.hero p{margin:0;color:var(--muted)}.society-number{margin-top:12px;padding:10px 12px;border-radius:10px;border:1px solid #345c46;background:#10231a;color:#c9f0d8;font-weight:800;text-align:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.service h2{margin:0 0 6px}.bkash h2{color:#e65b8f}.nagad h2{color:#f06b35}.field{margin:12px 0}.field label{display:block;color:var(--muted);font-size:12px;margin-bottom:5px}input{width:100%;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:#0d1410;color:#fff;font:inherit}input[readonly]{background:#101914;color:#cfe7d8;border-color:#355544;cursor:not-allowed;font-weight:800}.btn{display:block;width:100%;border:0;border-radius:11px;padding:12px 14px;color:#fff;font-weight:800;cursor:pointer}.bkash .btn{background:#b81f64}.nagad .btn{background:#d65322}.secondary{margin-top:8px;background:transparent!important;border:1px solid var(--line)!important;color:#fff!important}.notice{margin-top:14px;padding:12px;border-left:3px solid var(--gold);background:#282417;border-radius:9px;color:#d4cdb4;font-size:12px}.status{display:none;margin-top:12px;padding:10px;border-radius:9px;background:#173c29;color:#b8ebcf}.status.show{display:block}.status.error{background:#351d1b;color:#ffb7b2}.locked-note{margin-top:6px;font-size:11px;color:#83b99a}.small{font-size:11px;color:var(--muted)}
+.confirm{display:none;margin-top:14px}.confirm.show{display:block}.confirm-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.confirm h2{margin:0 0 4px;color:var(--green)}.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}.summary-box{background:#0d1410;border:1px solid var(--line);border-radius:12px;padding:12px}.summary-box small{display:block;color:var(--muted);margin-bottom:4px}.summary-box b{font-size:18px}.steps{margin:12px 0 0;padding-left:22px;color:#d2d9d4}.steps li{margin:6px 0}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.dial{background:#2f8e63}.copy{background:#345b99}.close{background:#6a3030}.hint{margin-top:10px;color:#9ba69e;font-size:11px}.app-open{display:flex!important;align-items:center;justify-content:center;text-decoration:none;background:#1f63d5!important}.store-open{display:flex!important;align-items:center;justify-content:center;text-decoration:none;background:#222b36!important;border:1px solid #465466!important}.app-note{margin-top:12px;padding:11px 12px;border:1px solid #30455a;background:#111d29;border-radius:10px;color:#c6d9ea;font-size:12px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.hero h1{font-size:24px}.summary,.actions{grid-template-columns:1fr}}
+
+.bbss-footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
+.bbss-footer span{margin:0 6px;color:#5e6c63}.bbss-footer a{color:#75a7ff;text-decoration:none;font-weight:700}.bbss-footer a:hover{text-decoration:underline;text-underline-offset:3px}
+@media print{.bbss-footer{color:#444;border-top:1px solid #bbb}.bbss-footer a{color:#111;text-decoration:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><button class="back" type="button" onclick="goBack()">← ফিরে যান</button><a class="home" href="bbss_savings_pro.html">BBSS Home</a></div>
+  <section class="hero">
+    <h1>Send Money</h1>
+    <p>বিকাশ বা নগদ দিয়ে সমিতির নির্ধারিত নম্বরে টাকা পাঠানোর সহায়ক পেজ।</p>
+    <div class="society-number">সমিতির নম্বর: 01518482461</div>
+  </section>
+  <div class="grid">
+    <section class="card service bkash">
+      <h2>বিকাশ</h2><div class="small">Send Money • USSD: *247#</div>
+      <div class="field"><label>প্রাপক বিকাশ নম্বর</label><input id="bkashNumber" inputmode="tel" value="01518482461" readonly aria-readonly="true"><div class="locked-note">🔒 সমিতির নির্ধারিত নম্বর — পরিবর্তন করা যাবে না</div></div>
+      <div class="field"><label>Amount (৳)</label><input id="bkashAmount" type="number" min="1" step="1" placeholder="500"></div>
+      <button class="btn" type="button" onclick="prepareSend('bkash')">বিকাশে Send Money প্রস্তুত</button>
+      <button class="btn secondary" type="button" onclick="copyDetails('bkash')">নম্বর + Amount Copy</button>
+    </section>
+    <section class="card service nagad">
+      <h2>নগদ</h2><div class="small">Send Money • USSD: *167#</div>
+      <div class="field"><label>প্রাপক নগদ নম্বর</label><input id="nagadNumber" inputmode="tel" value="01518482461" readonly aria-readonly="true"><div class="locked-note">🔒 সমিতির নির্ধারিত নম্বর — পরিবর্তন করা যাবে না</div></div>
+      <div class="field"><label>Amount (৳)</label><input id="nagadAmount" type="number" min="1" step="1" placeholder="500"></div>
+      <button class="btn" type="button" onclick="prepareSend('nagad')">নগদে Send Money প্রস্তুত</button>
+      <button class="btn secondary" type="button" onclick="copyDetails('nagad')">নম্বর + Amount Copy</button>
+    </section>
+  </div>
+
+  <div id="status" class="status" role="status" aria-live="polite"></div>
+
+  <section id="confirmCard" class="card confirm" aria-live="polite">
+    <div class="confirm-head"><div><h2 id="confirmTitle">Send Money প্রস্তুত</h2><div class="small">নম্বর ও Amount কপি হয়েছে। এখন bKash/Nagad অ্যাপ খুলে Send Money থেকে তথ্য Paste করুন।</div></div></div>
+    <div class="summary">
+      <div class="summary-box"><small>প্রাপক নম্বর</small><b id="confirmNumber">01518482461</b></div>
+      <div class="summary-box"><small>Amount</small><b id="confirmAmount">৳0</b></div>
+    </div>
+    <ol class="steps" id="confirmSteps"></ol>
+    <div class="actions">
+      <a class="btn app-open" id="appLaunchBtn" href="#">অ্যাপ খুলুন</a>
+      <a class="btn store-open" id="storeBtn" href="#" target="_blank" rel="noopener">Play Store / App Store</a>
+      <button class="btn copy" id="copyUssdBtn" type="button">সব তথ্য Copy</button>
+      <button class="btn secondary" id="copyNumberBtn" type="button">নম্বর Copy</button>
+      <button class="btn secondary" id="copyAmountBtn" type="button">Amount Copy</button>
+      <button class="btn dial" id="dialBtn" type="button">USSD Copy (Backup)</button>
+    </div>
+    <div class="app-note"><b>অ্যাপ খোলার নিয়ম:</b> Android-এ “অ্যাপ খুলুন” চাপলে ইনস্টল থাকা bKash/Nagad অ্যাপ চালু করার চেষ্টা করবে। অ্যাপ না থাকলে Store link ব্যবহার করুন। অ্যাপ খুললেও নিরাপত্তার কারণে প্রাপক নম্বর ও Amount স্বয়ংক্রিয়ভাবে Send Money form-এ বসবে না—Send Money নির্বাচন করে Copy করা তথ্য Paste করুন এবং নিজের PIN দিয়ে নিশ্চিত করুন।</div>
+    <div class="hint">কিছু browser/ফোন local HTML থেকে অন্য app খুলতে বাধা দিতে পারে। সে ক্ষেত্রে “Play Store / App Store” বা USSD backup ব্যবহার করুন।</div>
+  </section>
+
+  <div class="notice"><b>নিরাপত্তা:</b> এই HTML শুধু bKash/Nagad অ্যাপ খোলার চেষ্টা ও নম্বর/Amount Copy করতে সাহায্য করে। এটি আপনার PIN নেয় না এবং নিজে থেকে টাকা পাঠায় না। চূড়ান্ত Send Money সবসময় bKash/Nagad অ্যাপের ভিতরে আপনার PIN দিয়ে নিশ্চিত করতে হবে।</div>
+</div>
+<script>
+const DEFAULT_NUMBER='01518482461';
+const APPS={
+  bkash:{name:'bKash',package:'com.bKash.customerapp',play:'https://play.google.com/store/apps/details?id=com.bKash.customerapp',ios:'https://apps.apple.com/app/bkash/id1351183172'},
+  nagad:{name:'Nagad',package:'com.konasl.nagad',play:'https://play.google.com/store/apps/details?id=com.konasl.nagad',ios:'https://apps.apple.com/app/nagad/id1471844924'}
+};
+let prepared=null;
+function cleanMobile(v){let x=String(v||'').replace(/\D/g,'');if(x.startsWith('880')&&x.length===13)x='0'+x.slice(3);return x}
+function validMobile(v){return /^01\d{9}$/.test(cleanMobile(v))}
+function showStatus(msg,error=false){const el=document.getElementById('status');el.textContent=msg;el.className='status show'+(error?' error':'')}
+function goBack(){if(window.opener&&!window.opener.closed){window.close();return}if(history.length>1){history.back();return}location.href='bbss_savings_pro.html'}
+function data(type){return {number:document.getElementById(type+'Number').value,amount:document.getElementById(type+'Amount').value}}
+async function writeClipboard(text){
+  try{if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(text);return true}}catch(e){}
+  try{const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.focus();t.select();const ok=document.execCommand('copy');t.remove();return ok}catch(e){return false}
+}
+async function copyDetails(type){
+  const d=data(type);
+  if(!validMobile(d.number)){showStatus('সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।',true);return false}
+  if(!(Number(d.amount)>0)){showStatus('সঠিক Amount দিন।',true);return false}
+  const text=`${type==='bkash'?'bKash':'Nagad'} Send Money\nNumber: ${cleanMobile(d.number)}\nAmount: Tk ${Number(d.amount)}`;
+  const ok=await writeClipboard(text);
+  showStatus(ok?'নম্বর ও Amount কপি হয়েছে।':'কপি করা যায়নি। নিচের Send Money প্রস্তুত অংশ থেকে তথ্য দেখে নিন।',!ok);
+  return true;
+}
+function isAndroid(){return /Android/i.test(navigator.userAgent)}
+function isIOS(){return /iPhone|iPad|iPod/i.test(navigator.userAgent)}
+function androidIntentFor(type){
+  const a=APPS[type];
+  const fallback=encodeURIComponent(a.play);
+  return `intent://launch#Intent;package=${a.package};action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;S.browser_fallback_url=${fallback};end`;
+}
+function configureAppLinks(type){
+  const a=APPS[type], launch=document.getElementById('appLaunchBtn'), store=document.getElementById('storeBtn');
+  launch.textContent=a.name+' App খুলুন';
+  if(isAndroid()){
+    launch.href=androidIntentFor(type);
+    store.href=a.play;
+    store.textContent='Google Play';
+  }else if(isIOS()){
+    launch.href=a.ios;
+    store.href=a.ios;
+    launch.textContent=a.name+' App / App Store';
+    store.textContent='App Store';
+  }else{
+    launch.href=a.play;
+    store.href=a.play;
+    launch.textContent=a.name+' App page খুলুন';
+    store.textContent='Google Play';
+  }
+  launch.onclick=()=>{showStatus(a.name+' app খোলার চেষ্টা হচ্ছে। অ্যাপ খুললে Send Money নির্বাচন করে Copy করা নম্বর ও Amount Paste করুন।');};
+}
+
+async function prepareSend(type){
+  const d=data(type);
+  if(!validMobile(d.number)){showStatus('সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।',true);return}
+  if(!(Number(d.amount)>0)){showStatus('সঠিক Amount দিন।',true);return}
+  const number=cleanMobile(d.number), amount=Number(d.amount), ussd=type==='bkash'?'*247#':'*167#';
+  prepared={type,number,amount,ussd};
+  await copyDetails(type);
+  configureAppLinks(type);
+  document.getElementById('confirmTitle').textContent=(type==='bkash'?'বিকাশ':'নগদ')+' Send Money প্রস্তুত';
+  document.getElementById('confirmNumber').textContent=number;
+  document.getElementById('confirmAmount').textContent='৳'+amount.toLocaleString('en-BD');
+  document.getElementById('confirmSteps').innerHTML=
+    '<li><b>'+APPS[type].name+' App খুলুন</b> বাটনে চাপুন।</li><li>অ্যাপের <b>Send Money</b> নির্বাচন করুন।</li><li>প্রাপক নম্বর <b>'+number+'</b> Paste/লিখুন।</li><li>Amount <b>৳'+amount.toLocaleString('en-BD')+'</b> Paste/লিখুন।</li><li>Reference চাইলে <b>BBSS</b> লিখুন।</li><li>সব তথ্য মিলিয়ে দেখে নিজের PIN দিয়ে Send Money নিশ্চিত করুন।</li>';
+  const card=document.getElementById('confirmCard');card.classList.add('show');
+  card.scrollIntoView({behavior:'smooth',block:'start'});
+}
+async function openDialer(){
+  if(!prepared)return;
+  const ok=await writeClipboard(prepared.ussd);
+  showStatus(ok
+    ? 'USSD কোড কপি হয়েছে: '+prepared.ussd+' — এখন Phone/Dialer খুলে Paste করে Call করুন।'
+    : 'USSD কোড: '+prepared.ussd+' — Phone/Dialer খুলে এই কোড লিখে Call করুন।',!ok);
+}
+async function copyUssd(){
+  if(!prepared)return;
+  const text=`${prepared.type==='bkash'?'bKash':'Nagad'} Send Money\nUSSD: ${prepared.ussd}\nNumber: ${prepared.number}\nAmount: Tk ${prepared.amount}\nReference: BBSS`;
+  const ok=await writeClipboard(text);
+  showStatus(ok?'USSD, নম্বর ও Amount কপি হয়েছে। চাইলে App বা USSD backup ব্যবহার করুন।':text,!ok);
+}
+async function copyNumber(){if(!prepared)return;const ok=await writeClipboard(prepared.number);showStatus(ok?'সমিতির নম্বর কপি হয়েছে।':'সমিতির নম্বর: '+prepared.number,!ok)}
+async function copyAmount(){if(!prepared)return;const ok=await writeClipboard(String(prepared.amount));showStatus(ok?'Amount কপি হয়েছে: ৳'+prepared.amount:'Amount: ৳'+prepared.amount,!ok)}
+document.getElementById('dialBtn').onclick=openDialer;
+document.getElementById('copyUssdBtn').onclick=copyUssd;
+document.getElementById('copyNumberBtn').onclick=copyNumber;
+document.getElementById('copyAmountBtn').onclick=copyAmount;
+document.getElementById('bkashNumber').value=DEFAULT_NUMBER;
+document.getElementById('nagadNumber').value=DEFAULT_NUMBER;
+</script>
+
+<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+</body>
+</html>

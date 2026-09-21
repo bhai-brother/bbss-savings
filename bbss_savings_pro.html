@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1f63d5">
+<title>BBSS Savings - CSV, Send Money & Committee</title>
+<style>
+:root{
+  --bg:#0d120f;--panel:#141c17;--panel2:#19231d;--panel3:#101713;--line:#2c3a31;
+  --text:#f4f3eb;--muted:#9ba69e;--green:#55c58f;--green2:#2f8e63;--gold:#e8b85c;
+  --red:#ed7b72;--blue:#75a7ff;--shadow:0 12px 34px rgba(0,0,0,.22);--r:16px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0,#17251d 0,transparent 28%),var(--bg);color:var(--text);font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+button,input,select,textarea{font:inherit}
+.topbar{position:sticky;top:0;z-index:50;overflow:hidden;background:radial-gradient(circle at 50% -45%,rgba(var(--accent-rgb,31,99,213),.38),transparent 62%),linear-gradient(135deg,rgba(8,16,29,.98),rgba(10,23,39,.98));backdrop-filter:blur(16px);border-bottom:1px solid rgba(var(--accent-rgb,31,99,213),.48);box-shadow:0 8px 30px rgba(0,0,0,.22)}
+.topbar::before{content:"";position:absolute;inset:-80% -20%;pointer-events:none;background:conic-gradient(from 180deg at 50% 50%,transparent 0 24%,rgba(var(--accent-rgb,31,99,213),.14) 34%,transparent 45% 74%,rgba(var(--accent-rgb,31,99,213),.1) 84%,transparent 95%);animation:headerGlow 14s linear infinite}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent,#1f63d5),var(--accent2,#75a7ff),var(--accent,#1f63d5),transparent);background-size:220% 100%;animation:headerLine 5s linear infinite}
+.head{position:relative;z-index:1;max-width:1280px;min-height:190px;margin:auto;padding:18px 100px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:10px}
+.brand{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;min-width:0}
+.brand-logo{width:112px;height:112px;object-fit:contain;background:#fff;border:2px solid rgba(255,255,255,.9);border-radius:24px;padding:5px;flex:0 0 auto;box-shadow:0 12px 34px rgba(0,0,0,.34),0 0 0 7px rgba(var(--accent-rgb,31,99,213),.12),0 0 30px rgba(var(--accent-rgb,31,99,213),.28);transition:transform .28s ease,box-shadow .28s ease}
+.brand-logo:hover{transform:translateY(-3px) scale(1.035);box-shadow:0 16px 42px rgba(0,0,0,.38),0 0 0 8px rgba(var(--accent-rgb,31,99,213),.17),0 0 40px rgba(var(--accent-rgb,31,99,213),.38)}
+.brand-text{min-width:0;text-align:center}.brand h1{font-size:clamp(28px,3.25vw,42px);line-height:1.15;font-weight:900;letter-spacing:.2px;margin:0;background:linear-gradient(100deg,#fff 10%,var(--accent2,#75a7ff) 42%,#fff 56%,var(--accent,#1f63d5) 82%,#fff);background-size:240% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:brandShine 6s linear infinite;text-shadow:0 8px 28px rgba(var(--accent-rgb,31,99,213),.15)}
+.brand p{margin:6px 0 0;color:#c5d1df;font-size:13px;letter-spacing:.15px}.sync-badge{position:absolute;right:18px;top:18px;display:flex;align-items:center;gap:9px;border:1px solid rgba(var(--accent-rgb,31,99,213),.34);background:rgba(7,15,27,.72);padding:8px 11px;border-radius:14px;color:#bdc9d6;font-size:11px;white-space:normal;box-shadow:0 7px 20px rgba(0,0,0,.2);min-width:170px}.sync-copy{display:flex;flex-direction:column;align-items:flex-start;gap:2px;line-height:1.18}.sync-copy strong{font-size:11px;color:#eef4f9}.sync-copy small{font-size:9px;color:#93a1ad}.dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(var(--accent-rgb,31,99,213),.12);animation:dotPulse 2s ease-in-out infinite;flex:0 0 auto}.sync-badge.online .dot{background:#55c58f;box-shadow:0 0 0 4px rgba(85,197,143,.14)}.sync-badge.offline .dot,.sync-badge.error .dot{background:#ed7b72;box-shadow:0 0 0 4px rgba(237,123,114,.14);animation:none}.sync-badge.syncing .dot{background:#e8b85c;box-shadow:0 0 0 4px rgba(232,184,92,.14)}.sync-warning{display:none;position:relative;z-index:2;max-width:1280px;margin:-4px auto 10px;padding:9px 13px;border:1px solid rgba(237,123,114,.34);border-radius:10px;background:rgba(92,31,27,.92);color:#ffd0cc;font-size:11px;text-align:center;box-shadow:0 7px 20px rgba(0,0,0,.18)}.sync-warning.show{display:block}
+@keyframes headerGlow{to{transform:rotate(360deg)}}@keyframes headerLine{to{background-position:220% 0}}@keyframes brandShine{to{background-position:240% center}}@keyframes dotPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.72);opacity:.6}}
+.app{max-width:1280px;margin:auto;padding:18px 16px 70px}.tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 14px;scrollbar-width:thin}.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 12px;border-radius:10px;cursor:pointer;white-space:nowrap}.tab.active{background:var(--green2);color:#fff;border-color:var(--green);box-shadow:0 6px 18px rgba(var(--accent-rgb,31,99,213),.18)}.rules-tab,.external-tab{text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.view{display:none}.view.active{display:block}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:var(--r);padding:16px;box-shadow:var(--shadow)}.kpi small{color:var(--muted)}.kpi strong{display:block;font-size:24px;margin-top:5px;color:var(--green)}.kpi.gold strong{color:var(--gold)}.kpi.red strong{color:var(--red)}.kpi.blue strong{color:var(--blue)}.kpi .sub{font-size:11px;color:var(--muted);margin-top:4px}
+.card{background:linear-gradient(155deg,var(--panel),#111914);border:1px solid var(--line);border-radius:var(--r);padding:16px;margin:14px 0;box-shadow:var(--shadow)}.card h2,.card h3{margin:0 0 12px}.card h2{font-size:18px;color:var(--green)}.card h3{font-size:15px}.muted{color:var(--muted)}.small{font-size:12px}.notice{padding:11px 12px;border-left:3px solid var(--gold);background:#282417;border-radius:7px;color:#c9c2a8;font-size:13px}.notice.red{border-color:var(--red);background:#2c1c1a;color:#f3b5b0}.notice.green{border-color:var(--green);background:#16281e;color:#b6e9cc}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:end}.toolbar>*{flex:1 1 150px}.toolbar .wide{flex:2 1 260px}.field label{display:block;color:var(--muted);font-size:11px;margin:0 0 5px}input,select,textarea{width:100%;background:#0d1410;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 10px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(var(--accent-rgb,31,99,213),.13)}textarea{min-height:80px;resize:vertical}.btn{border:0;border-radius:9px;padding:9px 12px;background:var(--green2);color:#fff;font-weight:700;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn.gold{background:#9a6a1d}.btn.red{background:#8b3e39}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}.btn.blue{background:#345b99}.btn.sm{padding:6px 9px;font-size:12px}.actions{display:flex;gap:7px;flex-wrap:wrap}.right{text-align:right}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;min-width:720px;background:rgba(0,0,0,.05)}th,td{padding:9px 10px;border-bottom:1px solid var(--line);font-size:12px;text-align:left;vertical-align:middle}th{position:sticky;top:0;background:#172119;color:#b9c4bc;font-weight:600;z-index:1}td.num,th.num{text-align:right}tbody tr:hover td{background:rgba(255,255,255,.018)}.pill{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:999px;font-size:11px}.pill.good{background:#173c29;color:#a9ecc7}.pill.warn{background:#4a3520;color:#f3cd89}.pill.bad{background:#4b2523;color:#ffb3ad}.pill.info{background:#1e3150;color:#b7d1ff}
+.split{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.bars{display:grid;gap:9px}.bar-row{display:grid;grid-template-columns:90px 1fr 100px;gap:10px;align-items:center;font-size:12px}.track{height:9px;border-radius:99px;background:#0e1511;border:1px solid var(--line);overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px}.fund-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.fund{border:1px solid var(--line);background:var(--panel3);border-radius:12px;padding:12px}.fund span{font-size:11px;color:var(--muted)}.fund b{display:block;margin-top:4px;font-size:17px}.progress{height:9px;background:#0d1410;border:1px solid var(--line);border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--green);border-radius:99px}.member-link{color:#dcefe4;cursor:pointer;text-decoration:underline;text-decoration-color:#496454;text-underline-offset:3px}
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.63);display:none;align-items:center;justify-content:center;padding:18px;z-index:100}.modal-bg.open{display:flex}.modal{width:min(820px,100%);max-height:90vh;overflow:auto;background:#111914;border:1px solid var(--line);border-radius:18px;box-shadow:0 24px 80px rgba(0,0,0,.5);padding:18px}.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.x{border:1px solid var(--line);background:#18231c;color:white;border-radius:9px;padding:7px 10px;cursor:pointer}.months{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.monthbox{border:1px solid var(--line);background:#0d1410;border-radius:11px;padding:10px}.monthbox small{color:var(--muted)}.monthbox b{display:block;margin-top:3px}.monthbox.paid{border-color:#386e53;background:#13281d}.monthbox.extra{border-color:#8b6c30;background:#2a2417}.monthbox.zero{opacity:.7}
+.admin-shell{display:grid;grid-template-columns:250px 1fr;gap:14px}.admin-menu{position:sticky;top:83px;align-self:start}.admin-menu button{width:100%;margin:0 0 7px;text-align:left}.admin-section{display:none}.admin-section.active{display:block}.edit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.month-inputs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.row-edit{display:grid;grid-template-columns:1.2fr .6fr auto;gap:8px;align-items:end;padding:9px 0;border-bottom:1px solid var(--line)}.locked{max-width:520px;margin:42px auto}.audit{max-height:340px;overflow:auto}.audit-item{padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}.audit-item time{color:var(--muted);display:block;font-size:10px}.toast{position:fixed;right:18px;bottom:18px;z-index:200;background:#1d6c4b;color:#fff;padding:11px 14px;border-radius:10px;box-shadow:var(--shadow);transform:translateY(90px);opacity:0;transition:.25s}.toast.show{transform:none;opacity:1}.toast.error{background:#8b3e39}.empty{padding:24px;text-align:center;color:var(--muted)}
+hr.sep{border:0;border-top:1px solid var(--line);margin:16px 0}.code-note{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:11px;background:#0a0f0c;border:1px solid var(--line);padding:9px;border-radius:8px;word-break:break-all;color:#bdc6c0}
+@media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}.split{grid-template-columns:1fr}.fund-grid{grid-template-columns:repeat(2,1fr)}.admin-shell{grid-template-columns:1fr}.admin-menu{position:static;display:flex;overflow:auto;gap:7px}.admin-menu button{width:auto;white-space:nowrap}.edit-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.head{min-height:172px;padding:16px 12px 14px;align-items:center}.brand{gap:8px}.brand-logo{width:86px;height:86px;border-radius:19px}.brand h1{font-size:clamp(24px,7.4vw,31px)}.brand p{font-size:11px;margin-top:4px}.sync-badge{position:static;margin-top:2px;font-size:9px;padding:5px 8px}.grid{grid-template-columns:1fr 1fr}.kpi{padding:12px}.kpi strong{font-size:18px}.fund-grid{grid-template-columns:1fr 1fr}.months,.month-inputs{grid-template-columns:repeat(2,1fr)}.edit-grid{grid-template-columns:1fr}.bar-row{grid-template-columns:70px 1fr 75px}.app{padding-inline:10px}.row-edit{grid-template-columns:1fr}.toolbar>*{flex-basis:100%}}
+@media print{.topbar,.tabs,.no-print,.btn,.admin-shell{display:none!important}.view{display:block!important}.card{break-inside:avoid;box-shadow:none}.app{max-width:none}.table-wrap{overflow:visible}body{background:#fff;color:#111}.card,.kpi{background:#fff;border-color:#bbb}.muted{color:#555}}
+
+.bbss-footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
+.bbss-footer span{margin:0 6px;color:#5e6c63}.bbss-footer a{color:#75a7ff;text-decoration:none;font-weight:700}.bbss-footer a:hover{text-decoration:underline;text-underline-offset:3px}
+@media print{.bbss-footer{color:#444;border-top:1px solid #bbb}.bbss-footer a{color:#111;text-decoration:none}}
+</style>
+<script src="bbss_config.js"></script>
+</head>
+<body>
+<style id="bbss-auth-profile-patch">
+.auth-protected{display:none!important}body.authenticated .auth-protected{display:block!important}
+.auth-gate{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(circle at 50% 0,rgba(31,99,213,.22),transparent 34%),#0b100d;overflow:auto}body.authenticated .auth-gate{display:none}
+.login-shell{width:min(980px,100%);display:grid;grid-template-columns:1.05fr .95fr;border:1px solid #2c3a31;border-radius:24px;overflow:hidden;background:#111914;box-shadow:0 28px 90px rgba(0,0,0,.48)}
+.login-hero{padding:34px;background:linear-gradient(145deg,#132219,#0c1510);border-right:1px solid #2c3a31}.login-hero h1{font-size:clamp(28px,4vw,44px);margin:12px 0 8px}.login-hero p{color:#aab7af;margin:0}.login-mark{width:74px;height:74px;border-radius:22px;display:grid;place-items:center;background:linear-gradient(145deg,#2f8e63,#1f63d5);font-weight:900;font-size:22px;box-shadow:0 12px 30px rgba(31,99,213,.25)}
+.login-features{display:grid;gap:10px;margin-top:28px}.login-feature{display:flex;gap:10px;align-items:flex-start;color:#cdd8d1;font-size:13px}.login-feature b{color:#fff}.login-feature i{font-style:normal;width:25px;height:25px;border-radius:8px;background:#183426;display:grid;place-items:center;flex:0 0 auto}
+.login-panel{padding:30px}.login-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px}.login-switch button{border:1px solid #2c3a31;background:#0d1410;color:#a8b2ac;border-radius:10px;padding:10px;cursor:pointer}.login-switch button.active{background:#2f8e63;color:#fff;border-color:#55c58f}.login-form{display:none}.login-form.active{display:block}.login-form h2{margin:0 0 6px}.login-form .help{font-size:12px;color:#9ba69e;margin-bottom:16px}.login-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px}.login-actions label{display:flex;align-items:center;gap:7px;color:#aab4ae;font-size:12px}.login-actions input{width:auto}.link-btn{border:0;background:none;color:#75a7ff;padding:0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.login-error{display:none;margin-top:12px;padding:9px 10px;border-radius:9px;background:#351d1b;color:#ffb7b2;font-size:12px}.reset-box{display:none;margin-top:15px;padding:14px;border:1px solid #34473b;border-radius:12px;background:#0c1510}.reset-box.open{display:block}.security-note{margin-top:18px;padding:11px 12px;border-left:3px solid #e8b85c;background:#282417;border-radius:8px;color:#cfc7ae;font-size:11px}
+.auth-user-badge{position:absolute;left:18px;top:18px;display:flex;align-items:center;gap:8px;border:1px solid rgba(var(--accent-rgb,31,99,213),.34);background:rgba(7,15,27,.58);padding:7px 9px;border-radius:999px;color:#cbd5df;font-size:10px;white-space:nowrap;box-shadow:0 7px 20px rgba(0,0,0,.2)}.auth-user-badge b{color:#fff}.auth-user-badge button{border:0;background:#7f3532;color:#fff;border-radius:999px;padding:4px 8px;cursor:pointer;font-size:9px}
+.profile-hero{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center}.avatar{width:92px;height:92px;border-radius:22px;background:linear-gradient(145deg,#21382b,#14271d);border:1px solid #3c5b49;display:grid;place-items:center;overflow:hidden;font-weight:900;font-size:25px;color:#dff4e7}.avatar img{width:100%;height:100%;object-fit:cover}.member-id{display:inline-flex;padding:4px 9px;border-radius:999px;background:#1e3150;color:#c7dcff;font-size:11px;margin-bottom:7px}.profile-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.profile-meta span{font-size:11px;color:#aeb8b2;background:#0d1410;border:1px solid #2c3a31;padding:5px 8px;border-radius:8px}.request-card{border:1px solid #3c4638;background:#181a13;border-radius:12px;padding:12px;margin:9px 0}.request-card.pending{border-color:#7c6432}.request-card.approved{border-color:#315c45}.request-card.rejected{border-color:#673a37}.request-diff{display:grid;grid-template-columns:150px 1fr;gap:6px;font-size:12px;margin:7px 0}.request-diff span:first-child{color:#8f9a93}.mini-avatar{width:52px;height:52px;border-radius:12px;object-fit:cover;border:1px solid #38453d}.txn-line{display:grid;grid-template-columns:120px 1fr 110px 110px;gap:8px;padding:7px 0;border-bottom:1px solid #26342b;font-size:11px;align-items:center}
+@media(max-width:760px){.login-shell{grid-template-columns:1fr}.login-hero{border-right:0;border-bottom:1px solid #2c3a31;padding:24px}.login-panel{padding:22px}.profile-hero{grid-template-columns:auto 1fr}.profile-hero>.actions{grid-column:1/-1}.txn-line{grid-template-columns:1fr 1fr}.auth-user-badge{position:static;margin-top:2px}.sync-badge{position:static}.head{padding-inline:12px}}
+</style>
+
+<div id="loginGate" class="auth-gate">
+  <div class="login-shell">
+    <div class="login-hero">
+      <div class="login-mark">BBSS</div>
+      <h1>ভাই-ব্রাদার্স সঞ্চয় সমিতি</h1>
+      <p>সদস্য ও অ্যাডমিনের জন্য নিরাপদ লগইন-ভিত্তিক সঞ্চয় ব্যবস্থাপনা ইন্টারফেস।</p>
+      <div class="login-features">
+        <div class="login-feature"><i>✓</i><div><b>Member ID / Mobile Login</b><br>BBSS-01 অথবা নিবন্ধিত মোবাইল নম্বর দিয়ে সদস্য লগইন</div></div>
+        <div class="login-feature"><i>৳</i><div><b>তহবিল-ভিত্তিক জমা</b><br>জমার সময় তহবিল নির্বাচন করলে সদস্য, তহবিল ও রিপোর্ট একসাথে আপডেট</div></div>
+        <div class="login-feature"><i>👤</i><div><b>Member Profile</b><br>নিজের জমা, তথ্য, ছবি এবং প্রোফাইল পরিবর্তনের অনুরোধ</div></div>
+      </div>
+    </div>
+    <div class="login-panel">
+      <div class="login-switch"><button type="button" class="active" data-login-mode="member">সদস্য লগইন</button><button type="button" data-login-mode="admin">অ্যাডমিন লগইন</button></div>
+      <form id="memberLoginForm" class="login-form active">
+        <h2>সদস্য লগইন</h2><div class="help">আপনার <b>BBSS Member ID</b> অথবা <b>নিবন্ধিত মোবাইল নম্বর</b> এবং পাসওয়ার্ড দিন। নতুন/মাইগ্রেটেড অ্যাকাউন্টের প্রাথমিক পাসওয়ার্ড: <b>1234</b></div>
+        <div class="field"><label>Member ID / মোবাইল নম্বর</label><input id="memberLoginId" autocomplete="username" inputmode="text" placeholder="BBSS-01 অথবা 01XXXXXXXXX"></div>
+        <div class="field" style="margin-top:10px"><label>পাসওয়ার্ড</label><input id="memberLoginPassword" type="password" autocomplete="current-password" placeholder="••••••••"></div>
+        <div class="login-actions"><label><input id="memberRemember" type="checkbox" checked> এই ডিভাইসে লগইন মনে রাখুন</label><button type="button" class="link-btn" id="showReset">পাসওয়ার্ড ভুলে গেছেন?</button></div>
+        <button class="btn" style="width:100%;margin-top:14px" type="submit">লগইন</button><div id="memberLoginError" class="login-error"></div>
+        <div id="memberResetBox" class="reset-box"><div class="field"><label>Member ID / মোবাইল নম্বর</label><input id="resetMemberId" placeholder="BBSS-01 অথবা 01XXXXXXXXX"></div><button type="button" class="btn gold" id="requestReset" style="margin-top:10px;width:100%">Reset Request পাঠান</button><div class="small muted" style="margin-top:8px">অ্যাডমিন অনুমোদন করে temporary password সেট করবেন। একই মোবাইলে একাধিক Member ID থাকলে Member ID ব্যবহার করুন।</div></div>
+      </form>
+      <form id="adminLoginForm" class="login-form">
+        <h2>অ্যাডমিন লগইন</h2><div class="help">Admin PIN/Password দিয়ে প্রবেশ করুন। প্রথম PIN আগের সেটিং অনুযায়ী 1234।</div>
+        <div class="field"><label>Admin Password / PIN</label><input id="adminLoginPassword" type="password" autocomplete="current-password" placeholder="Admin PIN"></div>
+        <div class="login-actions"><label><input id="adminRemember" type="checkbox" checked> এই ডিভাইসে লগইন মনে রাখুন</label><span></span></div>
+        <button class="btn blue" style="width:100%;margin-top:14px" type="submit">Admin Login</button><div id="adminLoginError" class="login-error"></div>
+      </form>
+      <div class="security-note">এই single-file সংস্করণে login/password browser-side। প্রকৃত অনলাইন সার্ভারে বহু সদস্য ব্যবহার করলে server-side authentication, HTTPS এবং database/API প্রয়োজন।</div>
+    </div>
+  </div>
+</div>
+
+<header class="topbar auth-protected"><div class="head"><div id="authUserBadge" class="auth-user-badge"></div><div class="brand"><img class="brand-logo" src="Bhai Brother Shonchoy Somity logo.jpg" alt="ভাই-ব্রাদার্স সঞ্চয় সমিতি লোগো"><div class="brand-text"><h1 id="brandName">ভাই-ব্রাদার্স সঞ্চয় সমিতি</h1><p id="brandSub">Excel snapshot থেকে তৈরি • Dynamic Admin Ledger</p></div></div><div class="sync-badge syncing" id="syncBadge"><span class="dot" id="syncDot"></span><span class="sync-copy"><strong id="saveStatus">Connection checking…</strong><small id="lastSyncStatus">Last Sync: —</small></span></div></div><div id="syncWarning" class="sync-warning" role="status" aria-live="polite"></div></header>
+<main class="app auth-protected">
+<nav class="tabs no-print" id="tabs">
+  <button class="tab active" data-view="dashboard">ড্যাশবোর্ড</button>
+  <button class="tab" data-view="members">সদস্য</button>
+  <button class="tab" data-view="deposits">মাসিক জমা</button>
+  <button class="tab" data-view="funds">তহবিল</button>
+  <button class="tab" data-view="investments">বিনিয়োগ</button>
+  <button class="tab" data-view="annual">বার্ষিক রিপোর্ট</button>
+  <a class="tab rules-tab external-tab" href="rules.html" target="_blank" rel="noopener">Rules</a>
+  <a class="tab external-tab" href="send-money.html" target="_blank" rel="noopener">Send Money</a>
+  <a class="tab external-tab" href="committee.html" target="_blank" rel="noopener">পরিচালনা কমিটি</a>
+  <button class="tab" data-view="contacts">ব্যক্তিগত তথ্য</button>
+  <button class="tab" data-view="myprofile">আমার প্রোফাইল</button>
+  <button class="tab" data-view="admin">অ্যাডমিন</button>
+</nav>
+<section id="dashboard" class="view active"><div class="card" id="startupFallback"><h2>BBSS Dashboard</h2><div class="notice green">ডাটা লোড হচ্ছে… যদি এই বার্তাটি থেকেই যায়, ফাইলটি Download করে Chrome/Edge/Firefox-এ খুলুন।</div></div></section>
+<section id="members" class="view"></section>
+<section id="deposits" class="view"></section>
+<section id="funds" class="view"></section>
+<section id="investments" class="view"></section>
+<section id="annual" class="view"></section>
+<section id="contacts" class="view"></section>
+<section id="admin" class="view"></section>
+</main>
+<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+
+<div id="modalBg" class="modal-bg"><div class="modal"><div class="modal-head"><h2 id="modalTitle">বিস্তারিত</h2><button class="x" id="modalClose">✕</button></div><div id="modalBody"></div></div></div>
+<div id="toast" class="toast"></div><noscript><div class="card" style="max-width:900px;margin:20px auto"><h2>JavaScript প্রয়োজন</h2><p>এই BBSS অ্যাপটি চালাতে JavaScript চালু থাকতে হবে। ফাইলটি Chrome, Edge বা Firefox-এ খুলুন।</p></div></noscript>
+<script>
+const DEFAULT_DATA = {"version":3,"meta":{"organization":"ভাই-ব্রাদার্স সঞ্চয় সমিতি","shortName":"BBSS","monthlyDefault":500,"currentYear":2026,"reportMonth":9,"adminPin":"1234","themeColor":"#1f63d5","apiUrl":"","autoSync":false,"source":"Bhai-Brothers Shonchoy Somity.xlsx","lastUpdated":"2026-09-20T20:51:00+06:00"},"deposits":{"2024":[{"id":"2024-01","sl":1,"name":"Zahirul Islam Taj","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-02","sl":2,"name":"Saidul-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-03","sl":3,"name":"Saidul-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-04","sl":4,"name":"Sohel Rana-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-05","sl":5,"name":"Sohel Rana-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-06","sl":6,"name":"Robin Hossen-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-07","sl":7,"name":"Robin Hossen-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-08","sl":8,"name":"Sojeb Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-09","sl":9,"name":"Rakib Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-10","sl":10,"name":"Shadat Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-11","sl":11,"name":"Imran Sheikh","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-12","sl":12,"name":"Shawon Sheikh","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-13","sl":13,"name":"Jihad Sheikh","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-14","sl":14,"name":"Sohel Matubar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-15","sl":15,"name":"Salman Sohel","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-16","sl":16,"name":"Srinondo Das","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-17","sl":17,"name":"Rubel","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-18","sl":18,"name":"Den Islam","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-19","sl":19,"name":"Ariful Islam Parvej","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-20","sl":20,"name":"Amir Hamza","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-21","sl":21,"name":"Md. Al-amin","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-22","sl":22,"name":"Abdullah","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-23","sl":23,"name":"Sheikh Rasel","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-24","sl":24,"name":"Nur Islam Hamza","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-25","sl":25,"name":"Sumon Sheikh-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-26","sl":26,"name":"Sumon Sheikh-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-27","sl":27,"name":"Salam Sheikh-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-28","sl":28,"name":"Salam Sheikh-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2024-29","sl":29,"name":"Mahedi","months":[0,0,0,0,0,0,0,4000,500,500,500,500]}],"2025":[{"id":"2025-01","sl":1,"name":"Zahirul Islam Taj","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-02","sl":2,"name":"Saidul-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-03","sl":3,"name":"Saidul-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-04","sl":4,"name":"Sohel Rana-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-05","sl":5,"name":"Sohel Rana-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-06","sl":6,"name":"Robin Hossen-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-07","sl":7,"name":"Robin Hossen-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-08","sl":8,"name":"Sojeb Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-09","sl":9,"name":"Rakib Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-10","sl":10,"name":"Shadat Sikdar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-11","sl":11,"name":"Imran Sheikh","months":[550,500,500,500,550,550,500,500,500,500,500,500]},{"id":"2025-12","sl":12,"name":"Shawon Sheikh","months":[500,550,550,550,550,550,500,500,500,500,500,500]},{"id":"2025-13","sl":13,"name":"Jihad Sheikh","months":[500,550,550,550,550,550,500,500,500,500,500,500]},{"id":"2025-14","sl":14,"name":"Sohel Matubar","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-15","sl":15,"name":"Salman Sohel","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-16","sl":16,"name":"Srinondo Das","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-17","sl":17,"name":"Rubel","months":[500,500,550,500,500,500,500,500,500,500,500,500]},{"id":"2025-18","sl":18,"name":"Den Islam","months":[500,500,550,500,500,500,500,500,500,500,500,500]},{"id":"2025-19","sl":19,"name":"Ariful Islam Parvej","months":[500,500,500,500,500,500,500,500,500,550,500,500]},{"id":"2025-20","sl":20,"name":"Amir Hamza","months":[500,500,500,500,500,500,500,500,500,550,500,500]},{"id":"2025-21","sl":21,"name":"Md. Al-amin","months":[500,500,500,500,500,500,500,500,500,550,500,500]},{"id":"2025-22","sl":22,"name":"Abdullah","months":[500,500,500,500,500,500,500,500,500,550,500,500]},{"id":"2025-23","sl":23,"name":"Sheikh Rasel","months":[500,550,550,550,550,550,500,550,550,550,500,500]},{"id":"2025-24","sl":24,"name":"Nur Islam Hamza","months":[500,550,550,550,550,550,500,550,550,550,500,500]},{"id":"2025-25","sl":25,"name":"Sumon Sheikh-01","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-26","sl":26,"name":"Sumon Sheikh-02","months":[500,500,500,500,500,500,500,500,500,500,500,500]},{"id":"2025-27","sl":27,"name":"Salam Sheikh-01","months":[500,500,550,550,500,500,550,500,500,500,500,500]},{"id":"2025-28","sl":28,"name":"Salam Sheikh-02","months":[500,500,550,550,500,500,550,500,500,500,500,500]},{"id":"2025-29","sl":29,"name":"Mahedi","months":[500,500,500,500,500,500,500,500,500,500,500,500]}],"2026":[{"id":"2026-01","sl":1,"name":"Zahirul Islam Taj","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-02","sl":2,"name":"Zahirul Islam Taj-02","months":[13300,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-03","sl":3,"name":"Saidul-01","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-04","sl":4,"name":"Saidul-02","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-05","sl":5,"name":"Sohel Rana-01","months":[500,500,500,500,500,500,500,500,500,500,0,0]},{"id":"2026-06","sl":6,"name":"Sohel Rana-02","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-07","sl":7,"name":"Robin Hossen-01","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-08","sl":8,"name":"Robin Hossen-02","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-09","sl":9,"name":"Sojeb Sikdar","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-10","sl":10,"name":"Rakib Sikdar","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-11","sl":11,"name":"Shadat Sikdar-01","months":[500,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-12","sl":12,"name":"Shadat Sikdar-02","months":[13300,500,500,500,500,500,500,500,500,0,0,0]},{"id":"2026-13","sl":13,"name":"Imran Sheikh","months":[500,500,500,500,500,500,500,500,0,0,0,0]},{"id":"2026-14","sl":14,"name":"Shawon Sheikh","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-15","sl":15,"name":"Jihad Sheikh","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-16","sl":16,"name":"Sohel Matubar","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-17","sl":17,"name":"Salman Sohel","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-18","sl":18,"name":"Srinondo Das","months":[500,500,500,500,500,500,500,500,500,500,0,0]},{"id":"2026-19","sl":19,"name":"Rubel","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-20","sl":20,"name":"Den Islam","months":[500,500,500,500,500,500,500,0,0,0,0,0]},{"id":"2026-21","sl":21,"name":"Ariful Islam Parvej","months":[500,500,500,500,500,500,0,0,0,0,0,0]},{"id":"2026-22","sl":22,"name":"Amir Hamza","months":[500,500,500,500,500,500,0,0,0,0,0,0]},{"id":"2026-23","sl":23,"name":"Md. Al-amin","months":[500,550,550,500,0,0,0,0,0,0,0,0]},{"id":"2026-24","sl":24,"name":"Abdullah","months":[500,550,550,500,0,0,0,0,0,0,0,0]},{"id":"2026-25","sl":25,"name":"Sheikh Rasel","months":[550,550,550,550,550,550,0,0,0,0,0,0]},{"id":"2026-26","sl":26,"name":"Nur Islam Hamza","months":[550,550,550,550,550,550,0,0,0,0,0,0]},{"id":"2026-27","sl":27,"name":"Sumon Sheikh-01","months":[500,500,500,500,500,500,500,500,0,0,0,0]},{"id":"2026-28","sl":28,"name":"Sumon Sheikh-02","months":[500,500,500,500,500,500,500,500,0,0,0,0]},{"id":"2026-29","sl":29,"name":"Salam Sheikh-01","months":[500,500,500,500,500,500,500,500,0,0,0,0]},{"id":"2026-30","sl":30,"name":"Salam Sheikh-02","months":[500,500,500,500,500,500,500,500,0,0,0,0]},{"id":"2026-31","sl":31,"name":"Mahedi","months":[500,500,500,500,500,500,500,500,500,500,0,0]}]},"funds":{"2024":[{"id":"f2024-40","label":"Alamin+Imran","amount":5000},{"id":"f2024-41","label":"Parvej's ma","amount":2500},{"id":"f2024-42","label":"Invest","amount":106500},{"id":"f2024-43","label":"Bkash","amount":0},{"id":"f2024-44","label":"Nagad","amount":13500},{"id":"f2024-45","label":"Hand Cash","amount":23500},{"id":"f2024-46","label":"Bank","amount":23000}],"2025":[{"id":"f2025-42","label":"Sohel","amount":5000},{"id":"f2025-43","label":"Rasel","amount":2300},{"id":"f2025-44","label":"Abul kaka","amount":80000},{"id":"f2025-45","label":"Invest","amount":172500},{"id":"f2025-46","label":"Bkash","amount":10250},{"id":"f2025-47","label":"Nagad","amount":9000},{"id":"f2025-48","label":"Hand Cash","amount":3000},{"id":"f2025-49","label":"Bank","amount":90000}],"2026":[{"id":"f2026-43","label":"Abbu","amount":79000},{"id":"f2026-44","label":"Rasel","amount":300},{"id":"f2026-45","label":"Nafis","amount":5800},{"id":"f2026-46","label":"Invest","amount":121000},{"id":"f2026-47","label":"Bkash","amount":15850},{"id":"f2026-48","label":"Nagad","amount":19000},{"id":"f2026-49","label":"Hand Cash","amount":1000},{"id":"f2026-50","label":"Bank","amount":332000}]},"annualReviews":[{"year":2024,"meeting":"03.01.2025","previous":0,"deposits":174000,"profit":0,"loss":0,"grandTotal":174000},{"year":2025,"meeting":"26.12.2025","previous":174000,"deposits":176050,"profit":22000,"loss":0,"grandTotal":372050},{"year":2026,"meeting":"","previous":0,"deposits":132000,"profit":54000,"loss":0,"grandTotal":186000}],"personalInfo":[{"id":"p01","name":"Zahirul Islam Taj","mobile":"01518482461","blood":"O+"},{"id":"p02","name":"Saidul","mobile":"01733658472","blood":"O+"},{"id":"p03","name":"Sohel Rana","mobile":"","blood":"O+"},{"id":"p04","name":"Robin Hossen","mobile":"","blood":""},{"id":"p05","name":"Sojeb Sikdar","mobile":"","blood":""},{"id":"p06","name":"Rakib Sikdar","mobile":"","blood":""},{"id":"p07","name":"Shadat Sikdar","mobile":"","blood":""},{"id":"p08","name":"Imran Sheikh","mobile":"","blood":""},{"id":"p09","name":"Shawon Sheikh","mobile":"","blood":""},{"id":"p10","name":"Jihad Sheikh","mobile":"","blood":""},{"id":"p11","name":"Sohel Matubar","mobile":"","blood":""},{"id":"p12","name":"Srinondo Das","mobile":"","blood":""},{"id":"p13","name":"Rubel","mobile":"","blood":""},{"id":"p14","name":"Ariful Islam Parvej","mobile":"","blood":""},{"id":"p15","name":"Md. Al-amin","mobile":"","blood":""},{"id":"p16","name":"Sheikh Rasel","mobile":"","blood":""},{"id":"p17","name":"Nur Islam Hamza","mobile":"","blood":""},{"id":"p18","name":"Sumon Sheikh","mobile":"","blood":""},{"id":"p19","name":"Salam Sheikh","mobile":"","blood":""}],"investments":[{"id":"inv001","group":"2024-25","sl":1,"name":"Kanchan Matubar","date":"2024-09-08","description":"গরু কিনে দেওয়া","amount":46500,"profit":6000,"profitDate":"2025-06-07","paid":""},{"id":"inv002","group":"2024-25","sl":2,"name":"Parvej's Khala","date":"2024-11-17","description":"গরু কিনে দেওয়া","amount":60000,"profit":11000,"profitDate":"2025-06-07","paid":""},{"id":"inv003","group":"2024-25","sl":3,"name":"Aynal kaka","date":"2025-06-29","description":"গরু কিনে দেওয়া দুটি","amount":98000,"profit":0,"profitDate":"","paid":""},{"id":"inv004","group":"2024-25","sl":null,"name":"Aynal kaka","date":"2025-06-30","description":"হাওলাদ","amount":2000,"profit":5000,"profitDate":"2025-10-15","paid":""},{"id":"inv005","group":"2024-25","sl":null,"name":"Kanchan Matubar","date":"2025-09-28","description":"গরু কিনে দেওয়া দুটি","amount":82500,"profit":0,"profitDate":"","paid":""},{"id":"inv006","group":"2024-25","sl":null,"name":"Salam Shek","date":"2025-11-30","description":"গরু কিনে দেওয়া ১টি","amount":90000,"profit":0,"profitDate":"","paid":""},{"id":"inv007","group":"2025-26 / খাতা-১","sl":1,"name":"Kanchan Matubar","date":"2025-09-28","description":"গরু কিনে দেওয়া দুটি","amount":82500,"profit":16000,"profitDate":"","paid":""},{"id":"inv008","group":"2025-26 / খাতা-১","sl":2,"name":"Salam Shek","date":"2025-11-30","description":"গরু কিনে দেওয়া ১টি","amount":90000,"profit":14000,"profitDate":"","paid":""},{"id":"inv009","group":"2025-26 / খাতা-১","sl":3,"name":"Billal Baliahat","date":"2026-01-04","description":"গরু কিনে দেওয়া ১টি","amount":96000,"profit":12000,"profitDate":"","paid":""},{"id":"inv010","group":"2025-26 / খাতা-১","sl":4,"name":"Kanchan Matubar","date":"2026-01-28","description":"loan","amount":5000,"profit":0,"profitDate":"","paid":""},{"id":"inv011","group":"2025-26 / খাতা-১","sl":5,"name":"Rasel","date":"2026-01-25","description":"গরু কিনে দেওয়া ১টি","amount":65000,"profit":12000,"profitDate":"","paid":""},{"id":"inv012","group":"2025-26 / খাতা-১","sl":6,"name":"Rasel","date":"2026-03-21","description":"\"","amount":68000,"profit":0,"profitDate":"","paid":""},{"id":"inv013","group":"2025-26 / বর্তমান","sl":1,"name":"Sorab kha","date":"2026-08-16","description":"2টি গরু","amount":121000,"profit":0,"profitDate":"","paid":""}],"notes":[{"id":"n38","text":"Taj New Name Add-12800"},{"id":"n39","text":"Shadat New Name Add-12800"},{"id":"n57","text":"TAMMANA | 50000.0 | Rasel | 2025-12-16 | 300.0 | 2000.0"},{"id":"n58","text":"01.09.26 দুই মাসের জন্য গোল্ড "},{"id":"n59","text":"2026-01-01 | 3500.0"},{"id":"n60","text":"61500.0"}],"audit":[]};
+const STORE_KEY='bbss_dynamic_full_v3';
+const BBSS_WRITE_KEY_STORE='bbss_google_write_key_v1';
+const BBSS_LAST_SYNC_KEY='bbss_last_sync_v1';
+const BBSS_SYNC_ERROR_KEY='bbss_sync_error_v1';
+function bbssStoredLastSync(){try{return localStorage.getItem(BBSS_LAST_SYNC_KEY)||''}catch(e){return ''}}
+function bbssFormatLastSync(value){if(!value)return '—';const d=new Date(value);return isNaN(d)?'—':d.toLocaleString('bn-BD',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
+function bbssUpdateSyncUI(mode='syncing',message='Connection checking…',error=''){
+  const badge=document.getElementById('syncBadge'),main=document.getElementById('saveStatus'),last=document.getElementById('lastSyncStatus'),warning=document.getElementById('syncWarning');
+  if(badge)badge.className='sync-badge '+mode;
+  if(main)main.textContent=message;
+  if(last)last.textContent='Last Sync: '+bbssFormatLastSync(bbssStoredLastSync());
+  if(warning){
+    if(error){warning.textContent='⚠ Sync failed: '+error+' • Local data এই device-এ আছে; connection ফিরলে আবার sync হবে।';warning.classList.add('show')}
+    else{warning.textContent='';warning.classList.remove('show')}
+  }
+}
+function bbssMarkSyncSuccess(message='Online • Synced'){
+  const at=new Date().toISOString();
+  try{localStorage.setItem(BBSS_LAST_SYNC_KEY,at);localStorage.removeItem(BBSS_SYNC_ERROR_KEY)}catch(e){}
+  bbssUpdateSyncUI('online',message,'');
+}
+function bbssMarkSyncFailure(message='Sync failed',error='Unknown error'){
+  try{localStorage.setItem(BBSS_SYNC_ERROR_KEY,String(error||message))}catch(e){}
+  bbssUpdateSyncUI(navigator.onLine?'error':'offline',navigator.onLine?message:'Offline',String(error||message));
+}
+function bbssInitSyncMonitor(){
+  const refresh=()=>{
+    if(!navigator.onLine){bbssMarkSyncFailure('Offline','Internet connection নেই');return}
+    if(!bbssApiUrl()){bbssUpdateSyncUI('online','Online • API not configured','');return}
+    bbssUpdateSyncUI('syncing','Server checking…','');
+    testApiConnection(true);
+  };
+  window.addEventListener('offline',()=>bbssMarkSyncFailure('Offline','Internet connection নেই'));
+  window.addEventListener('online',()=>{bbssUpdateSyncUI('syncing','Back online • checking…','');setTimeout(refresh,250)});
+  refresh();
+}
+function bbssApiUrl(){
+  const configured=String(window.BBSS_API_URL||'').trim();
+  const saved=(typeof state!=='undefined'&&state?.meta?.apiUrl)?String(state.meta.apiUrl).trim():'';
+  const u=configured&&!configured.includes('PASTE_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE')?configured:saved;
+  return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(u)?u:'';
+}
+function bbssReadStoredSession(){
+  try{return JSON.parse(sessionStorage.getItem('bbss_auth_session_v1')||localStorage.getItem('bbss_auth_session_v1')||'null')}catch(e){return null}
+}
+async function bbssApiPost(action,payload={}){
+  const url=bbssApiUrl();if(!url)throw new Error('Google Apps Script Web App URL সেট করা হয়নি।');
+  const res=await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...payload}),redirect:'follow',cache:'no-store'});
+  if(!res.ok)throw new Error('HTTP '+res.status);
+  const out=await res.json();
+  return out;
+}
+window.bbssApiPost=bbssApiPost;
+window.bbssApiReady=()=>!!bbssApiUrl();
+
+const MONTHS=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+let adminUnlocked=false;
+let activeAdminSection='settings';
+
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const clone=o=>JSON.parse(JSON.stringify(o));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const num=v=>Number(v)||0;
+const money=v=>'৳'+Math.round(num(v)).toLocaleString('en-BD');
+const today=()=>new Date().toISOString();
+function loadState(){try{const x=JSON.parse(localStorage.getItem(STORE_KEY)||'null');if(x&&x.version===3)return x}catch(e){} return clone(DEFAULT_DATA)}
+let state=loadState();
+function saveState(action='ডাটা আপডেট'){
+  state.meta.lastUpdated=today();
+  state.audit=state.audit||[];state.audit.unshift({at:state.meta.lastUpdated,action});state.audit=state.audit.slice(0,150);
+  try{localStorage.setItem(STORE_KEY,JSON.stringify(state));if(bbssApiUrl())bbssUpdateSyncUI('syncing','Local saved • syncing…','');else bbssUpdateSyncUI(navigator.onLine?'online':'offline',navigator.onLine?'Local saved • Online':'Offline • Local saved','')}catch(e){bbssMarkSyncFailure('Local save failed',e.message||'Browser storage unavailable')}
+  renderAll();
+  const remoteSession=bbssReadStoredSession();
+  if(bbssApiUrl()&&remoteSession?.role==='admin'&&remoteSession?.remoteToken)pushApi(true);
+  else if(state.meta.autoSync&&state.meta.apiUrl)pushApi(true);
+}
+function toast(msg,error=false){const t=$('#toast');t.textContent=msg;t.className='toast'+(error?' error':'');requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>t.classList.remove('show'),2200)}
+function yearKeys(){return Object.keys(state.deposits).sort((a,b)=>Number(b)-Number(a))}
+function rowsFor(y){return state.deposits[String(y)]||[]}
+function rowTotal(r){return (r.months||[]).reduce((a,b)=>a+num(b),0)}
+function yearTotal(y){return rowsFor(y).reduce((s,r)=>s+rowTotal(r),0)}
+function fundTotal(y){return (state.funds[String(y)]||[]).reduce((s,r)=>s+num(r.amount),0)}
+function annualFor(y){return state.annualReviews.find(x=>Number(x.year)===Number(y))||{}}
+function baseName(name){return String(name||'').replace(/-(01|02)$/i,'').trim()}
+function infoFor(name){const b=baseName(name).toLowerCase();return state.personalInfo.find(x=>x.name.toLowerCase()===b)||null}
+function expectedFor(y){const cy=Number(state.meta.currentYear), yy=Number(y);let m=12;if(yy===cy)m=Math.max(1,Math.min(12,Number(state.meta.reportMonth)||1));return m*num(state.meta.monthlyDefault)}
+function statusFor(r,y){const t=rowTotal(r), exp=expectedFor(y);if(t>=exp)return ['good','লক্ষ্যমাত্রা পূর্ণ'];if(t>0)return ['warn','আংশিক'];return ['bad','কোনো জমা নেই']}
+function formatDate(v){if(!v)return '—';const d=new Date(v);return isNaN(d)?esc(v):d.toLocaleDateString('bn-BD',{year:'numeric',month:'short',day:'numeric'})}
+function setView(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(id==='admin')renderAdmin()}
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)setView(b.dataset.view)});
+$('#modalClose').onclick=()=>$('#modalBg').classList.remove('open');$('#modalBg').onclick=e=>{if(e.target.id==='modalBg')e.currentTarget.classList.remove('open')};
+function openModal(title,html){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=html;$('#modalBg').classList.add('open')}
+
+function renderDashboard(){
+ const y=String(state.meta.currentYear), rows=rowsFor(y), live=yearTotal(y), prev=yearTotal(Number(y)-1), funds=fundTotal(y), ar=annualFor(y), lifetime=yearKeys().reduce((s,k)=>s+yearTotal(k),0);
+ const exp=rows.length*expectedFor(y);const gap=Math.max(0,exp-live);const months=Array.from({length:12},(_,m)=>rows.reduce((s,r)=>s+num(r.months[m]),0));const mx=Math.max(...months,1);
+ const fitems=state.funds[y]||[];
+ $('#dashboard').innerHTML=`
+ <div class="grid">
+  <div class="kpi"><small>${esc(y)} সদস্য/অ্যাকাউন্ট</small><strong>${rows.length}</strong><div class="sub">বর্তমান deposit sheet</div></div>
+  <div class="kpi"><small>${esc(y)} live জমা</small><strong>${money(live)}</strong><div class="sub">Excel month cells-এর exact sum</div></div>
+  <div class="kpi gold"><small>বর্তমান তহবিল</small><strong>${money(funds)}</strong><div class="sub">Fund/Cash ledger total</div></div>
+  <div class="kpi blue"><small>সব বছরের জমা</small><strong>${money(lifetime)}</strong><div class="sub">2024–${esc(y)} deposit ledger</div></div>
+ </div>
+ <div class="split">
+  <div class="card"><h2>${esc(y)} মাসভিত্তিক জমা</h2><div class="bars">${months.map((v,i)=>`<div class="bar-row"><span>${MONTHS[i]}</span><div class="track"><div class="fill" style="width:${Math.max(2,v/mx*100)}%"></div></div><b class="right">${money(v)}</b></div>`).join('')}</div></div>
+  <div class="card"><h2>লক্ষ্যমাত্রা ও অবস্থা</h2><div class="notice ${gap?'':'green'}">রিপোর্টিং মাস: <b>${MONTHS[(Number(state.meta.reportMonth)||1)-1]}</b> • প্রতি মাসের base target ${money(state.meta.monthlyDefault)}। এই target কেবল status indicator; Excel-এর exact amount-ই মূল হিসাব।</div><div style="margin-top:14px" class="grid">
+   <div class="kpi"><small>Target</small><strong>${money(exp)}</strong></div><div class="kpi ${gap?'red':''}"><small>Target gap</small><strong>${money(gap)}</strong></div>
+  </div><hr class="sep"><div class="small muted">Annual Review-এর manual profit (${money(ar.profit||0)}) আলাদা source record হিসেবে রাখা হয়েছে; Dashboard deposit total সরাসরি মাসিক ledger থেকে হিসাব করে।</div></div>
+ </div>
+ <div class="card"><h2>${esc(y)} তহবিলের বর্তমান বিভাগ</h2><div class="fund-grid">${fitems.map(x=>`<div class="fund"><span>${esc(x.label)}</span><b>${money(x.amount)}</b></div>`).join('')||'<div class="empty">কোনো fund item নেই</div>'}</div></div>`;
+}
+function memberYearSelect(id,val){return `<select id="${id}">${yearKeys().map(y=>`<option ${String(y)===String(val)?'selected':''}>${y}</option>`).join('')}</select>`}
+function renderMembers(){
+ const y=$('#memberYear')?.value||String(state.meta.currentYear), q=($('#memberSearch')?.value||'').toLowerCase();
+ let rows=rowsFor(y).filter(r=>r.name.toLowerCase().includes(q)||r.id.toLowerCase().includes(q));
+ $('#members').innerHTML=`<div class="card"><h2>সদস্য / Deposit Accounts</h2><div class="toolbar no-print"><div class="field wide"><label>খুঁজুন</label><input id="memberSearch" value="${esc(q)}" placeholder="নাম বা ID"></div><div class="field"><label>বছর</label>${memberYearSelect('memberYear',y)}</div><div><button class="btn ghost" id="membersCsv">CSV Export</button></div></div>
+ <div class="table-wrap"><table><thead><tr><th>ID</th><th>নাম</th><th>মোবাইল</th><th>রক্ত</th><th class="num">জমা</th><th class="num">Target</th><th>স্ট্যাটাস</th></tr></thead><tbody>${rows.map(r=>{const inf=infoFor(r.name), st=statusFor(r,y);return `<tr><td>${esc(r.id)}</td><td><span class="member-link" data-member="${esc(r.id)}" data-year="${y}">${esc(r.name)}</span></td><td>${esc(inf?.mobile||'—')}</td><td>${esc(inf?.blood||'—')}</td><td class="num">${money(rowTotal(r))}</td><td class="num">${money(expectedFor(y))}</td><td><span class="pill ${st[0]}">${st[1]}</span></td></tr>`}).join('')||'<tr><td colspan="7" class="empty">কোনো সদস্য পাওয়া যায়নি</td></tr>'}</tbody></table></div></div>`;
+ $('#memberSearch').oninput=renderMembers;$('#memberYear').onchange=renderMembers;$('#membersCsv').onclick=()=>exportMembersCsv(y);
+ $$('[data-member]',$('#members')).forEach(el=>el.onclick=()=>showMember(el.dataset.year,el.dataset.member));
+}
+function showMember(y,id){const r=rowsFor(y).find(x=>x.id===id);if(!r)return;const inf=infoFor(r.name), base=num(state.meta.monthlyDefault);openModal(r.name,`<div class="grid"><div class="kpi"><small>${y} মোট</small><strong>${money(rowTotal(r))}</strong></div><div class="kpi"><small>Target</small><strong>${money(expectedFor(y))}</strong></div><div class="kpi"><small>মোবাইল</small><strong style="font-size:17px">${esc(inf?.mobile||'—')}</strong></div><div class="kpi"><small>রক্তের গ্রুপ</small><strong style="font-size:17px">${esc(inf?.blood||'—')}</strong></div></div><div class="card"><h3>${y} মাসভিত্তিক</h3><div class="months">${r.months.map((v,i)=>`<div class="monthbox ${num(v)===0?'zero':num(v)>base?'extra':'paid'}"><small>${MONTHS[i]}</small><b>${num(v)?money(v):'—'}</b></div>`).join('')}</div></div>`)}
+function renderDeposits(){
+ const y=$('#depYear')?.value||String(state.meta.currentYear), q=($('#depSearch')?.value||'').toLowerCase();const rows=rowsFor(y).filter(r=>r.name.toLowerCase().includes(q));
+ $('#deposits').innerHTML=`<div class="card"><h2>মাসিক জমা — ${y}</h2><div class="toolbar no-print"><div class="field wide"><label>সদস্য খুঁজুন</label><input id="depSearch" value="${esc(q)}" placeholder="নাম লিখুন"></div><div class="field"><label>বছর</label>${memberYearSelect('depYear',y)}</div><div><button class="btn ghost" id="depCsv">CSV Export (${esc(y)})</button></div></div>
+ <div class="table-wrap"><table style="min-width:1450px"><thead><tr><th>নাম</th>${MONTHS.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">মোট</th></tr></thead><tbody>${rows.map(r=>`<tr><td><span class="member-link" data-member="${esc(r.id)}" data-year="${y}">${esc(r.name)}</span></td>${r.months.map(v=>`<td class="num">${num(v)?money(v):'—'}</td>`).join('')}<td class="num"><b>${money(rowTotal(r))}</b></td></tr>`).join('')}</tbody><tfoot><tr><th>মোট</th>${Array.from({length:12},(_,m)=>`<th class="num">${money(rows.reduce((s,r)=>s+num(r.months[m]),0))}</th>`).join('')}<th class="num">${money(rows.reduce((s,r)=>s+rowTotal(r),0))}</th></tr></tfoot></table></div></div>`;
+ $('#depSearch').oninput=renderDeposits;$('#depYear').onchange=renderDeposits;$('#depCsv').onclick=()=>exportDepositsCsv(y);$$('[data-member]',$('#deposits')).forEach(el=>el.onclick=()=>showMember(el.dataset.year,el.dataset.member));
+}
+function renderFunds(){const y=$('#fundYear')?.value||String(state.meta.currentYear), arr=state.funds[y]||[];$('#funds').innerHTML=`<div class="grid"><div class="kpi gold"><small>${y} তহবিল মোট</small><strong>${money(fundTotal(y))}</strong></div><div class="kpi"><small>${y} সদস্য জমা</small><strong>${money(yearTotal(y))}</strong></div><div class="kpi blue"><small>Fund items</small><strong>${arr.length}</strong></div><div class="kpi"><small>Annual profit</small><strong>${money(annualFor(y).profit||0)}</strong></div></div><div class="card"><div class="toolbar no-print"><div><h2 style="margin:0">তহবিল / Cash Position</h2></div><div class="field"><label>বছর</label>${memberYearSelect('fundYear',y)}</div></div><div class="table-wrap"><table><thead><tr><th>খাত</th><th class="num">পরিমাণ</th><th class="num">শতাংশ</th></tr></thead><tbody>${arr.map(x=>`<tr><td>${esc(x.label)}</td><td class="num">${money(x.amount)}</td><td class="num">${fundTotal(y)?(num(x.amount)/fundTotal(y)*100).toFixed(1):0}%</td></tr>`).join('')}</tbody><tfoot><tr><th>মোট</th><th class="num">${money(fundTotal(y))}</th><th class="num">100%</th></tr></tfoot></table></div></div>`;$('#fundYear').onchange=renderFunds}
+function renderInvestments(){const q=($('#invSearch')?.value||'').toLowerCase(), grp=$('#invGroup')?.value||'all';const groups=[...new Set(state.investments.map(x=>x.group))];const list=state.investments.filter(x=>(grp==='all'||x.group===grp)&&(x.name.toLowerCase().includes(q)||x.description.toLowerCase().includes(q)));const principal=list.reduce((s,x)=>s+num(x.amount),0),profit=list.reduce((s,x)=>s+num(x.profit),0);$('#investments').innerHTML=`<div class="grid"><div class="kpi"><small>দেখানো Principal</small><strong>${money(principal)}</strong></div><div class="kpi gold"><small>দেখানো Profit</small><strong>${money(profit)}</strong></div><div class="kpi blue"><small>Records</small><strong>${list.length}</strong></div><div class="kpi"><small>বর্তমান fund-এ Invest</small><strong>${money((state.funds[String(state.meta.currentYear)]||[]).find(x=>x.label.toLowerCase()==='invest')?.amount||0)}</strong></div></div><div class="card"><h2>বিনিয়োগ / হাওলাত</h2><div class="toolbar no-print"><div class="field wide"><label>খুঁজুন</label><input id="invSearch" value="${esc(q)}" placeholder="নাম / বিবরণ"></div><div class="field"><label>খাতা</label><select id="invGroup"><option value="all">সব</option>${groups.map(g=>`<option ${g===grp?'selected':''} value="${esc(g)}">${esc(g)}</option>`).join('')}</select></div><div><button class="btn ghost" id="invCsv">CSV Export</button></div></div><div class="table-wrap"><table><thead><tr><th>খাতা</th><th>নাম</th><th>তারিখ</th><th>বিবরণ</th><th class="num">মূলধন</th><th class="num">লাভ</th><th>লাভের তারিখ</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(x.group)}</td><td>${esc(x.name)}</td><td>${formatDate(x.date)}</td><td>${esc(x.description||'—')}</td><td class="num">${money(x.amount)}</td><td class="num">${money(x.profit)}</td><td>${formatDate(x.profitDate)}</td></tr>`).join('')}</tbody></table></div></div>`;$('#invSearch').oninput=renderInvestments;$('#invGroup').onchange=renderInvestments;$('#invCsv').onclick=exportInvestmentsCsv}
+function renderAnnual(){const rows=[...state.annualReviews].sort((a,b)=>a.year-b.year);$('#annual').innerHTML=`<div class="card"><h2>বার্ষিক রিপোর্ট — Excel Annual Review</h2><div class="notice">এই টেবিলের সংখ্যা workbook-এর Annual Review sheet থেকে নেওয়া manual/source values। Deposit tab-এর live totals আলাদাভাবে মাসিক ledger থেকে হিসাব করা হয়, তাই stale Annual Review থাকলে দুই জায়গায় পার্থক্য দেখা যেতে পারে।</div><div class="table-wrap" style="margin-top:12px"><table><thead><tr><th>বছর</th><th>বার্ষিক সভা</th><th class="num">Previous</th><th class="num">Deposit (source)</th><th class="num">Live Deposit</th><th class="num">Profit</th><th class="num">Loss</th><th class="num">Grand Total</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${x.year}</td><td>${esc(x.meeting||'—')}</td><td class="num">${money(x.previous)}</td><td class="num">${money(x.deposits)}</td><td class="num">${money(yearTotal(x.year))}</td><td class="num">${money(x.profit)}</td><td class="num">${money(x.loss)}</td><td class="num"><b>${money(x.grandTotal)}</b></td></tr>`).join('')}</tbody></table></div></div>`}
+function renderContacts(){const q=($('#contactSearch')?.value||'').toLowerCase();const list=state.personalInfo.filter(x=>x.name.toLowerCase().includes(q)||x.mobile.includes(q)||x.blood.toLowerCase().includes(q));$('#contacts').innerHTML=`<div class="card"><h2>ব্যক্তিগত তথ্য</h2><div class="toolbar no-print"><div class="field wide"><label>খুঁজুন</label><input id="contactSearch" value="${esc(q)}" placeholder="নাম / মোবাইল / রক্তের গ্রুপ"></div></div><div class="table-wrap"><table><thead><tr><th>নাম</th><th>মোবাইল</th><th>রক্তের গ্রুপ</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.mobile||'—')}</td><td>${esc(x.blood||'—')}</td></tr>`).join('')}</tbody></table></div></div>`;$('#contactSearch').oninput=renderContacts}
+
+function normalizeHexColor(v){const x=String(v||'').trim();return /^#[0-9a-f]{6}$/i.test(x)?x:'#1f63d5'}
+function hexRgb(hex){hex=normalizeHexColor(hex).slice(1);return [parseInt(hex.slice(0,2),16),parseInt(hex.slice(2,4),16),parseInt(hex.slice(4,6),16)]}
+function mixHex(hex,amount){const [r,g,b]=hexRgb(hex),mix=n=>Math.max(0,Math.min(255,Math.round(amount>=0?n+(255-n)*amount:n*(1+amount))));return '#'+[mix(r),mix(g),mix(b)].map(n=>n.toString(16).padStart(2,'0')).join('')}
+function applyTheme(hex){hex=normalizeHexColor(hex);const [r,g,b]=hexRgb(hex),root=document.documentElement.style;root.setProperty('--accent',hex);root.setProperty('--accent2',mixHex(hex,.38));root.setProperty('--accent-rgb',`${r},${g},${b}`);root.setProperty('--green',mixHex(hex,.12));root.setProperty('--green2',mixHex(hex,-.23));const meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',hex)}
+function renderAdmin(){
+ const root=$('#admin');if(!adminUnlocked){root.innerHTML=`<div class="card locked"><h2>🔐 Admin Panel</h2><p class="muted">এই single-file version-এ PIN কেবল accidental edit ঠেকায়; server-side security নয়। প্রথম PIN: <b>1234</b>.</p><div class="field"><label>Admin PIN</label><input id="pinInput" type="password" inputmode="numeric" placeholder="PIN"></div><div class="actions" style="margin-top:10px"><button class="btn" id="unlockBtn">Unlock</button></div></div>`;$('#unlockBtn').onclick=unlock;$('#pinInput').onkeydown=e=>{if(e.key==='Enter')unlock()};return}
+ root.innerHTML=`<div class="admin-shell"><aside class="card admin-menu no-print">
+  ${[['settings','সেটিংস'],['payments','সদস্য ও জমা'],['fundedit','তহবিল'],['invedit','বিনিয়োগ'],['contactedit','ব্যক্তিগত তথ্য'],['annualedit','Annual Review'],['tools','Backup / Sync'],['audit','Audit Log']].map(([id,l])=>`<button class="btn ${activeAdminSection===id?'':'ghost'}" data-admin="${id}">${l}</button>`).join('')}
+  <button class="btn red" id="lockAdmin">Lock Admin</button></aside><div id="adminContent"></div></div>`;
+ $$('[data-admin]',root).forEach(b=>b.onclick=()=>{activeAdminSection=b.dataset.admin;renderAdmin()});$('#lockAdmin').onclick=()=>{adminUnlocked=false;renderAdmin()};renderAdminContent();
+}
+function unlock(){if($('#pinInput').value===String(state.meta.adminPin||'1234')){adminUnlocked=true;toast('Admin unlocked');renderAdmin()}else toast('PIN সঠিক নয়',true)}
+function renderAdminContent(){const box=$('#adminContent');if(!box)return;({settings:adminSettings,payments:adminPayments,fundedit:adminFunds,invedit:adminInvestments,contactedit:adminContacts,annualedit:adminAnnual,tools:adminTools,audit:adminAudit}[activeAdminSection]||adminSettings)(box)}
+function adminSettings(box){box.innerHTML=`<div class="card"><h2>সাধারণ সেটিংস</h2><div class="edit-grid"><div class="field"><label>সমিতির নাম</label><input id="orgName" value="${esc(state.meta.organization)}"></div><div class="field"><label>Default মাসিক target</label><input id="monthlyDefault" type="number" min="0" value="${num(state.meta.monthlyDefault)}"></div><div class="field"><label>বর্তমান বছর</label><input id="currentYear" type="number" value="${Number(state.meta.currentYear)}"></div><div class="field"><label>Reporting month (1–12)</label><input id="reportMonth" type="number" min="1" max="12" value="${Number(state.meta.reportMonth)}"></div><div class="field"><label>Header / Theme কালার</label><input id="themeColor" type="color" value="${normalizeHexColor(state.meta.themeColor)}" style="height:44px;padding:4px;cursor:pointer"></div><div class="field"><label>নতুন Admin PIN</label><input id="newPin" type="password" value="${esc(state.meta.adminPin)}"></div></div><div class="notice" style="margin-top:12px">কালার বক্স থেকে রঙ বাছাই করলে সঙ্গে সঙ্গে Header ও পুরো app-এর accent color preview হবে। Save করলে এই browser-এ রঙটি স্থায়ী থাকবে।</div><div class="actions" style="margin-top:12px"><button class="btn" id="saveSettings">সেটিংস সংরক্ষণ</button></div></div>`;$('#themeColor').oninput=e=>applyTheme(e.target.value);$('#saveSettings').onclick=()=>{state.meta.organization=$('#orgName').value.trim()||state.meta.organization;state.meta.monthlyDefault=num($('#monthlyDefault').value);state.meta.currentYear=Number($('#currentYear').value)||2026;state.meta.reportMonth=Math.max(1,Math.min(12,Number($('#reportMonth').value)||1));state.meta.themeColor=normalizeHexColor($('#themeColor').value);state.meta.adminPin=$('#newPin').value||'1234';if(!state.deposits[String(state.meta.currentYear)])state.deposits[String(state.meta.currentYear)]=[];if(!state.funds[String(state.meta.currentYear)])state.funds[String(state.meta.currentYear)]=[];applyTheme(state.meta.themeColor);saveState('General settings and theme updated');toast('সেটিংস ও কালার সংরক্ষণ হয়েছে')}}
+function adminPayments(box){const y=$('#admYear')?.value||String(state.meta.currentYear), rows=rowsFor(y), sel=$('#admMember')?.value||rows[0]?.id||'';const r=rows.find(x=>x.id===sel)||rows[0];box.innerHTML=`<div class="card"><h2>সদস্য ও মাসিক জমা Edit</h2><div class="toolbar"><div class="field"><label>বছর</label>${memberYearSelect('admYear',y)}</div><div class="field wide"><label>সদস্য</label><select id="admMember">${rows.map(x=>`<option value="${esc(x.id)}" ${r&&x.id===r.id?'selected':''}>${esc(x.name)}</option>`).join('')}</select></div></div>${r?`<hr class="sep"><div class="field"><label>নাম</label><input id="admName" value="${esc(r.name)}"></div><div class="month-inputs" style="margin-top:10px">${MONTHS.map((m,i)=>`<div class="field"><label>${m}</label><input class="monthAmt" data-i="${i}" type="number" step="1" min="0" value="${num(r.months[i])}"></div>`).join('')}</div><div class="actions" style="margin-top:12px"><button class="btn" id="saveMemberPay">পরিবর্তন সংরক্ষণ</button><button class="btn gold" id="fill500">শূন্য মাসে ${money(state.meta.monthlyDefault)}</button><button class="btn red" id="deleteMember">এই account মুছুন</button></div>`:'<div class="empty">এই বছরে কোনো member account নেই</div>'}</div><div class="card"><h2>নতুন member/account যোগ করুন</h2><div class="toolbar"><div class="field wide"><label>নাম</label><input id="newMemberName" placeholder="সদস্যের নাম"></div><div><button class="btn" id="addMember">Add Member</button></div></div></div><div class="card"><h2>Bulk update</h2><div class="toolbar"><div class="field"><label>মাস</label><select id="bulkMonth">${MONTHS.map((m,i)=>`<option value="${i}">${m}</option>`).join('')}</select></div><div class="field"><label>Amount</label><input id="bulkAmount" type="number" value="${num(state.meta.monthlyDefault)}"></div><div><button class="btn gold" id="bulkApply">সব account-এ Apply</button></div></div><p class="small muted">Bulk update নির্বাচিত মাসের সব account-এর amount overwrite করবে। Backup নেওয়া ভালো।</p></div>`;
+ $('#admYear').onchange=adminPayments.bind(null,box);$('#admMember')&&($('#admMember').onchange=adminPayments.bind(null,box));
+ if(r){$('#saveMemberPay').onclick=()=>{r.name=$('#admName').value.trim()||r.name;$$('.monthAmt').forEach(i=>r.months[Number(i.dataset.i)]=num(i.value));saveState(`${y}: ${r.name} deposit updated`);toast('জমা আপডেট হয়েছে')};$('#fill500').onclick=()=>{$$('.monthAmt').forEach(i=>{if(!num(i.value))i.value=state.meta.monthlyDefault})};$('#deleteMember').onclick=()=>{if(confirm(`${r.name} account মুছবেন?`)){state.deposits[y]=rows.filter(x=>x.id!==r.id);saveState(`${y}: ${r.name} account deleted`);toast('Account মুছে দেওয়া হয়েছে')}}}
+ $('#addMember').onclick=()=>{const name=$('#newMemberName').value.trim();if(!name)return toast('নাম লিখুন',true);const ids=rows.map(x=>Number(String(x.id).split('-').pop())||0);const next=Math.max(0,...ids)+1;rows.push({id:`${y}-${String(next).padStart(2,'0')}`,sl:next,name,months:Array(12).fill(0)});saveState(`${y}: ${name} account added`);toast('নতুন account যোগ হয়েছে')};
+ $('#bulkApply').onclick=()=>{const m=Number($('#bulkMonth').value),a=num($('#bulkAmount').value);if(confirm(`${MONTHS[m]} মাসে ${money(a)} করে সব account-এ বসাবেন?`)){rows.forEach(x=>x.months[m]=a);saveState(`${y}: bulk ${MONTHS[m]} updated`);toast('Bulk update সম্পন্ন')}}
+}
+function adminFunds(box){const y=$('#admFundYear')?.value||String(state.meta.currentYear),arr=state.funds[y]||[];box.innerHTML=`<div class="card"><h2>তহবিল Edit</h2><div class="field" style="max-width:220px"><label>বছর</label>${memberYearSelect('admFundYear',y)}</div><div id="fundEditRows">${arr.map(x=>`<div class="row-edit" data-fid="${esc(x.id)}"><div class="field"><label>খাত</label><input class="flabel" value="${esc(x.label)}"></div><div class="field"><label>Amount</label><input class="famount" type="number" value="${num(x.amount)}"></div><button class="btn red sm fdel">Delete</button></div>`).join('')}</div><div class="actions" style="margin-top:12px"><button class="btn" id="saveFunds">সব পরিবর্তন Save</button><button class="btn ghost" id="addFund">নতুন খাত</button></div><div class="notice" style="margin-top:12px">বর্তমান মোট: <b>${money(fundTotal(y))}</b></div></div>`;$('#admFundYear').onchange=adminFunds.bind(null,box);$$('.fdel').forEach(b=>b.onclick=()=>{const id=b.closest('[data-fid]').dataset.fid;state.funds[y]=arr.filter(x=>x.id!==id);saveState(`${y}: fund item deleted`);toast('খাত মুছে দেওয়া হয়েছে')});$('#saveFunds').onclick=()=>{$$('[data-fid]').forEach(row=>{const x=arr.find(z=>z.id===row.dataset.fid);if(x){x.label=$('.flabel',row).value.trim();x.amount=num($('.famount',row).value)}});saveState(`${y}: fund ledger updated`);toast('তহবিল আপডেট হয়েছে')};$('#addFund').onclick=()=>{arr.push({id:'f'+y+'-'+Date.now(),label:'নতুন খাত',amount:0});saveState(`${y}: fund item added`)} }
+function adminInvestments(box){const groups=[...new Set(state.investments.map(x=>x.group))];box.innerHTML=`<div class="card"><h2>নতুন বিনিয়োগ Record</h2><div class="edit-grid"><div class="field"><label>খাতা/Group</label><input id="iGroup" value="${esc(groups.at(-1)||'2025-26 / বর্তমান')}"></div><div class="field"><label>নাম</label><input id="iName"></div><div class="field"><label>তারিখ</label><input id="iDate" type="date"></div><div class="field"><label>বিবরণ</label><input id="iDesc"></div><div class="field"><label>মূলধন</label><input id="iAmount" type="number"></div><div class="field"><label>লাভ</label><input id="iProfit" type="number"></div><div class="field"><label>লাভের তারিখ</label><input id="iProfitDate" type="date"></div></div><button class="btn" style="margin-top:12px" id="addInv">Record যোগ করুন</button></div><div class="card"><h2>Investment Records</h2><div class="table-wrap"><table><thead><tr><th>Group</th><th>Name</th><th>Principal</th><th>Profit</th><th></th></tr></thead><tbody>${state.investments.map(x=>`<tr><td>${esc(x.group)}</td><td>${esc(x.name)}</td><td class="num">${money(x.amount)}</td><td class="num">${money(x.profit)}</td><td class="right"><button class="btn ghost sm" data-edit-inv="${esc(x.id)}">Edit</button> <button class="btn red sm" data-del-inv="${esc(x.id)}">Delete</button></td></tr>`).join('')}</tbody></table></div></div>`;$('#addInv').onclick=()=>{const name=$('#iName').value.trim();if(!name)return toast('নাম লিখুন',true);state.investments.push({id:'inv'+Date.now(),group:$('#iGroup').value.trim()||'Current',sl:null,name,date:$('#iDate').value,description:$('#iDesc').value.trim(),amount:num($('#iAmount').value),profit:num($('#iProfit').value),profitDate:$('#iProfitDate').value,paid:''});saveState(`Investment added: ${name}`);toast('Investment record যোগ হয়েছে')};$$('[data-del-inv]').forEach(b=>b.onclick=()=>{const x=state.investments.find(z=>z.id===b.dataset.delInv);if(confirm(`${x?.name||'Record'} মুছবেন?`)){state.investments=state.investments.filter(z=>z.id!==b.dataset.delInv);saveState('Investment record deleted')}});$$('[data-edit-inv]').forEach(b=>b.onclick=()=>editInvestment(b.dataset.editInv))}
+function editInvestment(id){const x=state.investments.find(z=>z.id===id);if(!x)return;openModal('Investment Edit',`<div class="edit-grid"><div class="field"><label>Group</label><input id="miGroup" value="${esc(x.group)}"></div><div class="field"><label>Name</label><input id="miName" value="${esc(x.name)}"></div><div class="field"><label>Date</label><input id="miDate" type="date" value="${esc(x.date)}"></div><div class="field"><label>Description</label><input id="miDesc" value="${esc(x.description)}"></div><div class="field"><label>Principal</label><input id="miAmount" type="number" value="${num(x.amount)}"></div><div class="field"><label>Profit</label><input id="miProfit" type="number" value="${num(x.profit)}"></div><div class="field"><label>Profit Date</label><input id="miProfitDate" type="date" value="${esc(x.profitDate)}"></div></div><button class="btn" id="miSave" style="margin-top:12px">Save</button>`);$('#miSave').onclick=()=>{Object.assign(x,{group:$('#miGroup').value.trim(),name:$('#miName').value.trim(),date:$('#miDate').value,description:$('#miDesc').value.trim(),amount:num($('#miAmount').value),profit:num($('#miProfit').value),profitDate:$('#miProfitDate').value});$('#modalBg').classList.remove('open');saveState(`Investment updated: ${x.name}`);toast('Record আপডেট হয়েছে')}}
+function adminContacts(box){box.innerHTML=`<div class="card"><h2>ব্যক্তিগত তথ্য Edit</h2>${state.personalInfo.map(x=>`<div class="row-edit" style="grid-template-columns:1.2fr 1fr .5fr auto" data-pid="${esc(x.id)}"><div class="field"><label>নাম</label><input class="pname" value="${esc(x.name)}"></div><div class="field"><label>মোবাইল</label><input class="pmobile" value="${esc(x.mobile)}"></div><div class="field"><label>Blood</label><input class="pblood" value="${esc(x.blood)}"></div><button class="btn red sm pdel">Delete</button></div>`).join('')}<div class="actions" style="margin-top:12px"><button class="btn" id="saveContacts">Save All</button><button class="btn ghost" id="addContact">Add Person</button></div></div>`;$('#saveContacts').onclick=()=>{$$('[data-pid]').forEach(r=>{const x=state.personalInfo.find(z=>z.id===r.dataset.pid);if(x)Object.assign(x,{name:$('.pname',r).value.trim(),mobile:$('.pmobile',r).value.trim(),blood:$('.pblood',r).value.trim()})});saveState('Personal info updated');toast('ব্যক্তিগত তথ্য আপডেট হয়েছে')};$$('.pdel').forEach(b=>b.onclick=()=>{const id=b.closest('[data-pid]').dataset.pid;state.personalInfo=state.personalInfo.filter(x=>x.id!==id);saveState('Personal info record deleted')});$('#addContact').onclick=()=>{state.personalInfo.push({id:'p'+Date.now(),name:'নতুন সদস্য',mobile:'',blood:''});saveState('Personal info record added')}}
+function adminAnnual(box){
+  const sortedYears=[...state.annualReviews].sort((a,b)=>Number(a.year)-Number(b.year));
+  const lastYear=sortedYears.at(-1);
+  const nextYear=lastYear?Number(lastYear.year)+1:(Number(state.meta.currentYear)||new Date().getFullYear());
+  box.innerHTML=`<div class="card"><h2>Annual Review Edit</h2><div class="notice green">প্রয়োজনে পরবর্তী বছরের Annual Review যোগ করতে নিচের <b>+ ${nextYear} Annual Review Add</b> বাটন ব্যবহার করুন। Previous হিসেবে আগের বছরের Grand Total স্বয়ংক্রিয়ভাবে নেওয়া হবে।</div>${sortedYears.map(x=>`<div class="card" data-ay="${x.year}" style="background:#0e1511"><h3>${x.year}</h3><div class="edit-grid"><div class="field"><label>Meeting</label><input class="ameet" value="${esc(x.meeting)}"></div><div class="field"><label>Previous</label><input class="aprev" type="number" value="${num(x.previous)}"></div><div class="field"><label>Deposit (manual)</label><input class="adep" type="number" value="${num(x.deposits)}"></div><div class="field"><label>Profit</label><input class="aprofit" type="number" value="${num(x.profit)}"></div><div class="field"><label>Loss</label><input class="aloss" type="number" value="${num(x.loss)}"></div><div class="field"><label>Grand Total</label><input class="agrand" type="number" value="${num(x.grandTotal)}"></div></div></div>`).join('')}<div class="actions"><button class="btn" id="saveAnnual">Save Annual Review</button><button class="btn ghost" id="recalcAnnual">Live deposit দিয়ে Grand Total Recalc</button><button class="btn blue" id="addNextAnnual">+ ${nextYear} Annual Review Add</button></div></div>`;
+  $('#saveAnnual').onclick=()=>{$$('[data-ay]').forEach(r=>{const x=state.annualReviews.find(z=>z.year===Number(r.dataset.ay));if(x)Object.assign(x,{meeting:$('.ameet',r).value.trim(),previous:num($('.aprev',r).value),deposits:num($('.adep',r).value),profit:num($('.aprofit',r).value),loss:num($('.aloss',r).value),grandTotal:num($('.agrand',r).value)})});saveState('Annual Review updated');toast('Annual Review আপডেট হয়েছে')};
+  $('#recalcAnnual').onclick=()=>{state.annualReviews.sort((a,b)=>a.year-b.year);let carry=0;state.annualReviews.forEach((x,i)=>{x.previous=i===0?num(x.previous):carry;x.deposits=yearTotal(x.year);x.grandTotal=num(x.previous)+num(x.deposits)+num(x.profit)-num(x.loss);carry=x.grandTotal});saveState('Annual Review recalculated from live deposits');toast('Recalculation সম্পন্ন')};
+  $('#addNextAnnual').onclick=()=>{
+    const years=[...state.annualReviews].sort((a,b)=>Number(a.year)-Number(b.year));
+    const last=years.at(-1);
+    const year=last?Number(last.year)+1:(Number(state.meta.currentYear)||new Date().getFullYear());
+    if(state.annualReviews.some(x=>Number(x.year)===year))return toast(`${year} Annual Review আগে থেকেই আছে`,true);
+    const previous=num(last?.grandTotal||0);
+    const deposits=yearTotal(year);
+    state.annualReviews.push({year,meeting:'',previous,deposits,profit:0,loss:0,grandTotal:previous+deposits});
+    state.annualReviews.sort((a,b)=>Number(a.year)-Number(b.year));
+    saveState(`${year}: Annual Review added`);
+    toast(`${year} সালের Annual Review যোগ হয়েছে`);
+  };
+}
+function adminTools(box){
+  const api=bbssApiUrl()||String(state.meta.apiUrl||'');
+  const writeKey=localStorage.getItem(BBSS_WRITE_KEY_STORE)||'';
+  box.innerHTML=`<div class="card"><h2>Backup / Restore / Export</h2><div class="actions"><button class="btn" id="backupJson">Backup JSON</button><button class="btn ghost" id="restoreJson">Restore JSON</button><input id="restoreFile" type="file" accept="application/json" hidden><button class="btn ghost" id="printBtn">Print / PDF</button><button class="btn red" id="resetExcel">Excel snapshot-এ Reset</button></div></div>
+  <div class="card"><h2>Google Sheets Online Database</h2><div class="notice green">GitHub Pages-এর সব ডিভাইস একই Google Sheet database ব্যবহার করবে। প্রথমবার শুধু Admin browser থেকে Write Key দিয়ে Initial Save করুন। এরপর remote Admin login থাকলে প্রতিটি edit স্বয়ংক্রিয়ভাবে server-এ save হবে।</div>
+  <div class="field" style="margin-top:12px"><label>Apps Script Web App URL (/exec)</label><input id="apiUrl" value="${esc(api)}" placeholder="https://script.google.com/macros/s/.../exec"></div>
+  <div class="field" style="margin-top:10px"><label>Private Write Key (শুধু initial setup/recovery)</label><input id="apiWriteKey" type="password" value="${esc(writeKey)}" placeholder="setupBBSS() থেকে পাওয়া key"></div>
+  <label class="small" style="display:flex;gap:8px;align-items:center;margin:10px 0"><input id="autoSync" type="checkbox" style="width:auto" ${state.meta.autoSync?'checked':''}> Remote Admin edit-এর পরে Auto Sync</label>
+  <div class="actions"><button class="btn" id="saveApi">Connection Save</button><button class="btn ghost" id="testApi">Connection Test</button><button class="btn blue" id="pullApi">Server থেকে Latest Load</button><button class="btn gold" id="pushApi">Server-এ Save</button><button class="btn" id="bootstrapApi">Initial / Recovery Save</button></div>
+  <div class="code-note" style="margin-top:12px">Members: remote login + latest shared data • Admin: remote login + automatic shared updates • Write Key কখনো GitHub-এ রাখবেন না।</div></div>`;
+  $('#backupJson').onclick=backupJson;$('#restoreJson').onclick=()=>$('#restoreFile').click();$('#restoreFile').onchange=restoreJson;$('#printBtn').onclick=()=>window.print();
+  $('#resetExcel').onclick=()=>{if(confirm('সব local edit মুছে Excel snapshot ফিরিয়ে আনবেন?')){state=clone(DEFAULT_DATA);try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){};saveState('Reset to original Excel snapshot');toast('Excel snapshot restored')}};
+  $('#saveApi').onclick=()=>{state.meta.apiUrl=$('#apiUrl').value.trim();state.meta.autoSync=$('#autoSync').checked;localStorage.setItem(BBSS_WRITE_KEY_STORE,$('#apiWriteKey').value.trim());try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){};toast('Google Sheets connection settings saved')};
+  $('#testApi').onclick=()=>testApiConnection(false);$('#pullApi').onclick=()=>pullApi(false);$('#pushApi').onclick=()=>pushApi(false);$('#bootstrapApi').onclick=()=>bootstrapApiSave(false);
+}
+function adminAudit(box){box.innerHTML=`<div class="card"><h2>Audit Log</h2><div class="audit">${(state.audit||[]).map(x=>`<div class="audit-item"><time>${formatDateTime(x.at)}</time>${esc(x.action)}</div>`).join('')||'<div class="empty">এখনও কোনো local edit নেই</div>'}</div></div>`}
+function formatDateTime(v){if(!v)return '';const d=new Date(v);return isNaN(d)?v:d.toLocaleString('bn-BD')}
+
+function download(text,name,type='text/plain;charset=utf-8'){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),800)}
+function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function exportMembersCsv(y){const rows=[['ID','Name','Mobile','Blood','Year Total','Target']];rowsFor(y).forEach(r=>{const inf=infoFor(r.name);rows.push([r.id,r.name,inf?.mobile||'',inf?.blood||'',rowTotal(r),expectedFor(y)])});download('\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n'),`BBSS_Members_${y}.csv`,'text/csv;charset=utf-8')}
+function exportDepositsCsv(y){const rows=[['ID','Name',...MONTHS,'Total']];rowsFor(y).forEach(r=>rows.push([r.id,r.name,...r.months,rowTotal(r)]));download('\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n'),`BBSS_Deposits_${y}.csv`,'text/csv;charset=utf-8')}
+function exportInvestmentsCsv(){const rows=[['Group','Name','Date','Description','Principal','Profit','Profit Date']];state.investments.forEach(x=>rows.push([x.group,x.name,x.date,x.description,x.amount,x.profit,x.profitDate]));download('\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n'),'BBSS_Investments.csv','text/csv;charset=utf-8')}
+function backupJson(){download(JSON.stringify(state,null,2),'BBSS_full_backup.json','application/json')}
+function restoreJson(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x||!x.meta||!x.deposits)throw new Error('Invalid');state=x;saveState('JSON backup restored');toast('Backup restore হয়েছে')}catch(err){toast('সঠিক BBSS backup নয়',true)}};r.readAsText(f)}
+async function testApiConnection(silent=false){
+  const url=bbssApiUrl();if(!url){bbssUpdateSyncUI(navigator.onLine?'online':'offline',navigator.onLine?'Online • API not configured':'Offline','');return silent?null:toast('Apps Script Web App URL দিন',true)}
+  if(!navigator.onLine){bbssMarkSyncFailure('Offline','Internet connection নেই');return silent?null:toast('Internet connection নেই',true)}
+  try{const res=await fetch(url+(url.includes('?')?'&':'?')+'action=health&t='+Date.now(),{cache:'no-store',redirect:'follow'});if(!res.ok)throw new Error('HTTP '+res.status);const out=await res.json();if(!out.ok)throw new Error(out.error||'Connection failed');bbssUpdateSyncUI('online',out.initialized?'Online • Server connected':'Online • Initial Save needed','');if(!silent)toast(out.initialized?'Google Sheets server connected':'Server connected • Initial Save প্রয়োজন');return out}catch(e){bbssMarkSyncFailure('Server connection failed',e.message);if(!silent)toast('Connection failed: '+e.message,true);return null}
+}
+async function bootstrapApiSave(silent=false){
+  const key=localStorage.getItem(BBSS_WRITE_KEY_STORE)||$('#apiWriteKey')?.value.trim()||'';
+  if(!bbssApiUrl())return silent?null:toast('Apps Script Web App URL দিন',true);
+  if(!key)return silent?null:toast('Private Write Key দিন',true);
+  bbssUpdateSyncUI('syncing','Initial sync…','');
+  try{const out=await bbssApiPost('bootstrapSave',{writeKey:key,state});if(!out.ok)throw new Error(out.error||'Initial save failed');bbssMarkSyncSuccess('Online • Initial sync complete');if(!silent)toast('Google Sheets database-এ Initial Save সম্পন্ন');return out}catch(e){bbssMarkSyncFailure('Initial sync failed',e.message);if(!silent)toast('Initial Save failed: '+e.message,true);return null}
+}
+async function pullApi(silent=false){
+  if(!bbssApiUrl())return silent?null:toast('Apps Script Web App URL দিন',true);
+  const sess=bbssReadStoredSession();
+  if(!sess?.remoteToken)return silent?null:toast('Remote login প্রয়োজন। Logout করে আবার login করুন।',true);
+  if(!navigator.onLine){bbssMarkSyncFailure('Offline','Internet connection নেই');return null}
+  bbssUpdateSyncUI('syncing','Latest data loading…','');
+  try{const out=await bbssApiPost('session',{token:sess.remoteToken});if(!out.ok)throw new Error(out.error||'Server load failed');state=out.state;if(state?.meta&&!state.meta.apiUrl)state.meta.apiUrl=bbssApiUrl();try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){};renderAll();bbssMarkSyncSuccess('Online • Latest synced');if(!silent)toast('Google Sheets থেকে latest data load হয়েছে');return out}catch(e){bbssMarkSyncFailure('Sync failed',e.message);if(!silent)toast('Server load failed: '+e.message,true);return null}
+}
+async function pushApi(silent=false){
+  if(!bbssApiUrl())return silent?null:toast('Apps Script Web App URL দিন',true);
+  const sess=bbssReadStoredSession();
+  if(!navigator.onLine){bbssMarkSyncFailure('Offline','Internet connection নেই');return null}
+  bbssUpdateSyncUI('syncing','Saving to Google Sheets…','');
+  try{
+    let out;
+    if(sess?.role==='admin'&&sess?.remoteToken)out=await bbssApiPost('save',{token:sess.remoteToken,state});
+    else{
+      const key=localStorage.getItem(BBSS_WRITE_KEY_STORE)||'';
+      if(!key)return silent?null:toast('Remote Admin login অথবা private Write Key প্রয়োজন।',true);
+      out=await bbssApiPost('bootstrapSave',{writeKey:key,state});
+    }
+    if(!out.ok)throw new Error(out.error||'Server save failed');
+    if(out.state){state=out.state;try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){};renderAll()}
+    bbssMarkSyncSuccess('Online • Synced');
+    if(!silent)toast('Google Sheets-এ save হয়েছে');return out;
+  }catch(e){bbssMarkSyncFailure('Sync failed',e.message);if(!silent)toast('Server save failed: '+e.message,true);return null}
+}
+function renderAll(){applyTheme(state.meta.themeColor||'#1f63d5');document.title=state.meta.organization+' — BBSS';$('#brandName').textContent=state.meta.organization;$('#brandSub').textContent=`Excel snapshot • Live local ledger • Updated ${formatDateTime(state.meta.lastUpdated)}`;renderDashboard();renderMembers();renderDeposits();renderFunds();renderInvestments();renderAnnual();renderContacts();if($('#admin').classList.contains('active'))renderAdmin()}
+renderAll();
+</script>
+<script>
+(function(){
+  const AUTH_SESSION_KEY='bbss_auth_session_v1';
+  const DEFAULT_MEMBER_HASH='03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'; // SHA-256 of 1234
+  let currentSession=null;
+
+  function norm(v){return String(v||'').trim().toLowerCase()}
+  function initials(name){return String(name||'BB').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'BB'}
+  function accountLabel(a){return `ID-${a.memberId} (${a.name})`}
+  function nowIso(){return new Date().toISOString()}
+  async function hashPassword(value){
+    const data=new TextEncoder().encode(String(value||''));
+    const digest=await crypto.subtle.digest('SHA-256',data);
+    return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  }
+  function allDepositNames(){
+    const out=[],seen=new Set();
+    const add=n=>{const k=norm(n);if(k&&!seen.has(k)){seen.add(k);out.push(String(n).trim())}};
+    rowsFor(state.meta.currentYear).forEach(r=>add(r.name));
+    yearKeys().forEach(y=>rowsFor(y).forEach(r=>add(r.name)));
+    state.personalInfo.forEach(p=>add(p.name));
+    return out;
+  }
+  function profileSeed(name){
+    const inf=infoFor(name);
+    return {mobile:inf?.mobile||'',blood:inf?.blood||'',email:'',address:''};
+  }
+  function ensureExtendedState(){
+    state.auth=state.auth||{};
+    state.auth.members=Array.isArray(state.auth.members)?state.auth.members:[];
+    state.auth.profileRequests=Array.isArray(state.auth.profileRequests)?state.auth.profileRequests:[];
+    state.auth.passwordResetRequests=Array.isArray(state.auth.passwordResetRequests)?state.auth.passwordResetRequests:[];
+    state.depositTransactions=Array.isArray(state.depositTransactions)?state.depositTransactions:[];
+
+    const existingNames=new Set(state.auth.members.flatMap(a=>[a.name,...(a.aliases||[])]).map(norm));
+    let next=state.auth.members.reduce((m,a)=>Math.max(m,Number(String(a.memberId||'').match(/(\d+)$/)?.[1])||0),0)+1;
+    allDepositNames().forEach(name=>{
+      if(existingNames.has(norm(name)))return;
+      const a={memberId:`BBSS-${String(next++).padStart(2,'0')}`,name,aliases:[name],passwordHash:DEFAULT_MEMBER_HASH,mustChangePassword:true,active:true,photoData:'',profile:profileSeed(name),createdAt:nowIso()};
+      state.auth.members.push(a);existingNames.add(norm(name));
+    });
+    state.auth.members.forEach((a,i)=>{
+      a.memberId=a.memberId||`BBSS-${String(i+1).padStart(2,'0')}`;
+      a.aliases=Array.isArray(a.aliases)&&a.aliases.length?a.aliases:[a.name];
+      a.passwordHash=a.passwordHash||DEFAULT_MEMBER_HASH;
+      if(typeof a.active!=='boolean')a.active=true;
+      a.profile=a.profile||profileSeed(a.name);
+      a.photoData=a.photoData||'';
+      if(typeof a.mustChangePassword!=='boolean')a.mustChangePassword=false;
+    });
+  }
+  function persistRaw(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){}}
+  function findAccountById(id){return state.auth?.members?.find(a=>norm(a.memberId)===norm(id))||null}
+  function accountForName(name){
+    const n=norm(name);
+    return state.auth?.members?.find(a=>norm(a.name)===n||(a.aliases||[]).some(x=>norm(x)===n))||null;
+  }
+  function rowsForAccount(account){
+    const names=new Set([account.name,...(account.aliases||[])].map(norm));
+    const out=[];
+    yearKeys().slice().reverse().forEach(y=>rowsFor(y).forEach(r=>{if(names.has(norm(r.name)))out.push({year:y,row:r})}));
+    return out;
+  }
+  function totalForAccount(account){return rowsForAccount(account).reduce((s,x)=>s+rowTotal(x.row),0)}
+  function accountInfo(account){
+    const inf=infoFor(account.name);
+    return {mobile:account.profile?.mobile||inf?.mobile||'',blood:account.profile?.blood||inf?.blood||'',email:account.profile?.email||'',address:account.profile?.address||''};
+  }
+
+  function normalizeMobile(v){
+    let x=String(v||'').replace(/\D/g,'');
+    if(x.startsWith('880')&&x.length===13)x='0'+x.slice(3);
+    return x;
+  }
+  function loginAccounts(value){
+    const byId=findAccountById(value);
+    if(byId)return [byId];
+    const mobile=normalizeMobile(value);
+    if(!mobile)return [];
+    return (state.auth?.members||[]).filter(a=>normalizeMobile(accountInfo(a).mobile)===mobile);
+  }
+  function resolveLoginAccount(value){
+    const list=loginAccounts(value);
+    if(list.length===1)return {account:list[0],error:''};
+    if(list.length>1)return {account:null,error:'এই মোবাইল নম্বরে একাধিক Member ID যুক্ত আছে। নিরাপত্তার জন্য Member ID দিয়ে লগইন করুন।'};
+    return {account:null,error:'Member ID বা মোবাইল নম্বর পাওয়া যায়নি।'};
+  }
+
+  function storeSession(session,remember){
+    session.remember=!!remember;
+    const text=JSON.stringify(session);
+    try{localStorage.removeItem(AUTH_SESSION_KEY);sessionStorage.removeItem(AUTH_SESSION_KEY);(remember?localStorage:sessionStorage).setItem(AUTH_SESSION_KEY,text)}catch(e){}
+  }
+  function loadSession(){
+    try{return JSON.parse(sessionStorage.getItem(AUTH_SESSION_KEY)||localStorage.getItem(AUTH_SESSION_KEY)||'null')}catch(e){return null}
+  }
+  function clearSession(){try{localStorage.removeItem(AUTH_SESSION_KEY);sessionStorage.removeItem(AUTH_SESSION_KEY)}catch(e){}}
+  function showLoginError(id,msg){const el=$(id);if(!el)return;el.textContent=msg;el.style.display='block'}
+  function hideLoginErrors(){['#memberLoginError','#adminLoginError'].forEach(s=>{const e=$(s);if(e)e.style.display='none'})}
+
+  function applyRoleVisibility(){
+    if(!currentSession)return;
+    const role=currentSession.role;
+    const allowedMember=new Set(['dashboard','deposits','myprofile','funds','annual']);
+    $$('.tab').forEach(b=>{
+      if(b.classList.contains('external-tab')||b.classList.contains('rules-tab')){b.style.display='';return;}
+      const v=b.dataset.view;
+      b.style.display=role==='admin'?(v==='myprofile'?'none':''):(allowedMember.has(v)?'':'none');
+    });
+    const badge=$('#authUserBadge');
+    if(badge){
+      if(role==='admin')badge.innerHTML=`<span>🔐 <b>Admin</b></span><button id="logoutBtn" type="button">Logout</button>`;
+      else{const a=findAccountById(currentSession.memberId);badge.innerHTML=`<span>👤 <b>${esc(a?.memberId||currentSession.memberId)}</b></span><button id="logoutBtn" type="button">Logout</button>`}
+      $('#logoutBtn').onclick=logout;
+    }
+  }
+  function enterApp(session,restored=false){
+    currentSession=session;
+    if(session.role==='member'){
+      const a=findAccountById(session.memberId);
+      if(!a||!a.active){clearSession();currentSession=null;return false}
+    }
+    document.body.classList.add('authenticated');
+    if(session.role==='admin')adminUnlocked=true;
+    applyRoleVisibility();
+    renderAll();
+    if(session.role==='member')setView('myprofile');else if(!restored)setView('dashboard');
+    return true;
+  }
+  function logout(){
+    if(currentSession?.remoteToken&&window.bbssApiReady())window.bbssApiPost('logout',{token:currentSession.remoteToken}).catch(()=>{});
+    clearSession();currentSession=null;adminUnlocked=false;document.body.classList.remove('authenticated');
+    hideLoginErrors();$('#memberLoginPassword').value='';$('#adminLoginPassword').value='';
+  }
+
+  function bindLoginUi(){
+    $$('[data-login-mode]').forEach(b=>b.onclick=()=>{
+      $$('[data-login-mode]').forEach(x=>x.classList.toggle('active',x===b));
+      $('#memberLoginForm').classList.toggle('active',b.dataset.loginMode==='member');
+      $('#adminLoginForm').classList.toggle('active',b.dataset.loginMode==='admin');hideLoginErrors();
+    });
+    $('#showReset').onclick=()=>$('#memberResetBox').classList.toggle('open');
+    $('#memberLoginForm').onsubmit=async e=>{
+      e.preventDefault();hideLoginErrors();
+      const loginValue=$('#memberLoginId').value,password=$('#memberLoginPassword').value,remember=$('#memberRemember').checked;
+      if(window.bbssApiReady()){
+        try{
+          const out=await window.bbssApiPost('login',{role:'member',login:loginValue,password,remember});
+          if(!out.ok)return showLoginError('#memberLoginError',out.error||'Login failed');
+          state=out.state;persistRaw();bbssMarkSyncSuccess('Online • Member data synced');
+          const s={role:'member',memberId:out.memberId,remoteToken:out.token,loginAt:nowIso()};storeSession(s,remember);enterApp(s);return;
+        }catch(err){return showLoginError('#memberLoginError','Online server পাওয়া যাচ্ছে না: '+err.message)}
+      }
+      const resolved=resolveLoginAccount(loginValue);const a=resolved.account;
+      if(!a)return showLoginError('#memberLoginError',resolved.error);
+      if(!a.active)return showLoginError('#memberLoginError','এই Member ID বর্তমানে নিষ্ক্রিয়। অ্যাডমিনের সাথে যোগাযোগ করুন।');
+      const h=await hashPassword(password);if(h!==a.passwordHash)return showLoginError('#memberLoginError','পাসওয়ার্ড সঠিক নয়।');
+      const s={role:'member',memberId:a.memberId,loginAt:nowIso()};storeSession(s,remember);enterApp(s);
+    };
+    $('#adminLoginForm').onsubmit=async e=>{
+      e.preventDefault();hideLoginErrors();
+      const password=$('#adminLoginPassword').value,remember=$('#adminRemember').checked;
+      if(window.bbssApiReady()){
+        try{
+          const out=await window.bbssApiPost('login',{role:'admin',password,remember});
+          if(out.ok){state=out.state;persistRaw();bbssMarkSyncSuccess('Online • Admin data synced');const s={role:'admin',remoteToken:out.token,loginAt:nowIso()};storeSession(s,remember);enterApp(s);return}
+          if(out.code!=='not_initialized')return showLoginError('#adminLoginError',out.error||'Admin login failed');
+          // First setup only: allow local Admin login so the current state can be bootstrap-saved with the private Write Key.
+        }catch(err){return showLoginError('#adminLoginError','Online server পাওয়া যাচ্ছে না: '+err.message)}
+      }
+      if(password!==String(state.meta.adminPin||'1234'))return showLoginError('#adminLoginError','Admin password/PIN সঠিক নয়।');
+      const s={role:'admin',loginAt:nowIso(),bootstrapOnly:window.bbssApiReady()};storeSession(s,remember);enterApp(s);
+      if(window.bbssApiReady())toast('প্রথম setup: Admin → Backup / Sync থেকে Write Key দিয়ে Initial Save করুন');
+    };
+    $('#requestReset').onclick=async ()=>{
+      const loginValue=$('#resetMemberId').value;
+      if(window.bbssApiReady()){
+        try{const out=await window.bbssApiPost('requestReset',{login:loginValue});if(!out.ok)return showLoginError('#memberLoginError',out.error||'Reset request failed');$('#memberResetBox').classList.remove('open');toast('Password reset request অ্যাডমিনের কাছে পাঠানো হয়েছে');return}catch(err){return showLoginError('#memberLoginError','Online server পাওয়া যাচ্ছে না: '+err.message)}
+      }
+      const resolved=resolveLoginAccount(loginValue);const a=resolved.account;
+      if(!a)return showLoginError('#memberLoginError',resolved.error);
+      const old=state.auth.passwordResetRequests.find(r=>r.memberId===a.memberId&&r.status==='pending');
+      if(old){old.requestedAt=nowIso()}else state.auth.passwordResetRequests.unshift({id:'pr'+Date.now(),memberId:a.memberId,name:a.name,requestedAt:nowIso(),status:'pending'});
+      persistRaw();$('#memberResetBox').classList.remove('open');toast('Password reset request অ্যাডমিনের কাছে পাঠানো হয়েছে');
+    };
+  }
+
+  function memberViewAllowed(id){return !currentSession||currentSession.role==='admin'||['dashboard','deposits','myprofile','funds','annual'].includes(id)}
+  const baseSetView=setView;
+  setView=function(id){
+    if(currentSession?.role==='member'&&!memberViewAllowed(id))id='myprofile';
+    baseSetView(id);if(id==='myprofile')renderProfile();
+  };
+
+  function renderProfile(){
+    const root=$('#myprofile');if(!root)return;
+    if(!currentSession||currentSession.role!=='member'){root.innerHTML='<div class="card"><div class="empty">Member login প্রয়োজন।</div></div>';return}
+    const a=findAccountById(currentSession.memberId);if(!a){root.innerHTML='<div class="card"><div class="empty">Member account পাওয়া যায়নি।</div></div>';return}
+    const inf=accountInfo(a), rr=rowsForAccount(a), pending=state.auth.profileRequests.find(r=>r.memberId===a.memberId&&r.status==='pending');
+    const years=[...new Set(rr.map(x=>x.year))].sort((x,y)=>Number(y)-Number(x));
+    root.innerHTML=`
+      <div class="card"><div class="profile-hero"><div class="avatar">${a.photoData?`<img src="${a.photoData}" alt="Profile">`:esc(initials(a.name))}</div><div><span class="member-id">${esc(accountLabel(a))}</span><h2 style="margin:0;color:var(--text)">${esc(a.name)}</h2><div class="profile-meta"><span>মোবাইল: ${esc(inf.mobile||'—')}</span><span>রক্ত: ${esc(inf.blood||'—')}</span><span>মোট জমা: ${money(totalForAccount(a))}</span></div></div><div class="actions"><button class="btn ghost" id="profileEditJump">প্রোফাইল Edit Request</button></div></div>${a.mustChangePassword?'<div class="notice" style="margin-top:14px">নিরাপত্তার জন্য প্রাথমিক password পরিবর্তন করুন।</div>':''}</div>
+      <div class="grid"><div class="kpi"><small>Member ID</small><strong style="font-size:18px">${esc(a.memberId)}</strong></div><div class="kpi gold"><small>সর্বমোট জমা</small><strong>${money(totalForAccount(a))}</strong></div><div class="kpi blue"><small>Deposit Accounts</small><strong>${rr.length}</strong></div><div class="kpi"><small>Profile Request</small><strong style="font-size:18px">${pending?'Pending':'—'}</strong></div></div>
+      <div class="card"><h2>আমার জমার হিসাব</h2>${years.length?years.map(y=>{const list=rr.filter(x=>x.year===y);return `<div style="margin:12px 0"><h3>${esc(y)} • মোট ${money(list.reduce((s,x)=>s+rowTotal(x.row),0))}</h3>${list.map(x=>`<div class="months">${x.row.months.map((v,i)=>`<div class="monthbox ${num(v)===0?'zero':num(v)>num(state.meta.monthlyDefault)?'extra':'paid'}"><small>${MONTHS[i]}</small><b>${num(v)?money(v):'—'}</b></div>`).join('')}</div>`).join('')}</div>`}).join('<hr class="sep">'):'<div class="empty">কোনো জমার রেকর্ড নেই</div>'}</div>
+      <div class="split"><div class="card" id="profileEditCard"><h2>প্রোফাইল পরিবর্তনের অনুরোধ</h2><div class="notice">এখানে পরিবর্তন Submit করলে সঙ্গে সঙ্গে live profile বদলাবে না। অ্যাডমিন অনুমোদন করার পর আপডেট হবে।</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>নাম</label><input id="pfName" value="${esc(a.name)}"></div><div class="field"><label>মোবাইল</label><input id="pfMobile" value="${esc(inf.mobile)}"></div><div class="field"><label>রক্তের গ্রুপ</label><input id="pfBlood" value="${esc(inf.blood)}"></div><div class="field"><label>Email</label><input id="pfEmail" type="email" value="${esc(inf.email)}"></div><div class="field"><label>ঠিকানা</label><input id="pfAddress" value="${esc(inf.address)}"></div><div class="field"><label>Profile ছবি</label><input id="pfPhoto" type="file" accept="image/*"></div></div><button class="btn" id="submitProfileRequest" style="margin-top:12px">Approval Request পাঠান</button>${pending?'<div class="notice" style="margin-top:10px">আপনার একটি profile update request ইতিমধ্যে Pending আছে। নতুন Submit করলে সেটিই update হবে।</div>':''}</div>
+      <div class="card"><h2>পাসওয়ার্ড পরিবর্তন</h2><div class="field"><label>বর্তমান পাসওয়ার্ড</label><input id="oldMemberPass" type="password"></div><div class="field" style="margin-top:9px"><label>নতুন পাসওয়ার্ড</label><input id="newMemberPass" type="password" minlength="4"></div><div class="field" style="margin-top:9px"><label>নতুন পাসওয়ার্ড আবার</label><input id="newMemberPass2" type="password" minlength="4"></div><button class="btn blue" id="changeMemberPass" style="margin-top:12px">Password Update</button></div></div>
+      <div class="card"><h2>সাম্প্রতিক তহবিল-সংযুক্ত জমা</h2>${state.depositTransactions.filter(t=>t.memberId===a.memberId).slice(0,20).map(t=>`<div class="txn-line"><span>${formatDateTime(t.at)}</span><span>${esc(t.fundLabel)} • ${MONTHS[t.month]||''} ${esc(t.year)}</span><b>${money(t.amount)}</b><span class="pill good">Added</span></div>`).join('')||'<div class="empty">নতুন transaction log নেই</div>'}</div>`;
+    $('#profileEditJump').onclick=()=>$('#profileEditCard').scrollIntoView({behavior:'smooth',block:'start'});
+    $('#submitProfileRequest').onclick=()=>submitProfileRequest(a);
+    $('#changeMemberPass').onclick=()=>changeMemberPassword(a);
+  }
+
+  function readImageFile(input){return new Promise((resolve,reject)=>{const f=input.files?.[0];if(!f)return resolve('');if(f.size>1.5*1024*1024)return reject(new Error('ছবির size 1.5MB-এর মধ্যে রাখুন'));const r=new FileReader();r.onload=()=>resolve(String(r.result||''));r.onerror=()=>reject(new Error('ছবি পড়া যায়নি'));r.readAsDataURL(f)})}
+  async function submitProfileRequest(a){
+    try{
+      const photoData=await readImageFile($('#pfPhoto'));
+      const changes={name:$('#pfName').value.trim()||a.name,mobile:$('#pfMobile').value.trim(),blood:$('#pfBlood').value.trim(),email:$('#pfEmail').value.trim(),address:$('#pfAddress').value.trim()};
+      if(currentSession?.remoteToken&&window.bbssApiReady()){
+        const out=await window.bbssApiPost('profileRequest',{token:currentSession.remoteToken,changes,photoData});
+        if(!out.ok)throw new Error(out.error||'Profile request failed');state=out.state;persistRaw();renderAll();toast('Profile update request পাঠানো হয়েছে');return;
+      }
+      let req=state.auth.profileRequests.find(r=>r.memberId===a.memberId&&r.status==='pending');
+      if(req){req.changes=changes;req.photoData=photoData||req.photoData||'';req.submittedAt=nowIso()}else state.auth.profileRequests.unshift({id:'pf'+Date.now(),memberId:a.memberId,submittedAt:nowIso(),status:'pending',changes,photoData});
+      saveState(`Profile approval request submitted: ${a.memberId}`);toast('Profile update request পাঠানো হয়েছে');
+    }catch(e){toast(e.message,true)}
+  }
+  async function changeMemberPassword(a){
+    const old=$('#oldMemberPass').value,n1=$('#newMemberPass').value,n2=$('#newMemberPass2').value;
+    if(n1.length<4)return toast('নতুন password কমপক্ষে 4 অক্ষর দিন',true);if(n1!==n2)return toast('নতুন password দুবার একই নয়',true);
+    if(currentSession?.remoteToken&&window.bbssApiReady()){
+      try{const out=await window.bbssApiPost('changePassword',{token:currentSession.remoteToken,oldPassword:old,newPassword:n1});if(!out.ok)throw new Error(out.error||'Password update failed');state=out.state;persistRaw();renderAll();toast('Password পরিবর্তন হয়েছে');return}catch(e){return toast(e.message,true)}
+    }
+    if(await hashPassword(old)!==a.passwordHash)return toast('বর্তমান password সঠিক নয়',true);
+    a.passwordHash=await hashPassword(n1);a.mustChangePassword=false;saveState(`Member password changed: ${a.memberId}`);toast('Password পরিবর্তন হয়েছে');
+  }
+
+  function approveProfileRequest(id,approve){
+    const req=state.auth.profileRequests.find(r=>r.id===id);if(!req||req.status!=='pending')return;
+    const a=findAccountById(req.memberId);if(!a)return;
+    if(!approve){req.status='rejected';req.reviewedAt=nowIso();saveState(`Profile request rejected: ${a.memberId}`);toast('Request rejected');return}
+    const oldName=a.name,newName=req.changes?.name?.trim()||oldName;
+    if(norm(newName)!==norm(oldName)){
+      a.aliases=[...new Set([...(a.aliases||[]),oldName,newName])];
+      Object.values(state.deposits).forEach(rows=>rows.forEach(r=>{if(norm(r.name)===norm(oldName))r.name=newName}));
+      a.name=newName;
+    }
+    a.profile={...(a.profile||{}),mobile:req.changes?.mobile||'',blood:req.changes?.blood||'',email:req.changes?.email||'',address:req.changes?.address||''};
+    if(req.photoData)a.photoData=req.photoData;
+    let inf=state.personalInfo.find(x=>norm(x.name)===norm(oldName)||norm(x.name)===norm(baseName(oldName)));
+    if(inf){inf.name=baseName(newName);inf.mobile=a.profile.mobile;inf.blood=a.profile.blood}else state.personalInfo.push({id:'p'+Date.now(),name:baseName(newName),mobile:a.profile.mobile,blood:a.profile.blood});
+    req.status='approved';req.reviewedAt=nowIso();saveState(`Profile request approved: ${a.memberId}`);toast('Profile update অনুমোদন হয়েছে');
+  }
+
+  function resetMemberPassword(memberId,requestId=''){
+    const a=findAccountById(memberId);if(!a)return;a.passwordHash=DEFAULT_MEMBER_HASH;a.mustChangePassword=true;
+    if(requestId){const r=state.auth.passwordResetRequests.find(x=>x.id===requestId);if(r){r.status='approved';r.reviewedAt=nowIso()}}
+    saveState(`Password reset to temporary for ${a.memberId}`);toast(`${a.memberId} temporary password: 1234`);
+  }
+  function rejectReset(id){const r=state.auth.passwordResetRequests.find(x=>x.id===id);if(r){r.status='rejected';r.reviewedAt=nowIso();saveState(`Password reset request rejected: ${r.memberId}`);toast('Reset request rejected')}}
+
+  function adminAccess(box){
+    const pendingProfiles=state.auth.profileRequests.filter(r=>r.status==='pending');const pendingResets=state.auth.passwordResetRequests.filter(r=>r.status==='pending');
+    box.innerHTML=`<div class="grid"><div class="kpi"><small>Member Login</small><strong>${state.auth.members.length}</strong></div><div class="kpi gold"><small>Profile Approval</small><strong>${pendingProfiles.length}</strong></div><div class="kpi red"><small>Password Reset</small><strong>${pendingResets.length}</strong></div><div class="kpi blue"><small>Active</small><strong>${state.auth.members.filter(a=>a.active).length}</strong></div></div>
+    <div class="card"><h2>Profile Approval Requests</h2>${pendingProfiles.map(r=>{const a=findAccountById(r.memberId),c=r.changes||{};return `<div class="request-card pending"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center"><div><b>${esc(a?accountLabel(a):r.memberId)}</b><div class="small muted">${formatDateTime(r.submittedAt)}</div></div>${r.photoData?`<img class="mini-avatar" src="${r.photoData}" alt="new photo">`:''}</div><div class="request-diff"><span>নাম</span><b>${esc(c.name||a?.name||'')}</b><span>মোবাইল</span><b>${esc(c.mobile||'—')}</b><span>রক্ত</span><b>${esc(c.blood||'—')}</b><span>Email</span><b>${esc(c.email||'—')}</b><span>ঠিকানা</span><b>${esc(c.address||'—')}</b></div><div class="actions"><button class="btn sm" data-approve-profile="${esc(r.id)}">Approve</button><button class="btn red sm" data-reject-profile="${esc(r.id)}">Reject</button></div></div>`}).join('')||'<div class="empty">কোনো pending profile request নেই</div>'}</div>
+    <div class="card"><h2>Password Reset Requests</h2><div class="notice">Approve করলে temporary password <b>1234</b> হবে; member login করে নিজের profile থেকে password পরিবর্তন করবেন।</div><div class="table-wrap" style="margin-top:10px"><table><thead><tr><th>Member</th><th>Request time</th><th></th></tr></thead><tbody>${pendingResets.map(r=>{const a=findAccountById(r.memberId);return `<tr><td>${esc(a?accountLabel(a):r.memberId)}</td><td>${formatDateTime(r.requestedAt)}</td><td class="right"><button class="btn sm" data-reset-request="${esc(r.id)}" data-mid="${esc(r.memberId)}">Reset to 1234</button> <button class="btn red sm" data-reject-reset="${esc(r.id)}">Reject</button></td></tr>`}).join('')||'<tr><td colspan="3" class="empty">কোনো reset request নেই</td></tr>'}</tbody></table></div></div>
+    <div class="card"><h2>Member Login Directory</h2><div class="table-wrap"><table><thead><tr><th>Member ID</th><th>নাম</th><th>মোবাইল</th><th>Status</th><th></th></tr></thead><tbody>${state.auth.members.map(a=>{const inf=accountInfo(a);return `<tr><td><b>${esc(a.memberId)}</b></td><td>${esc(a.name)}</td><td>${esc(inf.mobile||'—')}</td><td><span class="pill ${a.active?'good':'bad'}">${a.active?'Active':'Disabled'}</span></td><td class="right"><button class="btn ghost sm" data-direct-reset="${esc(a.memberId)}">Reset password</button> <button class="btn ${a.active?'red':'blue'} sm" data-toggle-member="${esc(a.memberId)}">${a.active?'Disable':'Enable'}</button></td></tr>`}).join('')}</tbody></table></div><div class="small muted" style="margin-top:10px">নতুন/মাইগ্রেটেড Member account-এর temporary password: 1234। Production server-এ অবশ্যই server-side password storage/auth ব্যবহার করুন।</div></div>`;
+    $$('[data-approve-profile]',box).forEach(b=>b.onclick=()=>approveProfileRequest(b.dataset.approveProfile,true));$$('[data-reject-profile]',box).forEach(b=>b.onclick=()=>approveProfileRequest(b.dataset.rejectProfile,false));
+    $$('[data-reset-request]',box).forEach(b=>b.onclick=()=>resetMemberPassword(b.dataset.mid,b.dataset.resetRequest));$$('[data-reject-reset]',box).forEach(b=>b.onclick=()=>rejectReset(b.dataset.rejectReset));
+    $$('[data-direct-reset]',box).forEach(b=>b.onclick=()=>{if(confirm(`${b.dataset.directReset} password 1234 করবেন?`))resetMemberPassword(b.dataset.directReset)});
+    $$('[data-toggle-member]',box).forEach(b=>b.onclick=()=>{const a=findAccountById(b.dataset.toggleMember);if(a){a.active=!a.active;saveState(`Member ${a.active?'enabled':'disabled'}: ${a.memberId}`)}});
+  }
+
+  const baseRenderAdminContent=renderAdminContent;
+  renderAdminContent=function(){const box=$('#adminContent');if(activeAdminSection==='access')return adminAccess(box);return baseRenderAdminContent()};
+  renderAdmin=function(){
+    const root=$('#admin');if(!adminUnlocked){root.innerHTML=`<div class="card locked"><h2>🔐 Admin Panel</h2><p class="muted">Admin login session প্রয়োজন।</p><div class="field"><label>Admin PIN</label><input id="pinInput" type="password" inputmode="numeric" placeholder="PIN"></div><div class="actions" style="margin-top:10px"><button class="btn" id="unlockBtn">Unlock</button></div></div>`;$('#unlockBtn').onclick=unlock;$('#pinInput').onkeydown=e=>{if(e.key==='Enter')unlock()};return}
+    root.innerHTML=`<div class="admin-shell"><aside class="card admin-menu no-print">${[['settings','সেটিংস'],['access','অনুমোদন ও লগইন'],['payments','সদস্য ও জমা'],['fundedit','তহবিল Edit'],['invedit','বিনিয়োগ'],['contactedit','ব্যক্তিগত তথ্য'],['annualedit','Annual Review'],['tools','Backup / Sync'],['audit','Audit Log']].map(([id,l])=>`<button class="btn ${activeAdminSection===id?'':'ghost'}" data-admin="${id}">${l}</button>`).join('')}<button class="btn red" id="lockAdmin">Lock Admin</button></aside><div id="adminContent"></div></div>`;
+    $$('[data-admin]',root).forEach(b=>b.onclick=()=>{activeAdminSection=b.dataset.admin;renderAdmin()});$('#lockAdmin').onclick=()=>{adminUnlocked=false;renderAdmin()};renderAdminContent();
+  };
+
+  function syncAnnualAfterDeposit(y){
+    const ar=state.annualReviews.find(x=>String(x.year)===String(y));if(!ar)return;ar.deposits=yearTotal(y);ar.grandTotal=num(ar.previous)+num(ar.deposits)+num(ar.profit)-num(ar.loss);
+  }
+  function addDepositTransaction(y,row,month,amount,fund){
+    row.months[month]=num(row.months[month])+amount;fund.amount=num(fund.amount)+amount;const a=accountForName(row.name);
+    state.depositTransactions.unshift({id:'tx'+Date.now(),year:String(y),memberAccountId:row.id,memberId:a?.memberId||'',memberName:row.name,month,amount,fundId:fund.id,fundLabel:fund.label,at:nowIso(),createdBy:currentSession?.role||'admin'});state.depositTransactions=state.depositTransactions.slice(0,1000);syncAnnualAfterDeposit(y);
+  }
+  const baseAdminPayments=adminPayments;
+  adminPayments=function(box){
+    baseAdminPayments(box);const y=$('#admYear')?.value||String(state.meta.currentYear),rows=rowsFor(y),funds=state.funds[y]||[];
+    const card=document.createElement('div');card.className='card';card.innerHTML=`<h2>নতুন জমা গ্রহণ — তহবিল নির্বাচনসহ</h2><div class="notice green">এই ফর্মে জমা Save করলে সদস্যের নির্বাচিত মাসের জমা, নির্বাচিত তহবিল এবং Annual/ড্যাশবোর্ড হিসাব স্বয়ংক্রিয়ভাবে update হবে।</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>সদস্য</label><select id="txMember">${rows.map(r=>{const a=accountForName(r.name);return `<option value="${esc(r.id)}">${esc(a?.memberId||r.id)} — ${esc(r.name)}</option>`}).join('')}</select></div><div class="field"><label>মাস</label><select id="txMonth">${MONTHS.map((m,i)=>`<option value="${i}" ${String(y)===String(state.meta.currentYear)&&i===Number(state.meta.reportMonth)-1?'selected':''}>${m}</option>`).join('')}</select></div><div class="field"><label>Amount</label><input id="txAmount" type="number" min="1" step="1" value="${num(state.meta.monthlyDefault)}"></div><div class="field"><label>কোন তহবিলে জমা</label><select id="txFund">${funds.map(f=>`<option value="${esc(f.id)}">${esc(f.label)} — ${money(f.amount)}</option>`).join('')}</select></div></div><div class="actions" style="margin-top:12px"><button class="btn" id="addDepositTxn" ${rows.length&&funds.length?'':'disabled'}>জমা যোগ করুন</button></div>${!funds.length?'<div class="notice red" style="margin-top:10px">এই বছরে তহবিল নেই। আগে Admin → তহবিল Edit থেকে তহবিল যোগ করুন।</div>':''}<hr class="sep"><h3>সাম্প্রতিক Deposit Transactions</h3>${state.depositTransactions.filter(t=>String(t.year)===String(y)).slice(0,12).map(t=>`<div class="txn-line"><span>${formatDateTime(t.at)}</span><span>${esc(t.memberId||t.memberName)} • ${MONTHS[t.month]||''}</span><b>${money(t.amount)}</b><span>${esc(t.fundLabel)}</span></div>`).join('')||'<div class="empty">নতুন transaction নেই</div>'}`;
+    box.insertBefore(card,box.firstChild);
+    const btn=$('#addDepositTxn');if(btn)btn.onclick=()=>{const row=rows.find(r=>r.id===$('#txMember').value),fund=funds.find(f=>f.id===$('#txFund').value),m=Number($('#txMonth').value),a=num($('#txAmount').value);if(!row||!fund||a<=0)return toast('সদস্য, তহবিল ও amount সঠিকভাবে দিন',true);addDepositTransaction(y,row,m,a,fund);saveState(`${y}: ${row.name} ${MONTHS[m]} deposit ${a} -> ${fund.label}`);toast('জমা ও তহবিল স্বয়ংক্রিয়ভাবে update হয়েছে')};
+  };
+
+  const baseRenderMembers=renderMembers;
+  renderMembers=function(){
+    baseRenderMembers();$$('#members [data-member]').forEach(el=>{const y=el.dataset.year,r=rowsFor(y).find(x=>x.id===el.dataset.member),a=r&&accountForName(r.name),td=el.closest('tr')?.querySelector('td');if(td&&a)td.innerHTML=`<b>${esc(a.memberId)}</b><div class="small muted">${esc(r.id)}</div>`});
+  };
+
+  // Export CSV with stable BBSS Member IDs (BBSS-01, BBSS-02, ...).
+  exportMembersCsv=function(y){
+    const rows=[['ID','Name','Mobile','Blood','Year Total','Target']];
+    rowsFor(y).forEach(r=>{const inf=infoFor(r.name),a=accountForName(r.name);rows.push([a?.memberId||r.id,r.name,inf?.mobile||'',inf?.blood||'',rowTotal(r),expectedFor(y)])});
+    download('\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n'),`BBSS_Members_${y}.csv`,'text/csv;charset=utf-8');
+  };
+  exportDepositsCsv=function(y){
+    // CSV layout: BBSS Member ID, Name, January..December, Total.
+    // Stable member IDs are used (BBSS-01, BBSS-02, ...), not year-ledger IDs.
+    const csvMonths=['January','February','March','April','May','June','July','August','September','October','November','December'];
+    const rows=[['ID','Name',...csvMonths,'Total']];
+    rowsFor(y).forEach(r=>{const a=accountForName(r.name);rows.push([a?.memberId||r.id,r.name,...(r.months||[]).map(v=>num(v)?num(v):''),rowTotal(r)])});
+    download('\ufeff'+rows.map(r=>r.map(csvCell).join(',')).join('\n'),`BBSS_Deposits_${y}.csv`,'text/csv;charset=utf-8');
+  };
+
+  // Members may view every member's monthly deposit amount and total. Personal contact data stays private.
+  const baseRenderDepositsPublic=renderDeposits;
+  renderDeposits=function(){
+    baseRenderDepositsPublic();
+    const root=$('#deposits');
+    if(!root)return;
+    $$('#deposits [data-member]').forEach(el=>{
+      const y=el.dataset.year,r=rowsFor(y).find(x=>x.id===el.dataset.member),a=r&&accountForName(r.name);
+      if(r&&a)el.innerHTML=`<b>${esc(a.memberId)}</b> — ${esc(r.name)}`;
+      if(currentSession?.role==='member'){el.onclick=null;el.style.cursor='default';el.style.textDecoration='none'}
+    });
+    if(currentSession?.role==='member'){
+      const card=root.querySelector('.card');
+      if(card&&!root.querySelector('.member-public-deposit-note')){
+        const note=document.createElement('div');note.className='notice green member-public-deposit-note';note.style.marginBottom='12px';note.innerHTML='সকল সদস্যের মাসভিত্তিক জমা ও মোট জমা এখানে দেখা যাবে। ব্যক্তিগত মোবাইল/রক্তের তথ্য এই তালিকায় দেখানো হয় না।';
+        card.insertBefore(note,card.firstChild.nextSibling);
+      }
+    }
+  };
+
+  const baseRenderAll=renderAll;
+  renderAll=function(){ensureExtendedState();baseRenderAll();renderProfile();applyRoleVisibility()};
+
+  // Initialize added fields before any login attempt, then persist without adding an audit event.
+  ensureExtendedState();persistRaw();bindLoginUi();
+  const restored=loadSession();
+  if(restored?.remoteToken&&window.bbssApiReady()){
+    window.bbssApiPost('session',{token:restored.remoteToken}).then(out=>{
+      if(!out.ok)throw new Error(out.error||'Session expired');
+      state=out.state;persistRaw();bbssMarkSyncSuccess('Online • Session synced');enterApp(restored,true);
+    }).catch(()=>{clearSession();currentSession=null;document.body.classList.remove('authenticated')});
+  }else if(restored&&enterApp(restored,true)){}else{clearSession();currentSession=null;document.body.classList.remove('authenticated')}
+})();
+
+</script>
+
+<script>
+// Live connection indicator + cross-device freshness.
+bbssInitSyncMonitor();
+setInterval(()=>{const s=bbssReadStoredSession();if(s?.remoteToken&&bbssApiUrl())pullApi(true);else if(bbssApiUrl()&&navigator.onLine)testApiConnection(true)},60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1f63d5">
+  <title>পরিচালনা পরিষদ ২০২৬ — ভাই-ব্রাদার্স সঞ্চয় সমিতি</title>
+  <style>
+    :root{
+      --bg:#0d120f;
+      --panel:#141c17;
+      --panel2:#19231d;
+      --line:#2c3a31;
+      --text:#f4f3eb;
+      --muted:#a9b3ac;
+      --accent:#1f63d5;
+      --accent2:#67a0ff;
+      --green:#55c58f;
+      --gold:#e8b85c;
+      --orange:#f08a3c;
+      --shadow:0 18px 55px rgba(0,0,0,.28);
+      --r:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at 12% 0%,rgba(31,99,213,.18),transparent 28%),
+        radial-gradient(circle at 88% 10%,rgba(85,197,143,.10),transparent 25%),
+        var(--bg);
+    }
+    a{color:inherit}
+    .wrap{max-width:1120px;margin:auto;padding:22px 16px 56px}
+    .top-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .back-btn{
+      display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+      border:1px solid var(--line);background:#121914;color:#fff;
+      padding:10px 14px;border-radius:12px;font-weight:800;cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.18)
+    }
+    .back-btn:hover{border-color:#496454;background:#18231c}
+    .session-badge{padding:8px 12px;border-radius:999px;background:#1e3150;color:#d9e7ff;border:1px solid #345b99;font-size:13px;font-weight:800}
+    .hero{
+      position:relative;overflow:hidden;text-align:center;
+      border:1px solid var(--line);border-radius:26px;
+      background:linear-gradient(145deg,#132219,#0f1712);
+      padding:30px 22px;box-shadow:var(--shadow)
+    }
+    .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:linear-gradient(90deg,transparent,var(--accent),var(--green),var(--accent),transparent)}
+    .brand-logo{width:100px;height:100px;object-fit:contain;background:#fff;border-radius:22px;padding:6px;border:2px solid rgba(255,255,255,.9);box-shadow:0 12px 28px rgba(0,0,0,.28)}
+    .brand-fallback{display:none;width:100px;height:100px;margin:auto;border-radius:22px;place-items:center;background:linear-gradient(145deg,#2f8e63,#1f63d5);font-weight:900;font-size:24px}
+    h1{margin:16px 0 6px;font-size:clamp(28px,4.5vw,44px);line-height:1.2}
+    .hero p{margin:0 auto;color:var(--muted);max-width:760px;font-size:15px}
+    .section-title{text-align:center;margin:30px 0 14px}
+    .section-title h2{margin:0;color:#7ec0ff;font-size:clamp(24px,3.4vw,34px)}
+    .section-title p{margin:7px 0 0;color:var(--muted);font-size:13px}
+    .committee-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .member-card{
+      border:1px solid var(--line);border-radius:var(--r);padding:18px;
+      background:linear-gradient(155deg,var(--panel),#111914);
+      box-shadow:0 12px 34px rgba(0,0,0,.20);text-align:center
+    }
+    .photo-slot{
+      width:128px;height:128px;margin:0 auto 14px;border-radius:24px;
+      border:1px dashed #496454;background:linear-gradient(145deg,#17251d,#101713);
+      display:grid;place-items:center;color:#75867b;font-size:13px;overflow:hidden
+    }
+    .photo-slot img{width:100%;height:100%;object-fit:cover}
+    .role{display:inline-flex;padding:5px 9px;border-radius:999px;background:#2a2417;color:#ffd78b;border:1px solid #6f5423;font-size:12px;font-weight:800}
+    .member-card h3{margin:10px 0 4px;font-size:19px;color:#fff}
+    .member-card .name-en{margin:0;color:var(--muted);font-size:12px}
+    .member-card.primary{border-color:#5f78a6;box-shadow:0 14px 38px rgba(31,99,213,.16)}
+    .notice{
+      margin-top:24px;border:1px solid #5a4b2f;border-left:4px solid var(--gold);
+      border-radius:16px;padding:16px 17px;background:#241f14;color:#e8dfc7;
+      line-height:1.8;font-size:14px
+    }
+    .notice strong{color:#fff}
+    .source-note{margin-top:14px;color:#7f8c84;text-align:center;font-size:11px}
+    .edit-note{margin-top:18px;padding:12px;border-radius:12px;background:#111914;border:1px solid var(--line);color:var(--muted);font-size:12px}
+    code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#c6d8ff}
+    @media(max-width:900px){.committee-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){
+      .wrap{padding-inline:10px}.hero{padding:24px 14px}.committee-grid{grid-template-columns:1fr 1fr;gap:10px}
+      .member-card{padding:13px}.photo-slot{width:100px;height:100px;border-radius:19px}.member-card h3{font-size:16px}
+      .role{font-size:11px}.notice{font-size:13px}
+    }
+  
+.bbss-footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
+.bbss-footer span{margin:0 6px;color:#5e6c63}.bbss-footer a{color:#75a7ff;text-decoration:none;font-weight:700}.bbss-footer a:hover{text-decoration:underline;text-underline-offset:3px}
+@media print{.bbss-footer{color:#444;border-top:1px solid #bbb}.bbss-footer a{color:#111;text-decoration:none}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-actions">
+      <button class="back-btn" id="backBtn" type="button">← ফিরে যান</button>
+      <div class="session-badge">সেশন ২০২৬</div>
+    </div>
+
+    <section class="hero">
+      <img class="brand-logo" src="Bhai Brother Shonchoy Somity logo.jpg" alt="ভাই-ব্রাদার্স সঞ্চয় সমিতি লোগো" onerror="this.style.display='none';document.getElementById('brandFallback').style.display='grid'">
+      <div id="brandFallback" class="brand-fallback">BBSS</div>
+      <h1>ভাই-ব্রাদার্স সঞ্চয় সমিতি</h1>
+      <p>২০২৬ সেশনের জন্য নিম্নোক্ত ব্যক্তিগণ আগামী এক বছরের জন্য দায়িত্ব পালন করবেন।</p>
+    </section>
+
+    <div class="section-title">
+      <h2>পরিচালনা পরিষদ</h2>
+      <p>২০২৬ সেশনের পরিচালনা পরিষদের দায়িত্বপ্রাপ্ত সদস্যবৃন্দ।</p>
+    </div>
+
+    <section class="committee-grid">
+      <article class="member-card primary">
+        <div class="photo-slot">
+          <img src="ariful.jpg" alt="আরিফুল ইসলাম পারভেজ">
+        </div>
+        <span class="role">সভাপতি</span>
+        <h3>আরিফুল ইসলাম পারভেজ</h3>
+        <p class="name-en">Ariful Islam Parvej</p>
+      </article>
+
+      <article class="member-card">
+        <div class="photo-slot">
+          <img src="rakib.jpg" alt="রাকিব শিকদার">
+        </div>
+        <span class="role">সহ-সভাপতি</span>
+        <h3>রাকিব শিকদার</h3>
+        <p class="name-en">Rakib Sikdar</p>
+      </article>
+
+      <article class="member-card">
+        <div class="photo-slot">
+          <img src="imran.jpg" alt="ইমরান হোসেন">
+        </div>
+        <span class="role">সেক্রেটারি</span>
+        <h3>ইমরান হোসেন</h3>
+        <p class="name-en">Imran Hossen</p>
+      </article>
+
+      <article class="member-card">
+        <div class="photo-slot">
+          <img src="taj.jpg" alt="জহিরুল ইসলাম তাজ">
+        </div>
+        <span class="role">ক্যাশিয়ার</span>
+        <h3>জহিরুল ইসলাম তাজ</h3>
+        <p class="name-en">Zahirul Islam Taj</p>
+      </article>
+    </section>
+
+    <div class="notice">
+      <strong>সদস্য সঞ্চয় সংক্রান্ত স্মরণিকা:</strong><br>
+      প্রত্যেক সদস্যকে ইংরেজি মাসের ০১ থেকে ১৫ তারিখের মধ্যে ৫০০/- (পাঁচশত টাকা) সঞ্চয় ফান্ডে জমা দিতে হবে।
+      ১৫ তারিখের ঊর্ধ্বে ২য় মাস পর্যন্ত সময়ক্ষেপণ করলে ৫০ টাকা বিলম্ব ফি দিতে হবে।
+      ১–৬ মাস পর্যন্ত এক নাগাড়ে কোনো সদস্য সঞ্চয় দিতে অক্ষম হলে তার সদস্য পদ বাতিল বলে গণ্য হবে।
+    </div>
+
+
+    <div class="source-note">ভাই-ব্রাদার্স সঞ্চয় সমিতি • পরিচালনা পরিষদ • ২০২৬</div>
+  </div>
+
+  <script>
+    document.getElementById('backBtn').addEventListener('click', function(){
+      try{
+        if(window.opener && !window.opener.closed){
+          window.opener.focus();
+          window.close();
+          return;
+        }
+      }catch(e){}
+      if(history.length > 1){
+        history.back();
+      }else{
+        location.href = 'bbss_savings_pro.html';
+      }
+    });
+  </script>
+
+<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+</body>
+</html>

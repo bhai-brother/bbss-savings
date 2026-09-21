@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1f63d5">
+  <title>BBSS - নীতিমালা</title>
+  <style>
+    :root{
+      --bg:#0d120f;
+      --panel:#141c17;
+      --panel2:#19231d;
+      --line:#2c3a31;
+      --text:#f4f3eb;
+      --muted:#a8b3ac;
+      --accent:#1f63d5;
+      --accent2:#75a7ff;
+      --green:#55c58f;
+      --gold:#e8b85c;
+      --shadow:0 18px 48px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 0,rgba(31,99,213,.18),transparent 30%),
+        radial-gradient(circle at 85% 15%,rgba(85,197,143,.10),transparent 24%),
+        var(--bg);
+      font-family:"Noto Sans Bengali","Hind Siliguri","SolaimanLipi",system-ui,-apple-system,"Segoe UI",sans-serif;
+      line-height:1.75;
+    }
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      border-bottom:1px solid rgba(117,167,255,.24);
+      background:rgba(10,17,14,.88);
+      backdrop-filter:blur(14px);
+    }
+    .topbar-inner{
+      max-width:1000px;margin:auto;padding:12px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+    }
+    .brand{display:flex;align-items:center;gap:11px;min-width:0}
+    .mark{
+      width:46px;height:46px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(145deg,var(--accent),#173c72);
+      color:#fff;font-weight:900;font-size:13px;letter-spacing:.5px;
+      box-shadow:0 8px 22px rgba(31,99,213,.28);
+      flex:0 0 auto;
+    }
+    .brand h1{font-size:16px;margin:0;line-height:1.25}
+    .brand p{font-size:11px;margin:3px 0 0;color:var(--muted)}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{
+      border:1px solid var(--line);border-radius:10px;padding:8px 11px;
+      background:#152019;color:#fff;cursor:pointer;font:inherit;font-size:12px;
+    }
+    .btn.primary{background:var(--accent);border-color:#4d85df}
+    .btn:hover{filter:brightness(1.08)}
+    .wrap{max-width:1000px;margin:auto;padding:28px 18px 70px}
+    .hero{
+      text-align:center;padding:30px 22px;margin-bottom:18px;border-radius:22px;
+      background:linear-gradient(145deg,rgba(31,99,213,.18),rgba(20,28,23,.92));
+      border:1px solid rgba(117,167,255,.22);box-shadow:var(--shadow);
+    }
+    .hero .eyebrow{display:inline-block;color:#cfe0ff;font-size:12px;letter-spacing:.6px;margin-bottom:7px}
+    .hero h2{font-size:clamp(30px,6vw,48px);margin:0;color:#fff;line-height:1.1}
+    .hero p{margin:10px auto 0;max-width:700px;color:#bec9c2;font-size:13px}
+    .card{
+      background:linear-gradient(155deg,var(--panel),#101713);
+      border:1px solid var(--line);border-radius:18px;padding:20px;
+      margin:14px 0;box-shadow:var(--shadow);
+    }
+    .card h3{margin:0 0 12px;color:var(--green);font-size:18px}
+    .intro p{margin:0 0 12px;color:#e4e8e5}
+    .intro p:last-child{margin-bottom:0}
+    ol.rules{margin:0;padding-left:28px}
+    ol.rules>li{padding:7px 0 11px 8px;color:#eef1ef}
+    ol.rules>li::marker{font-weight:800;color:var(--accent2)}
+    .subrule{margin-top:8px;padding-left:14px;border-left:3px solid rgba(117,167,255,.42)}
+    .subrule p{margin:8px 0}
+    .closing{
+      border-left:4px solid var(--accent2);background:rgba(31,99,213,.10);
+      padding:15px 16px;border-radius:12px;color:#dce9ff;font-weight:700;
+    }
+    .source{margin-top:18px;text-align:center;color:#7f8e85;font-size:11px}
+    @media(max-width:640px){
+      .topbar-inner{align-items:flex-start}.brand h1{font-size:14px}.actions{justify-content:flex-end}
+      .wrap{padding:20px 12px 48px}.hero{padding:24px 15px}.card{padding:16px}
+      ol.rules{padding-left:23px}.btn{padding:7px 9px}
+    }
+    @media print{
+      body{background:#fff;color:#111}.topbar{display:none}.wrap{max-width:none;padding:0}
+      .hero,.card{box-shadow:none;background:#fff;border-color:#bbb;color:#111}
+      .hero h2,.card h3,.intro p,ol.rules>li{color:#111}.hero p,.source{color:#444}
+      .closing{color:#111;background:#f5f7fb;border-left-color:#1f63d5}
+    }
+  
+.bbss-footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
+.bbss-footer span{margin:0 6px;color:#5e6c63}.bbss-footer a{color:#75a7ff;text-decoration:none;font-weight:700}.bbss-footer a:hover{text-decoration:underline;text-underline-offset:3px}
+@media print{.bbss-footer{color:#444;border-top:1px solid #bbb}.bbss-footer a{color:#111;text-decoration:none}}
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="mark">BBSS</div>
+        <div>
+          <h1>ভাই-ব্রাদার্স সঞ্চয় সমিতি</h1>
+          <p>নীতিমালা / Rules</p>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" onclick="window.print()">Print / PDF</button>
+        <button class="btn primary" type="button" onclick="goBackToApp()">ফিরে যান</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <span class="eyebrow">BHAI-BROTHERS SHONCHOY SOMITY</span>
+      <h2>নীতিমালা</h2>
+      <p>সমিতির কার্যক্রম, সদস্যপদ, সঞ্চয়, পরিচালনা ও সিদ্ধান্ত গ্রহণের নিয়মাবলি</p>
+    </section>
+
+    <section class="card intro">
+      <h3>প্রস্তাবনা</h3>
+      <p>“ভাই-ব্রাদার্স সঞ্চয় সমিতি” একটি আর্থ সামাজিক অর্থনৈতিক ও সামাজিক সংগঠন। সুদমুক্ত অর্থনৈতিক ভিত্তি গঠনের জন্য, অর্থ সঞ্চয় ও পরিচালনা এবং ব্যবসায়িক কর্মকাণ্ডে অংশ গ্রহণ করাই এর মূল লক্ষ্য এবং প্রধান কাজ বলে বিবেচিত হবে। স্থানীয় এলাকার তরুণ ও যুব সমাজ সুদমুক্ত সঞ্চয় ও ব্যবসা পরিচালনার মাধ্যমে মুনাফা অর্জন করে আত্মনির্ভরশীল জীবন গঠনের জন্য আলাপ আলোচনার মাধ্যমে “ভাই-ব্রাদার্স সঞ্চয় সমিতি” নামে একটি সমবায় সমিতি গঠন করে।</p>
+      <p>সমিতির কার্যক্রম সুশৃঙ্খল ও অবিচল পথ চলার জন্য এর একটি সাংবিধানিক নিয়ম কানুন প্রয়োজন হয়ে পড়ে, সে লক্ষ্যে সমিতির সকল সদস্যগণ নিম্নোক্ত ধারা/নিয়ম/সংবিধান প্রণয়ন করেন।</p>
+    </section>
+
+    <section class="card">
+      <h3>ধারা / নিয়ম</h3>
+      <ol class="rules">
+        <li>সমিতির নাম “ভাই-ব্রাদার্স সঞ্চয় সমিতি”।</li>
+
+        <li>সমিতির প্রাথমিক মেয়াদকাল দশ (১০) বছর। যাত্রা শুরু ১ই জানুয়ারি ২০২৪। সমাপ্তি ৩১ই ডিসেম্বর ২০৩৪ খ্রি:। মেয়াদ শেষ হলে সদস্যগণের আলাপ আলোচনার মাধ্যমে পুনরায় এর মেয়াদ নির্ধারণ করবেন। তবে মেয়াদ শেষ হলে যে সমস্ত সদস্যগণ স্বেচ্ছায় চলে যেতে চাইবেন তারা লভ্যাংশসহ চলে যেতে পারবেন।</li>
+
+        <li>যদি মধ্যবর্তী সময়ে নতুন কোন সদস্য যুক্ত হতে চায় তাহলে চালু হওয়ার পর থেকে যে কয় মাস বা বছর অতিবাহিত হয়েছে তার সে কয়মাসের সম্পূর্ণ চাঁদা দিয়ে সদস্য হতে পারবে। তবে, সমিতির সঞ্চয় যদি পূর্বে ব্যবসায়িক কাজে চলমান থাকে তাহলে তিনি পুরানো সদস্যদের সমান টাকা দিয়ে সদস্য হতে পারেন।</li>
+
+        <li>সদস্য সমিতিতে একাধিক সদস্যপদ রাখতে পারবেন। তবে সমিতি সুষ্ঠুভাবে পরিচালনা করার জন্য একাধিক সদস্যপদ রাখলে নিয়মিত চাঁদা আদায়ে কোনো বিলম্ব করা যাবে না।</li>
+
+        <li>প্রত্যেক সদস্যকে ইংরেজি মাসের ০১ থেকে ১৫ তারিখের মধ্যে ৫০০/- (পাঁচশত টাকা) সঞ্চয় ফান্ডে জমা দিতে হবে। ১৫ তারিখের উর্ধ্বে ২য় মাস পর্যন্ত সময় ক্ষেপণ করলে ৫০ টাকা বিলম্ব ফি দিতে হবে। ১-৬ মাস পর্যন্ত এক নাগাড়ে কোন সদস্য সঞ্চয় দিতে অক্ষম হলে তার সদস্য পদ বাতিল বলে গণ্য হবে।</li>
+
+        <li>
+          <div class="subrule">
+            <p><b>(ক)</b> বাতিলকৃত বা স্বেচ্ছায় সদস্য চলে যেতে চাইলে সঞ্চয়কৃত টাকা সদস্যদের মেয়াদ ১ বছর পূর্ণ না করিলে তার জমাকৃত টাকা অফেরতযোগ্য। সঞ্চয়কৃত টাকা উত্তোলন করার জন্য কোন প্রকার সামাজিক ও আইনি তদবির করতে পারবেনা।</p>
+            <p><b>(খ)</b> বাতিলকৃত বা স্বেচ্ছায় সদস্য চলে যেতে চাইলে সঞ্চয়কৃত টাকা সমিতির মেয়াদ ৫ বছর পূর্ণ করিলে লভ্যাংশসহ প্রদান করা হবে। কোনো সদস্য ৫ বছর মেয়াদ শেষ না হওয়া পর্যন্ত কোন সদস্য সঞ্চয়কৃত ও লভ্যাংশসহ টাকা উত্তোলন করার জন্য কোন প্রকার সামাজিক ও আইনি তদবির করতে পারবেনা।</p>
+          </div>
+        </li>
+
+        <li>সমিতির মূল ভিত্তি হলো লাভ লোকসানের সমতা বন্টন, অর্থাৎ লাভের যেমন ভাগ পাবে ঠিক তেমনি লসেরও ভাগ নিতে হবে।</li>
+
+        <li>সমিতি পরিচালনা জন্য ৩ সদস্যের কমিটি থাকবেন। ১ বছরের জন্য পরিচালনা কমিটি করা হবে। সকল সদস্যের ভোটের মাধ্যমে নির্বাচিত হবে। (ক) সভাপতি (খ) সেক্রেটারি (গ) ক্যাশিয়ার</li>
+
+        <li>সকল সদস্যের কাছে সমিতির পরিচালনা কমিটি স্বচ্ছতা, সততা ও ন্যায় পরায়ণতার জন্য জবাব দিহিতা করতে বাধ্য থাকবেন।</li>
+
+        <li>সমিতির যে কোন প্রয়োজনে পরিচালনা কমিটি যদি সদস্যকে আহবান করে কিংবা মিটিং এর ডাক দেন তাহলে প্রত্যেক সদস্যের উপস্থিতি বাধ্যতামূলক।</li>
+
+        <li>প্রতি বছর ঈদুল ফিতর ও ঈদুল আযহার পর দুটি মিটিং এবং সমিতির বার্ষিক মিটিং বছরের শেষ সপ্তাহ (ডিসেম্বর) বা নতুন বছরের প্রথম সপ্তাহ (জানুয়ারি) অনুষ্ঠিত হবে। সেখানে সমিতির পর্যালোচনা, মূল্যায়ণ, বাৎসরিক আয় ব্যয়ের উপর প্রতিবেদন পেশ করা হবে। এছাড়াও প্রতি মাসে একটি অনলাইন মিটিং অনুষ্ঠিত হবে।</li>
+
+        <li>সমিতির যে কোন পদের সদস্য থেকে সংবিধানে প্রণীত নীতিমালার পরিপন্থী কোন কাজ প্রকাশ পেলে তাকে সাময়িক বাতিল কিংবা স্থায়ী বাতিল যেকোন ধরনের সিদ্ধান্ত গ্রহণ করার অধিকার রাখবে সমিতি কর্তৃপক্ষ।</li>
+      </ol>
+    </section>
+
+    <section class="closing">
+      এছাড়াও নতুন কোন সমস্যা দেখা দিলে পরিচালনা কমিটি মিটিং আহবান করে সকল সদস্যের মতামতের ভিত্তিতে সমাধান দিতে পারবেন। তবে 60% এর অধিক সমর্থন থাকতে হবে।
+    </section>
+
+    <div class="source">ভাই-ব্রাদার্স সঞ্চয় সমিতির প্রদত্ত নীতিমালা PDF অনুসারে প্রস্তুত।</div>
+  </main>
+
+  <script>
+    function goBackToApp(){
+      // Rules নতুন tab/window-এ খোলা হলে আগের BBSS window-এ ফিরে যান।
+      try{
+        if(window.opener && !window.opener.closed){
+          window.opener.focus();
+          window.close();
+          return;
+        }
+      }catch(e){}
+
+      // একই tab-এ খোলা হলে যে page থেকে এসেছে সেখানে ফিরে যান।
+      try{
+        if(document.referrer){
+          const ref=new URL(document.referrer, window.location.href);
+          if(ref.href && ref.href !== window.location.href){
+            window.location.href=ref.href;
+            return;
+          }
+        }
+      }catch(e){}
+
+      // সরাসরি rules.html খোলা হলে মূল BBSS HTML-এ যান।
+      window.location.href='bbss_savings_pro.html';
+    }
+  </script>
+
+<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+</body>
+</html>
