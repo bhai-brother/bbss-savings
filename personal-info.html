@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#1f63d5">
+<title>ব্যক্তিগত তথ্য — BBSS</title>
+<style>
+:root{--bg:#0d120f;--panel:#141c17;--panel2:#19231d;--line:#2c3a31;--text:#f4f3eb;--muted:#9ba69e;--green:#55c58f;--green2:#2f8e63;--gold:#e8b85c;--red:#ed7b72;--blue:#75a7ff;--shadow:0 12px 34px rgba(0,0,0,.22)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 15% 0,#17251d 0,transparent 28%),var(--bg);color:var(--text);font-family:"Noto Sans Bengali","Hind Siliguri",system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.45}
+button,input{font:inherit}.topbar{position:sticky;top:0;z-index:20;background:rgba(10,18,14,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);box-shadow:0 8px 28px rgba(0,0,0,.2)}
+.head{max-width:1280px;margin:auto;padding:12px 16px;display:flex;gap:12px;align-items:center}.logo{width:52px;height:52px;object-fit:contain;background:#fff;border-radius:14px;padding:3px;border:1px solid rgba(255,255,255,.8)}.title{min-width:0}.title h1{font-size:20px;margin:0}.title p{font-size:11px;color:var(--muted);margin:3px 0 0}.spacer{flex:1}
+.btn{border:0;border-radius:9px;padding:9px 12px;background:var(--green2);color:#fff;font-weight:700;cursor:pointer}.btn:hover{filter:brightness(1.08)}.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}.btn.blue{background:#345b99}.btn.red{background:#8b3e39}.btn.sm{padding:6px 9px;font-size:12px}.btn:disabled{opacity:.5;cursor:not-allowed}
+.app{max-width:1280px;margin:auto;padding:18px 16px 70px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.kpi,.card{background:linear-gradient(155deg,var(--panel),#111914);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.kpi{padding:15px}.kpi small{color:var(--muted)}.kpi strong{display:block;color:var(--green);font-size:23px;margin-top:4px}.card{padding:16px;margin:14px 0}.card h2{font-size:18px;color:var(--green);margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px}.notice{padding:11px 12px;border-left:3px solid var(--gold);background:#282417;border-radius:7px;color:#d6ceb4;font-size:12px}.notice.green{border-color:var(--green);background:#16281e;color:#b6e9cc}.notice.red{border-color:var(--red);background:#2c1c1a;color:#f3b5b0}
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;align-items:center}.toolbar>*{flex:1 1 180px}.toolbar .wide{flex:2 1 300px}input{width:100%;background:#0d1410;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 10px;outline:none}input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(85,197,143,.12)}
+.status{display:inline-flex;align-items:center;gap:7px;padding:6px 9px;border-radius:999px;border:1px solid var(--line);font-size:11px;color:#bcd5c7;background:#0c1710}.status i{width:8px;height:8px;border-radius:50%;background:var(--gold)}.status.online i{background:var(--green)}.status.error i{background:var(--red)}
+.member-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.member{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start;background:#0f1712;border:1px solid var(--line);border-radius:14px;padding:13px}.avatar{width:74px;height:74px;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,#21382b,#14271d);border:1px solid #3c5b49;font-weight:900;color:#dff4e7}.avatar img{width:100%;height:100%;object-fit:cover}.member h3{font-size:15px;margin:0}.mid{display:inline-flex;margin-top:4px;padding:3px 7px;border-radius:999px;background:#1e3150;color:#c7dcff;font-size:10px}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:9px}.meta div{background:#0b120e;border:1px solid #26342b;border-radius:8px;padding:7px}.meta small{display:block;color:var(--muted);font-size:10px}.meta b{font-size:12px;word-break:break-word}.full{grid-column:1/-1}
+.request{border:1px solid #7c6432;background:#1b1a12;border-radius:13px;padding:13px;margin:10px 0}.request-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.request-info{display:grid;grid-template-columns:130px 1fr;gap:6px;margin:10px 0;font-size:12px}.request-info span{color:var(--muted)}.mini-avatar{width:58px;height:58px;border-radius:12px;object-fit:cover;border:1px solid #485b4f}.actions{display:flex;gap:8px;flex-wrap:wrap}.empty{text-align:center;color:var(--muted);padding:24px}.footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}.footer a{color:var(--blue);text-decoration:none;font-weight:700}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.member-grid{grid-template-columns:1fr}}@media(max-width:560px){.head{align-items:flex-start;flex-wrap:wrap}.spacer{display:none}.head .btn{flex:1}.grid{grid-template-columns:1fr 1fr}.member{grid-template-columns:60px 1fr}.avatar{width:60px;height:60px}.meta{grid-template-columns:1fr}.request-info{grid-template-columns:1fr}.request-info span{margin-top:5px}.app{padding-inline:10px}}
+</style>
+<script src="bbss_config.js"></script>
+</head>
+<body>
+<header class="topbar"><div class="head">
+  <img class="logo" src="Bhai Brother Shonchoy Somity logo.jpg" alt="BBSS logo">
+  <div class="title"><h1>ব্যক্তিগত তথ্য</h1><p id="orgName">ভাই-ব্রাদার্স সঞ্চয় সমিতি • Admin view</p></div>
+  <div class="spacer"></div><span class="status" id="syncStatus"><i></i><span>Checking…</span></span>
+  <button class="btn ghost" type="button" onclick="location.href='bbss_savings_pro.html'">← মূল অ্যাপ</button>
+  <button class="btn blue" id="refreshBtn" type="button">Refresh</button>
+</div></header>
+<main class="app">
+  <div id="guard" class="notice">Admin session যাচাই হচ্ছে…</div>
+  <div id="content" hidden>
+    <div class="grid" id="summary"></div>
+    <div class="card"><div class="toolbar"><div class="wide"><input id="search" placeholder="Member ID / নাম / মোবাইল / blood / email দিয়ে খুঁজুন"></div><div><button class="btn ghost" id="showPending" type="button">Pending Requests দেখুন</button></div></div></div>
+    <section id="pendingSection" class="card"><h2>Profile Approval Requests</h2><div id="pending"></div></section>
+    <section class="card"><h2>সদস্যদের ব্যক্তিগত তথ্য</h2><div class="notice green" style="margin-bottom:12px">Member Profile থেকে তথ্য/ছবি submit হলে আগে Pending Request হিসেবে আসে। Approve করার পর নিচের Personal Information-এ আপডেট হয়ে যাবে।</div><div class="member-grid" id="members"></div></section>
+  </div>
+</main>
+<footer class="footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি • Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+<script>
+const AUTH_SESSION_KEY='bbss_auth_session_v1';
+const STORE_KEY='bbss_dynamic_full_v3';
+let session=null,state=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+const num=v=>Number(v)||0;
+const money=v=>'৳'+Math.round(num(v)).toLocaleString('en-BD');
+function norm(v){return String(v||'').trim().toLowerCase()}
+function baseName(name){return String(name||'').replace(/-(01|02)$/i,'').trim()}
+function apiUrl(){const u=String(window.BBSS_API_URL||'').trim();return /^https:\/\/script\.google\.com\/macros\/s\/.+\/exec(?:\?.*)?$/i.test(u)?u:''}
+function storedSession(){try{return JSON.parse(sessionStorage.getItem(AUTH_SESSION_KEY)||localStorage.getItem(AUTH_SESSION_KEY)||'null')}catch(e){return null}}
+async function post(action,payload={}){const url=apiUrl();if(!url)throw new Error('Apps Script URL পাওয়া যায়নি');const res=await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,...payload}),redirect:'follow',cache:'no-store'});if(!res.ok)throw new Error('HTTP '+res.status);return await res.json()}
+function status(kind,text){const el=$('#syncStatus');el.className='status '+kind;el.querySelector('span').textContent=text}
+function initials(name){return String(name||'BB').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'BB'}
+function accountNames(a){return new Set([a.name,...(a.aliases||[])].map(norm))}
+function totalDeposit(a){const names=accountNames(a);let t=0;Object.values(state.deposits||{}).forEach(rows=>(rows||[]).forEach(r=>{if(names.has(norm(r.name)))t+=(r.months||[]).reduce((s,v)=>s+num(v),0)}));return t}
+function personalFallback(a){const n=norm(baseName(a.name));return (state.personalInfo||[]).find(x=>norm(baseName(x.name))===n)||{}}
+function profileInfo(a){const p=a.profile||{},f=personalFallback(a);return {mobile:p.mobile||f.mobile||'',blood:p.blood||f.blood||'',email:p.email||f.email||'',address:p.address||f.address||''}}
+function findMember(id){return state?.auth?.members?.find(a=>String(a.memberId||'')===String(id||''))||null}
+function formatDate(v){if(!v)return '—';const d=new Date(v);return isNaN(d)?String(v):d.toLocaleString('bn-BD')}
+function persist(){try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){}}
+function findPersonalForName(name){const key=norm(baseName(name));return (state.personalInfo||[]).find(x=>norm(baseName(x.name))===key)||null}
+function applyProfileRequest(req,approve){
+  const a=findMember(req.memberId);if(!a)throw new Error('Member পাওয়া যায়নি');
+  if(!approve){req.status='rejected';req.reviewedAt=new Date().toISOString();return}
+  const oldName=a.name,newName=String(req.changes?.name||oldName).trim()||oldName;
+  if(norm(newName)!==norm(oldName)){
+    a.aliases=[...new Set([...(a.aliases||[]),oldName,newName])];
+    Object.values(state.deposits||{}).forEach(rows=>(rows||[]).forEach(r=>{if(norm(r.name)===norm(oldName))r.name=newName}));
+    a.name=newName;
+  }
+  const c=req.changes||{};
+  a.profile={...(a.profile||{}),mobile:String(c.mobile||''),blood:String(c.blood||''),email:String(c.email||''),address:String(c.address||'')};
+  if(req.photoData)a.photoData=req.photoData;
+  state.personalInfo=Array.isArray(state.personalInfo)?state.personalInfo:[];
+  let inf=findPersonalForName(oldName)||findPersonalForName(newName);
+  if(inf)Object.assign(inf,{name:baseName(newName),mobile:a.profile.mobile,blood:a.profile.blood,email:a.profile.email,address:a.profile.address});
+  else state.personalInfo.push({id:'p'+Date.now(),name:baseName(newName),mobile:a.profile.mobile,blood:a.profile.blood,email:a.profile.email,address:a.profile.address});
+  req.status='approved';req.reviewedAt=new Date().toISOString();
+}
+async function saveStateRemote(action){
+  state.meta=state.meta||{};state.meta.lastUpdated=new Date().toISOString();state.audit=Array.isArray(state.audit)?state.audit:[];state.audit.unshift({at:state.meta.lastUpdated,action});state.audit=state.audit.slice(0,150);
+  status('','Saving…');const out=await post('save',{token:session.remoteToken,state});if(!out.ok)throw new Error(out.error||'Save failed');state=out.state;persist();status('online','Online • Saved');render();
+}
+async function reviewRequest(id,approve){
+  const req=(state.auth?.profileRequests||[]).find(r=>r.id===id);if(!req||req.status!=='pending')return;
+  const label=approve?'Approve':'Reject';if(!confirm(`${label} করবেন?`))return;
+  try{applyProfileRequest(req,approve);await saveStateRemote(`Profile request ${approve?'approved':'rejected'}: ${req.memberId}`)}catch(e){status('error','Save failed');alert(e.message)}
+}
+function renderSummary(){const members=state.auth?.members||[],pending=(state.auth?.profileRequests||[]).filter(r=>r.status==='pending'),withPhoto=members.filter(a=>a.photoData).length,complete=members.filter(a=>{const p=profileInfo(a);return p.mobile&&p.blood}).length;$('#summary').innerHTML=`<div class="kpi"><small>মোট Member</small><strong>${members.length}</strong></div><div class="kpi"><small>Pending Profile Request</small><strong>${pending.length}</strong></div><div class="kpi"><small>ছবি আছে</small><strong>${withPhoto}</strong></div><div class="kpi"><small>Mobile + Blood সম্পূর্ণ</small><strong>${complete}</strong></div>`}
+function renderPending(){const list=(state.auth?.profileRequests||[]).filter(r=>r.status==='pending');$('#pending').innerHTML=list.length?list.map(r=>{const a=findMember(r.memberId),c=r.changes||{};return `<div class="request"><div class="request-head"><div><b>${esc(r.memberId)} — ${esc(a?.name||'')}</b><div class="small muted">${esc(formatDate(r.submittedAt))}</div></div>${r.photoData?`<img class="mini-avatar" src="${r.photoData}" alt="new profile photo">`:''}</div><div class="request-info"><span>নাম</span><b>${esc(c.name||a?.name||'—')}</b><span>মোবাইল</span><b>${esc(c.mobile||'—')}</b><span>Blood</span><b>${esc(c.blood||'—')}</b><span>Email</span><b>${esc(c.email||'—')}</b><span>ঠিকানা</span><b>${esc(c.address||'—')}</b></div><div class="actions"><button class="btn sm" onclick="reviewRequest('${esc(r.id)}',true)">Approve</button><button class="btn red sm" onclick="reviewRequest('${esc(r.id)}',false)">Reject</button></div></div>`}).join(''):'<div class="empty">কোনো Pending Profile Request নেই</div>'}
+function renderMembers(){const q=norm($('#search').value),members=(state.auth?.members||[]).filter(a=>{const p=profileInfo(a);return !q||[a.memberId,a.name,p.mobile,p.blood,p.email,p.address].some(v=>norm(v).includes(q))});$('#members').innerHTML=members.length?members.map(a=>{const p=profileInfo(a),photo=a.photoData?`<img src="${a.photoData}" alt="profile">`:esc(initials(a.name));return `<article class="member"><div class="avatar">${photo}</div><div><h3>${esc(a.name)}</h3><span class="mid">${esc(a.memberId)}</span><div class="meta"><div><small>মোবাইল</small><b>${esc(p.mobile||'—')}</b></div><div><small>Blood</small><b>${esc(p.blood||'—')}</b></div><div><small>Email</small><b>${esc(p.email||'—')}</b></div><div><small>মোট জমা</small><b>${money(totalDeposit(a))}</b></div><div class="full"><small>ঠিকানা</small><b>${esc(p.address||'—')}</b></div></div></div></article>`}).join(''):'<div class="empty">কোনো সদস্য পাওয়া যায়নি</div>'}
+function render(){if(!state)return;$('#orgName').textContent=((state.meta&&state.meta.organization)||'ভাই-ব্রাদার্স সঞ্চয় সমিতি')+' • Admin view';renderSummary();renderPending();renderMembers()}
+async function load(){
+  session=storedSession();
+  if(!session||session.role!=='admin'||!session.remoteToken){$('#guard').className='notice red';$('#guard').innerHTML='এই পেজটি শুধু Admin-এর জন্য। আগে <a href="bbss_savings_pro.html" style="color:#fff">মূল অ্যাপে Admin Login</a> করুন।';status('error','Admin login required');return}
+  if(!navigator.onLine){$('#guard').className='notice red';$('#guard').textContent='Internet connection নেই। Personal Information নিরাপদভাবে load করতে online connection প্রয়োজন।';status('error','Offline');return}
+  try{status('','Loading…');const out=await post('session',{token:session.remoteToken});if(!out.ok||out.role!=='admin')throw new Error(out.error||'Admin session invalid');state=out.state;persist();$('#guard').hidden=true;$('#content').hidden=false;status('online','Online • Latest');render()}catch(e){$('#guard').className='notice red';$('#guard').textContent='Personal Information load করা যায়নি: '+e.message+' — মূল অ্যাপে আবার Admin Login করুন।';status('error','Load failed')}
+}
+$('#refreshBtn').onclick=load;$('#search').oninput=renderMembers;$('#showPending').onclick=()=>$('#pendingSection').scrollIntoView({behavior:'smooth'});window.reviewRequest=reviewRequest;load();
+</script>
+</body>
+</html>
