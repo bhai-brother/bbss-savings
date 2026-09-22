@@ -95,3 +95,12 @@ The current `bbss_config.js` is already configured with:
 `https://script.google.com/macros/s/AKfycbxFz9snA2W3y7DVE6ET4VPFz2G8OPa-QTRlTp-98y0DXe5iR58YImfPBu_uk18JfGmT/exec`
 
 Do not put the private Write Key in `bbss_config.js` or GitHub. Enter it only in the Admin → Backup / Sync screen for the initial/recovery save.
+
+
+## 6. 2026 live-total / refresh update
+
+- `AnnualReview.Deposits` and `GrandTotal` are now derived automatically from the live monthly `Deposits` ledger whenever state is saved.
+- Adding, editing, bulk-changing, or deleting a deposit account automatically recalculates the annual chain (`Previous + Live Deposit + Profit - Loss`).
+- Logged-in non-admin views check for fresh shared data every 20 seconds, and also refresh when the tab becomes active again. Auto-refresh pauses while the user is typing and while the Admin edit screen is open.
+- Google Sheets remains the shared database exactly as before; the `State` sheet is still canonical and the readable mirror tabs are still updated by Apps Script.
+- Internal BBSS pages open in the same browser tab.

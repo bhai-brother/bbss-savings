@@ -130,8 +130,29 @@ function login_(body) {
 function sessionLoad_(body) {
   const sess = validateSession_(body.token);
   if (!sess) return {ok:false, code:'session_expired', error:'Session expired'};
-  const state = loadState_();
+  let state = loadState_();
   if (!state) return {ok:false, code:'not_initialized', error:'Database not initialized'};
+  if (recalculateAnnualFromDeposits_(state)) {
+    // Re-load under the script lock before self-healing, so a concurrent Admin save is never overwritten.
+    const lock = LockService.getScriptLock();
+    lock.waitLock(20000);
+    try {
+      const latest = loadState_();
+      if (latest) {
+        if (recalculateAnnualFromDeposits_(latest)) {
+          latest.meta = latest.meta || {};
+          latest.meta.lastUpdated = new Date().toISOString();
+          latest.audit = Array.isArray(latest.audit) ? latest.audit : [];
+          latest.audit.unshift({at:latest.meta.lastUpdated, action:'Annual totals auto-recalculated from live deposits'});
+          latest.audit = latest.audit.slice(0, 150);
+          saveState_(latest);
+        }
+        state = latest;
+      }
+    } finally {
+      lock.releaseLock();
+    }
+  }
   touchSession_(sess.row);
   return {ok:true, role:sess.role, memberId:sess.memberId, state:sanitizeState_(state, sess)};
 }
@@ -353,8 +374,30 @@ function requireWriteKey_(key) {
   if (String(key || '') !== String(expected)) throw new Error('Write key is incorrect');
 }
 
+function recalculateAnnualFromDeposits_(state) {
+  if (!state || !Array.isArray(state.annualReviews)) return false;
+  const before = JSON.stringify(state.annualReviews);
+  const totals = {};
+  Object.keys(state.deposits || {}).forEach(year => {
+    totals[String(year)] = (state.deposits[year] || []).reduce((sum, row) => {
+      return sum + (Array.isArray(row.months) ? row.months : []).reduce((s, v) => s + (Number(v) || 0), 0);
+    }, 0);
+  });
+  const rows = state.annualReviews.slice().sort((a,b) => Number(a.year) - Number(b.year));
+  let carry = 0;
+  rows.forEach((x, i) => {
+    if (i > 0) x.previous = carry;
+    else x.previous = Number(x.previous) || 0;
+    x.deposits = Number(totals[String(x.year)] || 0);
+    x.grandTotal = (Number(x.previous)||0) + x.deposits + (Number(x.profit)||0) - (Number(x.loss)||0);
+    carry = x.grandTotal;
+  });
+  return before !== JSON.stringify(state.annualReviews);
+}
+
 function saveState_(state) {
   validateState_(state);
+  recalculateAnnualFromDeposits_(state);
   const ss = getSS_();
   const sh = ensureSheet_(ss, BBSS.STATE_SHEET, BBSS.SHEETS.State);
   const json = JSON.stringify(state);

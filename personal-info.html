@@ -17,6 +17,11 @@ button,input{font:inherit}.topbar{position:sticky;top:0;z-index:20;background:rg
 .member-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.member{display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:start;background:#0f1712;border:1px solid var(--line);border-radius:14px;padding:13px}.avatar{width:74px;height:74px;border-radius:16px;overflow:hidden;display:grid;place-items:center;background:linear-gradient(145deg,#21382b,#14271d);border:1px solid #3c5b49;font-weight:900;color:#dff4e7}.avatar img{width:100%;height:100%;object-fit:cover}.member h3{font-size:15px;margin:0}.mid{display:inline-flex;margin-top:4px;padding:3px 7px;border-radius:999px;background:#1e3150;color:#c7dcff;font-size:10px}.meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:9px}.meta div{background:#0b120e;border:1px solid #26342b;border-radius:8px;padding:7px}.meta small{display:block;color:var(--muted);font-size:10px}.meta b{font-size:12px;word-break:break-word}.full{grid-column:1/-1}
 .request{border:1px solid #7c6432;background:#1b1a12;border-radius:13px;padding:13px;margin:10px 0}.request-head{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}.request-info{display:grid;grid-template-columns:130px 1fr;gap:6px;margin:10px 0;font-size:12px}.request-info span{color:var(--muted)}.mini-avatar{width:58px;height:58px;border-radius:12px;object-fit:cover;border:1px solid #485b4f}.actions{display:flex;gap:8px;flex-wrap:wrap}.empty{text-align:center;color:var(--muted);padding:24px}.footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}.footer a{color:var(--blue);text-decoration:none;font-weight:700}
 @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.member-grid{grid-template-columns:1fr}}@media(max-width:560px){.head{align-items:flex-start;flex-wrap:wrap}.spacer{display:none}.head .btn{flex:1}.grid{grid-template-columns:1fr 1fr}.member{grid-template-columns:60px 1fr}.avatar{width:60px;height:60px}.meta{grid-template-columns:1fr}.request-info{grid-template-columns:1fr}.request-info span{margin-top:5px}.app{padding-inline:10px}}
+
+/* BBSS mobile touch patch */
+button,a,input,select,textarea{touch-action:manipulation}
+@media(max-width:600px){button,.btn,.back,.home,.back-btn{min-height:44px}input,select,textarea{font-size:16px;min-height:44px}.wrap,.app{padding-left:10px!important;padding-right:10px!important}}
+
 </style>
 <script src="bbss_config.js"></script>
 </head>
@@ -37,7 +42,7 @@ button,input{font:inherit}.topbar{position:sticky;top:0;z-index:20;background:rg
     <section class="card"><h2>সদস্যদের ব্যক্তিগত তথ্য</h2><div class="notice green" style="margin-bottom:12px">Member Profile থেকে তথ্য/ছবি submit হলে আগে Pending Request হিসেবে আসে। Approve করার পর নিচের Personal Information-এ আপডেট হয়ে যাবে।</div><div class="member-grid" id="members"></div></section>
   </div>
 </main>
-<footer class="footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি • Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+<footer class="footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি • Developed by <a href="https://zahirulislamtaj.pages.dev/" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
 <script>
 const AUTH_SESSION_KEY='bbss_auth_session_v1';
 const STORE_KEY='bbss_dynamic_full_v3';
@@ -99,6 +104,11 @@ async function load(){
   try{status('','Loading…');const out=await post('session',{token:session.remoteToken});if(!out.ok||out.role!=='admin')throw new Error(out.error||'Admin session invalid');state=out.state;persist();$('#guard').hidden=true;$('#content').hidden=false;status('online','Online • Latest');render()}catch(e){$('#guard').className='notice red';$('#guard').textContent='Personal Information load করা যায়নি: '+e.message+' — মূল অ্যাপে আবার Admin Login করুন।';status('error','Load failed')}
 }
 $('#refreshBtn').onclick=load;$('#search').oninput=renderMembers;$('#showPending').onclick=()=>$('#pendingSection').scrollIntoView({behavior:'smooth'});window.reviewRequest=reviewRequest;load();
+const AUTO_REFRESH_MS=20000;
+function canAutoRefresh(){const a=document.activeElement;return navigator.onLine&&!document.hidden&&session?.remoteToken&&!(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))}
+setInterval(()=>{if(canAutoRefresh())load()},AUTO_REFRESH_MS);
+window.addEventListener('focus',()=>{if(canAutoRefresh())load()});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&canAutoRefresh())load()});
 </script>
 </body>
 </html>

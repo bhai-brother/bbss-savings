@@ -100,6 +100,11 @@
 .bbss-footer{max-width:1280px;margin:24px auto 0;padding:18px 16px 26px;text-align:center;color:#8f9a93;font-size:12px;border-top:1px solid rgba(255,255,255,.08)}
 .bbss-footer span{margin:0 6px;color:#5e6c63}.bbss-footer a{color:#75a7ff;text-decoration:none;font-weight:700}.bbss-footer a:hover{text-decoration:underline;text-underline-offset:3px}
 @media print{.bbss-footer{color:#444;border-top:1px solid #bbb}.bbss-footer a{color:#111;text-decoration:none}}
+
+/* BBSS mobile touch patch */
+button,a,input,select,textarea{touch-action:manipulation}
+@media(max-width:600px){button,.btn,.back,.home,.back-btn{min-height:44px}input,select,textarea{font-size:16px;min-height:44px}.wrap,.app{padding-left:10px!important;padding-right:10px!important}}
+
 </style>
 </head>
 <body>
@@ -196,10 +201,10 @@
       }catch(e){}
 
       // সরাসরি rules.html খোলা হলে মূল BBSS HTML-এ যান।
-      window.location.href='bbss_savings_pro.html';
+      window.location.href='BBSS_Dynamic_Savings_Rules_Button.html';
     }
   </script>
 
-<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" target="_blank" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
+<footer class="bbss-footer">© 2026 ভাই-ব্রাদার্স সঞ্চয় সমিতি <span>•</span> Developed by <a href="https://zahirulislamtaj.pages.dev/" rel="noopener noreferrer">Zahirul Islam Taj</a></footer>
 </body>
 </html>
