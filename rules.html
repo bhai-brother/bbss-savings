@@ -180,7 +180,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 
   <script>
     function goBackToApp(){
-      // Rules নতুন tab/window-এ খোলা হলে আগের BBSS window-এ ফিরে যান।
+      // Back to the BBSS app in the same tab. Session/localStorage are preserved.
       try{
         if(window.opener && !window.opener.closed){
           window.opener.focus();
@@ -189,19 +189,17 @@ button,a,input,select,textarea{touch-action:manipulation}
         }
       }catch(e){}
 
-      // একই tab-এ খোলা হলে যে page থেকে এসেছে সেখানে ফিরে যান।
+      // When Rules was opened from BBSS in the same tab, browser Back is the cleanest return.
       try{
-        if(document.referrer){
-          const ref=new URL(document.referrer, window.location.href);
-          if(ref.href && ref.href !== window.location.href){
-            window.location.href=ref.href;
-            return;
-          }
+        const ref=document.referrer ? new URL(document.referrer, window.location.href) : null;
+        if(ref && ref.origin===window.location.origin && ref.href!==window.location.href){
+          history.back();
+          return;
         }
       }catch(e){}
 
-      // সরাসরি rules.html খোলা হলে মূল BBSS HTML-এ যান।
-      window.location.href='BBSS_Dynamic_Savings_Rules_Button.html';
+      // Direct Rules URL / missing referrer: always return to the real main app filename.
+      window.location.replace('bbss_savings_pro.html');
     }
   </script>
 

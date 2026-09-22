@@ -861,13 +861,39 @@ renderAll();
 
   // Initialize added fields before any login attempt, then persist without adding an audit event.
   ensureExtendedState();persistRaw();bindLoginUi();
+
+  // Keep the local login while moving between same-origin pages (Rules, Send Money, Committee).
+  // A temporary Apps Script/network error must NOT be treated as an explicit logout.
+  function localSessionFresh(sess){
+    if(!sess||!sess.loginAt)return false;
+    const started=new Date(sess.loginAt).getTime();
+    if(!started)return false;
+    const ttlHours=sess.remember?24*30:12;
+    return Date.now()-started<=ttlHours*3600000;
+  }
+  function showLoggedOut(){
+    currentSession=null;adminUnlocked=false;document.body.classList.remove('authenticated');
+  }
+
   const restored=loadSession();
-  if(restored?.remoteToken&&window.bbssApiReady()){
+  if(restored&&!localSessionFresh(restored)){
+    clearSession();showLoggedOut();
+  }else if(restored?.remoteToken&&window.bbssApiReady()){
+    // Restore immediately from the cached state so a page round-trip does not flash/log out.
+    const restoredLocally=enterApp(restored,true);
     window.bbssApiPost('session',{token:restored.remoteToken}).then(out=>{
-      if(!out.ok)throw new Error(out.error||'Session expired');
+      if(!out.ok){
+        // Only an explicit server-side expiry/invalid session clears the login.
+        if(out.code==='session_expired'){clearSession();showLoggedOut();return}
+        throw new Error(out.error||'Session check failed');
+      }
       state=out.state;persistRaw();bbssMarkSyncSuccess('Online • Session synced');enterApp(restored,true);
-    }).catch(()=>{clearSession();currentSession=null;document.body.classList.remove('authenticated')});
-  }else if(restored&&enterApp(restored,true)){}else{clearSession();currentSession=null;document.body.classList.remove('authenticated')}
+    }).catch(err=>{
+      // Keep a fresh cached session on temporary connectivity/server failures.
+      if(restoredLocally)bbssMarkSyncFailure('Session sync delayed',err?.message||'Temporary server error');
+      else showLoggedOut();
+    });
+  }else if(restored&&enterApp(restored,true)){}else{clearSession();showLoggedOut()}
 })();
 
 </script>
