@@ -92,6 +92,15 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:16px 0}.code-note{font-f
 @media(max-width:760px){.login-shell{grid-template-columns:1fr}.login-hero{border-right:0;border-bottom:1px solid #2c3a31;padding:24px}.login-panel{padding:22px}.profile-hero{grid-template-columns:auto 1fr}.profile-hero>.actions{grid-column:1/-1}.txn-line{grid-template-columns:1fr 1fr}.auth-user-badge{position:static;margin-top:2px}.sync-badge{position:static}.head{padding-inline:12px}}
 </style>
 
+<style id="bbss-sept23-ux-fixes">
+.dashboard-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+.fund-position-card{padding:13px}.fund-position-head{display:flex;justify-content:space-between;align-items:end;gap:12px}.fund-position-head h2{font-size:17px}.fund-year-field{width:150px;flex:0 0 150px}.fund-mini-summary{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.fund-mini-chip{display:flex;align-items:center;gap:7px;padding:6px 9px;border:1px solid var(--line);background:#0d1410;border-radius:999px}.fund-mini-chip small{color:var(--muted);font-size:10px}.fund-mini-chip b{font-size:12px;color:#dcefe4}.fund-position-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}.fund-position-item{position:relative;border:1px solid var(--line);background:linear-gradient(145deg,#101713,#0c120e);border-radius:11px;padding:9px 10px;min-width:0}.fund-position-item span{display:block;color:var(--muted);font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fund-position-item b{display:block;margin-top:3px;font-size:15px;color:var(--green)}.fund-position-item small{position:absolute;right:8px;top:8px;color:#75837a;font-size:9px}
+.profile-shell{display:grid;gap:12px}.profile-cover{position:relative;overflow:hidden;padding:18px;background:radial-gradient(circle at 92% 0,rgba(var(--accent-rgb,31,99,213),.18),transparent 32%),linear-gradient(145deg,#15251b,#101713)}.profile-cover::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:linear-gradient(90deg,transparent,var(--accent,#1f63d5),var(--green),transparent)}.profile-cover .profile-hero{position:relative;z-index:1}.profile-main h2{margin:3px 0 0!important;font-size:clamp(22px,3vw,30px);color:#fff!important}.profile-topline{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.profile-status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid #315c45;background:#10231a;color:#b7e8ca}.profile-status.pending{border-color:#6d5a2d;background:#292316;color:#efd18e}.profile-actions{display:flex;align-items:center}.profile-quick{position:relative;z-index:1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.profile-quick-item{border:1px solid rgba(255,255,255,.08);background:rgba(6,12,9,.5);border-radius:12px;padding:10px 11px}.profile-quick-item small{display:block;color:var(--muted);font-size:10px}.profile-quick-item b{display:block;margin-top:3px;font-size:16px;color:#fff}.profile-deposit-card{padding:14px}.profile-section-head{display:flex;align-items:end;justify-content:space-between;gap:12px}.profile-section-head h2{margin:0}.profile-section-head>b{font-size:18px;color:var(--green)}.profile-year{padding:11px 0;border-top:1px solid var(--line)}.profile-year:first-of-type{border-top:0}.profile-year-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.profile-year-head span{color:var(--green);font-weight:800;font-size:12px}.profile-panel{padding:0;overflow:hidden;margin:0}.profile-panel>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;user-select:none}.profile-panel>summary::-webkit-details-marker{display:none}.profile-panel>summary span:first-child{display:grid;gap:2px}.profile-panel>summary b{color:#fff}.profile-panel>summary small{color:var(--muted);font-size:10px}.profile-panel>summary span:last-child{width:28px;height:28px;display:grid;place-items:center;border:1px solid var(--line);border-radius:9px;color:var(--green);transition:.2s}.profile-panel[open]>summary span:last-child{transform:rotate(45deg)}.profile-panel-body{border-top:1px solid var(--line);padding:14px 16px;background:rgba(0,0,0,.06)}
+@media(max-width:980px){.fund-position-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.fund-position-head{align-items:stretch;flex-direction:column}.fund-year-field{width:100%;flex:auto}.fund-position-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.profile-cover .profile-hero{grid-template-columns:72px 1fr}.profile-actions{grid-column:1/-1}.profile-actions .btn{width:100%}.profile-quick{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:430px){.profile-quick{grid-template-columns:1fr 1fr}.profile-quick-item:first-child{grid-column:1/-1}.fund-position-item b{font-size:14px}}
+</style>
+
 <div id="loginGate" class="auth-gate">
   <div class="login-shell">
     <div class="login-hero">
@@ -137,7 +146,7 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:16px 0}.code-note{font-f
   <a class="tab rules-tab external-tab" href="rules.html">Rules</a>
   <a class="tab external-tab" href="send-money.html">Send Money</a>
   <a class="tab external-tab" href="committee.html">পরিচালনা কমিটি</a>
-  <a class="tab admin-personal-tab" href="personal-info.html">ব্যক্তিগত তথ্য</a>
+  <a class="tab admin-personal-tab external-tab" href="personal-info.html">ব্যক্তিগত তথ্য</a>
   <button class="tab" data-view="myprofile">আমার প্রোফাইল</button>
   <button class="tab" data-view="admin">অ্যাডমিন</button>
 </nav>
@@ -161,8 +170,11 @@ const STORE_KEY='bbss_dynamic_full_v3';
 const BBSS_WRITE_KEY_STORE='bbss_google_write_key_v1';
 const BBSS_LAST_SYNC_KEY='bbss_last_sync_v1';
 const BBSS_SYNC_ERROR_KEY='bbss_sync_error_v1';
+const BBSS_ACTIVE_VIEW_KEY='bbss_active_view_v1';
+const BBSS_RETURN_VIEW_KEY='bbss_return_view_v1';
 let bbssSyncBusy=false;
 let bbssPushQueued=false;
+let bbssQueuedPreferClientFunds=false;
 let bbssLocalRevision=0;
 function bbssStoredLastSync(){try{return localStorage.getItem(BBSS_LAST_SYNC_KEY)||''}catch(e){return ''}}
 function bbssFormatLastSync(value){if(!value)return '—';const d=new Date(value);return isNaN(d)?'—':d.toLocaleString('bn-BD',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}
@@ -232,6 +244,7 @@ const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelect
 const clone=o=>JSON.parse(JSON.stringify(o));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const num=v=>Number(v)||0;
+function norm(v){return String(v||'').trim().toLowerCase()}
 const money=v=>'৳'+Math.round(num(v)).toLocaleString('en-BD');
 const today=()=>new Date().toISOString();
 function loadState(){try{const x=JSON.parse(localStorage.getItem(STORE_KEY)||'null');if(x&&x.version===3)return x}catch(e){} return clone(DEFAULT_DATA)}
@@ -246,8 +259,8 @@ function saveState(action='ডাটা আপডেট',options={}){
   renderAll();
   if(opts.skipRemote)return;
   const remoteSession=bbssReadStoredSession();
-  if(bbssApiUrl()&&remoteSession?.role==='admin'&&remoteSession?.remoteToken)pushApi(true);
-  else if(state.meta.autoSync&&state.meta.apiUrl)pushApi(true);
+  if(bbssApiUrl()&&remoteSession?.role==='admin'&&remoteSession?.remoteToken)pushApi(true,{preferClientFunds:!!opts.preferClientFunds});
+  else if(state.meta.autoSync&&state.meta.apiUrl)pushApi(true,{preferClientFunds:!!opts.preferClientFunds});
 }
 function toast(msg,error=false){const t=$('#toast');t.textContent=msg;t.className='toast'+(error?' error':'');requestAnimationFrame(()=>t.classList.add('show'));setTimeout(()=>t.classList.remove('show'),2200)}
 function yearKeys(){return Object.keys(state.deposits).sort((a,b)=>Number(b)-Number(a))}
@@ -294,8 +307,22 @@ function infoFor(name){const b=baseName(name).toLowerCase();return state.persona
 function expectedFor(y){const cy=Number(state.meta.currentYear), yy=Number(y);let m=12;if(yy===cy)m=Math.max(1,Math.min(12,Number(state.meta.reportMonth)||1));return m*num(state.meta.monthlyDefault)}
 function statusFor(r,y){const t=rowTotal(r), exp=expectedFor(y);if(t>=exp)return ['good','লক্ষ্যমাত্রা পূর্ণ'];if(t>0)return ['warn','আংশিক'];return ['bad','কোনো জমা নেই']}
 function formatDate(v){if(!v)return '—';const d=new Date(v);return isNaN(d)?esc(v):d.toLocaleDateString('bn-BD',{year:'numeric',month:'short',day:'numeric'})}
-function setView(id){$$('.view').forEach(v=>v.classList.toggle('active',v.id===id));$$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===id));if(id==='admin')renderAdmin()}
-$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)setView(b.dataset.view)});
+function setView(id){
+  if(!document.getElementById(id))id='dashboard';
+  $$('.view').forEach(v=>v.classList.toggle('active',v.id===id));
+  $$('.tab').forEach(b=>b.classList.toggle('active',b.dataset.view===id));
+  try{sessionStorage.setItem(BBSS_ACTIVE_VIEW_KEY,id)}catch(e){}
+  if(id==='admin')renderAdmin();
+}
+$('#tabs').addEventListener('click',e=>{
+  const external=e.target.closest('a.external-tab');
+  if(external){
+    const current=$('.view.active')?.id||'dashboard';
+    try{sessionStorage.setItem(BBSS_RETURN_VIEW_KEY,current);sessionStorage.setItem(BBSS_ACTIVE_VIEW_KEY,current)}catch(err){}
+    return;
+  }
+  const b=e.target.closest('[data-view]');if(b)setView(b.dataset.view);
+});
 $('#modalClose').onclick=()=>$('#modalBg').classList.remove('open');$('#modalBg').onclick=e=>{if(e.target.id==='modalBg')e.currentTarget.classList.remove('open')};
 function openModal(title,html){$('#modalTitle').textContent=title;$('#modalBody').innerHTML=html;$('#modalBg').classList.add('open')}
 
@@ -319,15 +346,13 @@ enhancePasswordInputs(document);
 
 
 function renderDashboard(){
- const y=String(state.meta.currentYear), rows=rowsFor(y), live=yearTotal(y), funds=fundTotal(y), ar=annualFor(y), lifetime=yearKeys().reduce((sum,k)=>sum+yearTotal(k),0);
+ const y=String(state.meta.currentYear), rows=rowsFor(y), live=yearTotal(y), ar=annualFor(y), lifetime=yearKeys().reduce((sum,k)=>sum+yearTotal(k),0);
  const liveGrand=num(ar.previous)+live+num(ar.profit)-num(ar.loss);
  const exp=rows.length*expectedFor(y);const gap=Math.max(0,exp-live);const months=Array.from({length:12},(_,m)=>rows.reduce((sum,r)=>sum+num(r.months[m]),0));const mx=Math.max(...months,1);
- const fitems=state.funds[y]||[];
  $('#dashboard').innerHTML=`
- <div class="grid">
+ <div class="grid dashboard-kpis">
   <div class="kpi"><small>${esc(y)} সদস্য/অ্যাকাউন্ট</small><strong>${rows.length}</strong><div class="sub">বর্তমান deposit ledger</div></div>
   <div class="kpi"><small>${esc(y)} Live Deposit</small><strong>${money(live)}</strong><div class="sub">মাসিক জমার exact auto sum</div></div>
-  <div class="kpi gold"><small>বর্তমান তহবিল</small><strong>${money(funds)}</strong><div class="sub">Fund/Cash ledger total</div></div>
   <div class="kpi blue"><small>${esc(y)} Grand Total • Auto</small><strong>${money(liveGrand)}</strong><div class="sub">Previous + Live Deposit + Profit − Loss</div></div>
  </div>
  <div class="split">
@@ -335,8 +360,7 @@ function renderDashboard(){
   <div class="card"><h2>লক্ষ্যমাত্রা ও অবস্থা</h2><div class="notice ${gap?'':'green'}">রিপোর্টিং মাস: <b>${MONTHS[(Number(state.meta.reportMonth)||1)-1]}</b> • প্রতি মাসের base target ${money(state.meta.monthlyDefault)}। সদস্য/জমা Add, Edit বা Delete করলে Live Deposit ও Grand Total সঙ্গে সঙ্গে যোগ/বিয়োগ হয়ে যায়।</div><div style="margin-top:14px" class="grid">
    <div class="kpi"><small>Target</small><strong>${money(exp)}</strong></div><div class="kpi ${gap?'red':''}"><small>Target gap</small><strong>${money(gap)}</strong></div>
   </div><hr class="sep"><div class="small muted">সব বছরের deposit ledger: <b>${money(lifetime)}</b> • Annual profit: <b>${money(ar.profit||0)}</b></div></div>
- </div>
- <div class="card"><h2>${esc(y)} তহবিলের বর্তমান বিভাগ</h2><div class="fund-grid">${fitems.map(x=>`<div class="fund"><span>${esc(x.label)}</span><b>${money(x.amount)}</b></div>`).join('')||'<div class="empty">কোনো fund item নেই</div>'}</div></div>`;
+ </div>`;
 }
 function memberYearSelect(id,val){return `<select id="${id}">${yearKeys().map(y=>`<option ${String(y)===String(val)?'selected':''}>${y}</option>`).join('')}</select>`}
 function renderMembers(){
@@ -354,7 +378,11 @@ function renderDeposits(){
  <div class="table-wrap"><table style="min-width:1450px"><thead><tr><th>নাম</th>${MONTHS.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">মোট</th></tr></thead><tbody>${rows.map(r=>`<tr><td><span class="member-link" data-member="${esc(r.id)}" data-year="${y}">${esc(r.name)}</span></td>${r.months.map(v=>`<td class="num">${num(v)?money(v):'—'}</td>`).join('')}<td class="num"><b>${money(rowTotal(r))}</b></td></tr>`).join('')}</tbody><tfoot><tr><th>মোট</th>${Array.from({length:12},(_,m)=>`<th class="num">${money(rows.reduce((s,r)=>s+num(r.months[m]),0))}</th>`).join('')}<th class="num">${money(rows.reduce((s,r)=>s+rowTotal(r),0))}</th></tr></tfoot></table></div></div>`;
  $('#depSearch').oninput=renderDeposits;$('#depYear').onchange=renderDeposits;$('#depCsv').onclick=()=>exportDepositsCsv(y);$$('[data-member]',$('#deposits')).forEach(el=>el.onclick=()=>showMember(el.dataset.year,el.dataset.member));
 }
-function renderFunds(){const y=$('#fundYear')?.value||String(state.meta.currentYear), arr=state.funds[y]||[];$('#funds').innerHTML=`<div class="grid"><div class="kpi gold"><small>${y} তহবিল মোট</small><strong>${money(fundTotal(y))}</strong></div><div class="kpi"><small>${y} সদস্য জমা</small><strong>${money(yearTotal(y))}</strong></div><div class="kpi blue"><small>Fund items</small><strong>${arr.length}</strong></div><div class="kpi"><small>Annual profit</small><strong>${money(annualFor(y).profit||0)}</strong></div></div><div class="card"><div class="toolbar no-print"><div><h2 style="margin:0">তহবিল / Cash Position</h2></div><div class="field"><label>বছর</label>${memberYearSelect('fundYear',y)}</div></div><div class="table-wrap"><table><thead><tr><th>খাত</th><th class="num">পরিমাণ</th><th class="num">শতাংশ</th></tr></thead><tbody>${arr.map(x=>`<tr><td>${esc(x.label)}</td><td class="num">${money(x.amount)}</td><td class="num">${fundTotal(y)?(num(x.amount)/fundTotal(y)*100).toFixed(1):0}%</td></tr>`).join('')}</tbody><tfoot><tr><th>মোট</th><th class="num">${money(fundTotal(y))}</th><th class="num">100%</th></tr></tfoot></table></div></div>`;$('#fundYear').onchange=renderFunds}
+function renderFunds(){
+ const y=$('#fundYear')?.value||String(state.meta.currentYear),arr=state.funds[y]||[],total=fundTotal(y);
+ $('#funds').innerHTML=`<div class="card fund-position-card"><div class="fund-position-head"><div><h2 style="margin:0">তহবিল / Cash Position</h2><div class="small muted">Google Sheets-এর Funds sheet-এর সাথে live sync</div></div><div class="field fund-year-field"><label>বছর</label>${memberYearSelect('fundYear',y)}</div></div><div class="fund-mini-summary"><span class="fund-mini-chip"><small>তহবিল মোট</small><b>${money(total)}</b></span><span class="fund-mini-chip"><small>সদস্য জমা</small><b>${money(yearTotal(y))}</b></span><span class="fund-mini-chip"><small>Profit</small><b>${money(annualFor(y).profit||0)}</b></span><span class="fund-mini-chip"><small>খাত</small><b>${arr.length}</b></span></div><div class="fund-position-grid">${arr.map(x=>`<div class="fund-position-item"><span>${esc(x.label)}</span><b>${money(x.amount)}</b><small>${total?(num(x.amount)/total*100).toFixed(1):0}%</small></div>`).join('')||'<div class="empty">কোনো fund item নেই</div>'}</div></div>`;
+ $('#fundYear').onchange=renderFunds;
+}
 function renderInvestments(){const q=($('#invSearch')?.value||'').toLowerCase(), grp=$('#invGroup')?.value||'all';const groups=[...new Set(state.investments.map(x=>x.group))];const list=state.investments.filter(x=>(grp==='all'||x.group===grp)&&(x.name.toLowerCase().includes(q)||x.description.toLowerCase().includes(q)));const principal=list.reduce((s,x)=>s+num(x.amount),0),profit=list.reduce((s,x)=>s+num(x.profit),0);$('#investments').innerHTML=`<div class="grid"><div class="kpi"><small>দেখানো Principal</small><strong>${money(principal)}</strong></div><div class="kpi gold"><small>দেখানো Profit</small><strong>${money(profit)}</strong></div><div class="kpi blue"><small>Records</small><strong>${list.length}</strong></div><div class="kpi"><small>বর্তমান fund-এ Invest</small><strong>${money((state.funds[String(state.meta.currentYear)]||[]).find(x=>x.label.toLowerCase()==='invest')?.amount||0)}</strong></div></div><div class="card"><h2>বিনিয়োগ / হাওলাত</h2><div class="toolbar no-print"><div class="field wide"><label>খুঁজুন</label><input id="invSearch" value="${esc(q)}" placeholder="নাম / বিবরণ"></div><div class="field"><label>খাতা</label><select id="invGroup"><option value="all">সব</option>${groups.map(g=>`<option ${g===grp?'selected':''} value="${esc(g)}">${esc(g)}</option>`).join('')}</select></div><div><button class="btn ghost" id="invCsv">CSV Export</button></div></div><div class="table-wrap"><table><thead><tr><th>খাতা</th><th>নাম</th><th>তারিখ</th><th>বিবরণ</th><th class="num">মূলধন</th><th class="num">লাভ</th><th>লাভের তারিখ</th></tr></thead><tbody>${list.map(x=>`<tr><td>${esc(x.group)}</td><td>${esc(x.name)}</td><td>${formatDate(x.date)}</td><td>${esc(x.description||'—')}</td><td class="num">${money(x.amount)}</td><td class="num">${money(x.profit)}</td><td>${formatDate(x.profitDate)}</td></tr>`).join('')}</tbody></table></div></div>`;$('#invSearch').oninput=renderInvestments;$('#invGroup').onchange=renderInvestments;$('#invCsv').onclick=exportInvestmentsCsv}
 function renderAnnual(){
   const rows=recalculateAnnualSummaries();
@@ -409,7 +437,7 @@ function adminFunds(box){
     if(!navigator.onLine)return toast(successMessage+' • Local save হয়েছে; internet এলে Google Sheets sync করুন',true);
     if(!(sess?.role==='admin'&&sess?.remoteToken))return toast(successMessage+' • Local save হয়েছে; Google Sheets-এর জন্য Online Admin login প্রয়োজন',true);
     if(bbssSyncBusy){bbssPushQueued=true;return toast(successMessage+' • Local save হয়েছে; Google Sheets sync queued');}
-    const out=await pushApi(true);
+    const out=await pushApi(true,{preferClientFunds:true});
     if(out?.ok)toast(successMessage+' • Google Sheets synced');
     else toast(successMessage+' • Local save আছে, কিন্তু Google Sheets sync হয়নি',true);
   };
@@ -531,19 +559,19 @@ async function pullApi(silent=false){
     bbssMarkSyncSuccess(bbssLocalRevision===revisionAtStart?'Online • Latest synced':'Online • Local edit kept');
     if(!silent&&bbssLocalRevision===revisionAtStart)toast('Google Sheets থেকে latest data load হয়েছে');return out;
   }catch(e){bbssMarkSyncFailure('Sync failed',e.message);if(!silent)toast('Server load failed: '+e.message,true);return null}
-  finally{bbssSyncBusy=false;if(bbssPushQueued){bbssPushQueued=false;setTimeout(()=>pushApi(true),0)}}
+  finally{bbssSyncBusy=false;if(bbssPushQueued){const prefer=bbssQueuedPreferClientFunds;bbssPushQueued=false;bbssQueuedPreferClientFunds=false;setTimeout(()=>pushApi(true,{preferClientFunds:prefer}),0)}}
 }
-async function pushApi(silent=false){
+async function pushApi(silent=false,options={}){
   if(!bbssApiUrl())return silent?null:toast('Apps Script Web App URL দিন',true);
   const sess=bbssReadStoredSession();
   if(!navigator.onLine){bbssMarkSyncFailure('Offline','Internet connection নেই');return null}
-  if(bbssSyncBusy){bbssPushQueued=true;return null}
+  if(bbssSyncBusy){bbssPushQueued=true;bbssQueuedPreferClientFunds=bbssQueuedPreferClientFunds||!!options.preferClientFunds;return null}
   bbssSyncBusy=true;const revisionAtStart=bbssLocalRevision;
   recalculateAnnualSummaries();
   bbssUpdateSyncUI('syncing','Saving to Google Sheets…','');
   try{
     let out;
-    if(sess?.role==='admin'&&sess?.remoteToken)out=await bbssApiPost('save',{token:sess.remoteToken,state});
+    if(sess?.role==='admin'&&sess?.remoteToken)out=await bbssApiPost('save',{token:sess.remoteToken,state,preferClientFunds:!!options.preferClientFunds});
     else{
       const key=localStorage.getItem(BBSS_WRITE_KEY_STORE)||'';
       if(!key)return silent?null:toast('Remote Admin login অথবা private Write Key প্রয়োজন।',true);
@@ -551,11 +579,11 @@ async function pushApi(silent=false){
     }
     if(!out.ok)throw new Error(out.error||'Server save failed');
     if(out.state&&bbssLocalRevision===revisionAtStart){state=out.state;recalculateAnnualSummaries();try{localStorage.setItem(STORE_KEY,JSON.stringify(state))}catch(e){};renderAll()}
-    else if(bbssLocalRevision!==revisionAtStart){bbssPushQueued=true}
+    else if(bbssLocalRevision!==revisionAtStart){bbssPushQueued=true;bbssQueuedPreferClientFunds=bbssQueuedPreferClientFunds||!!options.preferClientFunds}
     bbssMarkSyncSuccess('Online • Synced');
     if(!silent)toast('Google Sheets-এ save হয়েছে');return out;
   }catch(e){bbssMarkSyncFailure('Sync failed',e.message);if(!silent)toast('Server save failed: '+e.message,true);return null}
-  finally{bbssSyncBusy=false;if(bbssPushQueued){bbssPushQueued=false;setTimeout(()=>pushApi(true),0)}}
+  finally{bbssSyncBusy=false;if(bbssPushQueued){const prefer=bbssQueuedPreferClientFunds;bbssPushQueued=false;bbssQueuedPreferClientFunds=false;setTimeout(()=>pushApi(true,{preferClientFunds:prefer}),0)}}
 }
 function renderAll(){recalculateAnnualSummaries();applyTheme(state.meta.themeColor||'#1f63d5');document.title=state.meta.organization+' — BBSS';$('#brandName').textContent=state.meta.organization;$('#brandSub').textContent=`Live shared ledger • Updated ${formatDateTime(state.meta.lastUpdated)}`;bbssUpdateLoginInterface();renderDashboard();renderMembers();renderDeposits();renderFunds();renderInvestments();renderAnnual();renderContacts();if($('#admin').classList.contains('active'))renderAdmin();enhancePasswordInputs(document)}
 renderAll();
@@ -686,7 +714,15 @@ renderAll();
     if(session.role==='admin')adminUnlocked=true;
     applyRoleVisibility();
     renderAll();
-    if(session.role==='member')setView('myprofile');else if(!restored)setView('dashboard');
+    let savedView='';
+    try{savedView=sessionStorage.getItem(BBSS_RETURN_VIEW_KEY)||sessionStorage.getItem(BBSS_ACTIVE_VIEW_KEY)||'';sessionStorage.removeItem(BBSS_RETURN_VIEW_KEY)}catch(e){}
+    if(session.role==='member'){
+      const target=restored&&savedView&&memberViewAllowed(savedView)?savedView:'myprofile';
+      setView(target);
+    }else{
+      const target=restored&&savedView&&document.getElementById(savedView)?savedView:'dashboard';
+      setView(target);
+    }
     return true;
   }
   function logout(){
@@ -760,14 +796,28 @@ renderAll();
     const a=findAccountById(currentSession.memberId);if(!a){root.innerHTML='<div class="card"><div class="empty">Member account পাওয়া যায়নি।</div></div>';return}
     const inf=accountInfo(a), rr=rowsForAccount(a), pending=state.auth.profileRequests.find(r=>r.memberId===a.memberId&&r.status==='pending');
     const years=[...new Set(rr.map(x=>x.year))].sort((x,y)=>Number(y)-Number(x));
-    root.innerHTML=`
-      <div class="card"><div class="profile-hero"><div class="avatar">${a.photoData?`<img src="${a.photoData}" alt="Profile">`:esc(initials(a.name))}</div><div><span class="member-id">${esc(accountLabel(a))}</span><h2 style="margin:0;color:var(--text)">${esc(a.name)}</h2><div class="profile-meta"><span>মোবাইল: ${esc(inf.mobile||'—')}</span><span>রক্ত: ${esc(inf.blood||'—')}</span><span>মোট জমা: ${money(totalForAccount(a))}</span></div></div><div class="actions"><button class="btn ghost" id="profileEditJump">প্রোফাইল Edit Request</button></div></div>${a.mustChangePassword?'<div class="notice" style="margin-top:14px">নিরাপত্তার জন্য প্রাথমিক password পরিবর্তন করুন।</div>':''}</div>
-      <div class="grid"><div class="kpi"><small>Member ID</small><strong style="font-size:18px">${esc(a.memberId)}</strong></div><div class="kpi gold"><small>সর্বমোট জমা</small><strong>${money(totalForAccount(a))}</strong></div><div class="kpi blue"><small>Deposit Accounts</small><strong>${rr.length}</strong></div><div class="kpi"><small>Profile Request</small><strong style="font-size:18px">${pending?'Pending':'—'}</strong></div></div>
-      <div class="card"><h2>আমার জমার হিসাব</h2>${years.length?years.map(y=>{const list=rr.filter(x=>x.year===y);return `<div style="margin:12px 0"><h3>${esc(y)} • মোট ${money(list.reduce((s,x)=>s+rowTotal(x.row),0))}</h3>${list.map(x=>`<div class="months">${x.row.months.map((v,i)=>`<div class="monthbox ${num(v)===0?'zero':num(v)>num(state.meta.monthlyDefault)?'extra':'paid'}"><small>${MONTHS[i]}</small><b>${num(v)?money(v):'—'}</b></div>`).join('')}</div>`).join('')}</div>`}).join('<hr class="sep">'):'<div class="empty">কোনো জমার রেকর্ড নেই</div>'}</div>
-      <div class="split"><div class="card" id="profileEditCard"><h2>প্রোফাইল পরিবর্তনের অনুরোধ</h2><div class="notice">এখানে পরিবর্তন Submit করলে সঙ্গে সঙ্গে live profile বদলাবে না। অ্যাডমিন অনুমোদন করার পর আপডেট হবে।</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>নাম</label><input id="pfName" value="${esc(a.name)}"></div><div class="field"><label>মোবাইল</label><input id="pfMobile" value="${esc(inf.mobile)}"></div><div class="field"><label>রক্তের গ্রুপ</label><input id="pfBlood" value="${esc(inf.blood)}"></div><div class="field"><label>Email</label><input id="pfEmail" type="email" value="${esc(inf.email)}"></div><div class="field"><label>ঠিকানা</label><input id="pfAddress" value="${esc(inf.address)}"></div><div class="field"><label>Profile ছবি</label><input id="pfPhoto" type="file" accept="image/*"></div></div><button class="btn" id="submitProfileRequest" style="margin-top:12px">Approval Request পাঠান</button>${pending?'<div class="notice" style="margin-top:10px">আপনার একটি profile update request ইতিমধ্যে Pending আছে। নতুন Submit করলে সেটিই update হবে।</div>':''}</div>
-      <div class="card"><h2>পাসওয়ার্ড পরিবর্তন</h2><div class="field"><label>বর্তমান পাসওয়ার্ড</label><input id="oldMemberPass" type="password"></div><div class="field" style="margin-top:9px"><label>নতুন পাসওয়ার্ড</label><input id="newMemberPass" type="password" minlength="4"></div><div class="field" style="margin-top:9px"><label>নতুন পাসওয়ার্ড আবার</label><input id="newMemberPass2" type="password" minlength="4"></div><button class="btn blue" id="changeMemberPass" style="margin-top:12px">Password Update</button></div></div>
-      <div class="card"><h2>সাম্প্রতিক তহবিল-সংযুক্ত জমা</h2>${state.depositTransactions.filter(t=>t.memberId===a.memberId).slice(0,20).map(t=>`<div class="txn-line"><span>${formatDateTime(t.at)}</span><span>${esc(t.fundLabel)} • ${MONTHS[t.month]||''} ${esc(t.year)}</span><b>${money(t.amount)}</b><span class="pill good">Added</span></div>`).join('')||'<div class="empty">নতুন transaction log নেই</div>'}</div>`;
-    $('#profileEditJump').onclick=()=>$('#profileEditCard').scrollIntoView({behavior:'smooth',block:'start'});
+    const total=totalForAccount(a);
+    root.innerHTML=`<div class="profile-shell">
+      <section class="card profile-cover">
+        <div class="profile-hero">
+          <div class="avatar profile-avatar">${a.photoData?`<img src="${a.photoData}" alt="Profile">`:esc(initials(a.name))}</div>
+          <div class="profile-main"><div class="profile-topline"><span class="member-id">${esc(a.memberId)}</span><span class="profile-status ${pending?'pending':'active'}">${pending?'Update pending':'Profile active'}</span></div><h2>${esc(a.name)}</h2><div class="profile-meta"><span>📱 ${esc(inf.mobile||'মোবাইল যোগ হয়নি')}</span><span>🩸 ${esc(inf.blood||'রক্তের গ্রুপ যোগ হয়নি')}</span>${inf.email?`<span>✉ ${esc(inf.email)}</span>`:''}</div></div>
+          <div class="profile-actions"><button class="btn ghost" id="profileEditJump">তথ্য পরিবর্তন</button></div>
+        </div>
+        ${a.mustChangePassword?'<div class="notice" style="margin-top:12px">নিরাপত্তার জন্য প্রাথমিক password পরিবর্তন করুন।</div>':''}
+        <div class="profile-quick"><div class="profile-quick-item"><small>সর্বমোট জমা</small><b>${money(total)}</b></div><div class="profile-quick-item"><small>Deposit Accounts</small><b>${rr.length}</b></div><div class="profile-quick-item"><small>বছর</small><b>${years.length}</b></div></div>
+      </section>
+
+      <section class="card profile-deposit-card"><div class="profile-section-head"><div><h2>আমার জমার হিসাব</h2><div class="small muted">মাসভিত্তিক জমা এক নজরে</div></div><b>${money(total)}</b></div>${years.length?years.map(y=>{const list=rr.filter(x=>x.year===y);return `<div class="profile-year"><div class="profile-year-head"><b>${esc(y)}</b><span>${money(list.reduce((s,x)=>s+rowTotal(x.row),0))}</span></div>${list.map(x=>`<div class="months">${x.row.months.map((v,i)=>`<div class="monthbox ${num(v)===0?'zero':num(v)>num(state.meta.monthlyDefault)?'extra':'paid'}"><small>${MONTHS[i]}</small><b>${num(v)?money(v):'—'}</b></div>`).join('')}</div>`).join('')}</div>`}).join(''):'<div class="empty">কোনো জমার রেকর্ড নেই</div>'}</section>
+
+      <details class="card profile-panel" id="profileEditCard"><summary><span><b>প্রোফাইল তথ্য পরিবর্তন</b><small>নাম, মোবাইল, রক্ত, Email, ঠিকানা ও ছবি</small></span><span>＋</span></summary><div class="profile-panel-body"><div class="notice">পরিবর্তন Submit করলে Admin অনুমোদনের পর live profile-এ আপডেট হবে।</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>নাম</label><input id="pfName" value="${esc(a.name)}"></div><div class="field"><label>মোবাইল</label><input id="pfMobile" value="${esc(inf.mobile)}"></div><div class="field"><label>রক্তের গ্রুপ</label><input id="pfBlood" value="${esc(inf.blood)}"></div><div class="field"><label>Email</label><input id="pfEmail" type="email" value="${esc(inf.email)}"></div><div class="field"><label>ঠিকানা</label><input id="pfAddress" value="${esc(inf.address)}"></div><div class="field"><label>Profile ছবি</label><input id="pfPhoto" type="file" accept="image/*"></div></div><button class="btn" id="submitProfileRequest" style="margin-top:12px">Approval Request পাঠান</button>${pending?'<div class="notice" style="margin-top:10px">আপনার একটি profile update request Pending আছে। নতুন Submit করলে একই request update হবে।</div>':''}</div></details>
+
+      <details class="card profile-panel"><summary><span><b>পাসওয়ার্ড ও নিরাপত্তা</b><small>নিজের login password পরিবর্তন করুন</small></span><span>＋</span></summary><div class="profile-panel-body"><div class="edit-grid"><div class="field"><label>বর্তমান পাসওয়ার্ড</label><input id="oldMemberPass" type="password"></div><div class="field"><label>নতুন পাসওয়ার্ড</label><input id="newMemberPass" type="password" minlength="4"></div><div class="field"><label>নতুন পাসওয়ার্ড আবার</label><input id="newMemberPass2" type="password" minlength="4"></div></div><button class="btn blue" id="changeMemberPass" style="margin-top:12px">Password Update</button></div></details>
+
+      <details class="card profile-panel"><summary><span><b>সাম্প্রতিক জমা কার্যক্রম</b><small>তহবিল-সংযুক্ত সর্বশেষ transaction</small></span><span>＋</span></summary><div class="profile-panel-body">${state.depositTransactions.filter(t=>t.memberId===a.memberId).slice(0,20).map(t=>`<div class="txn-line"><span>${formatDateTime(t.at)}</span><span>${esc(t.fundLabel)} • ${MONTHS[t.month]||''} ${esc(t.year)}</span><b>${money(t.amount)}</b><span class="pill good">Added</span></div>`).join('')||'<div class="empty">নতুন transaction log নেই</div>'}</div></details>
+    </div>`;
+    const editCard=$('#profileEditCard');
+    $('#profileEditJump').onclick=()=>{if(editCard)editCard.open=true;editCard?.scrollIntoView({behavior:'smooth',block:'start'})};
     $('#submitProfileRequest').onclick=()=>submitProfileRequest(a);
     $('#changeMemberPass').onclick=()=>changeMemberPassword(a);
     const photoInput=$('#pfPhoto');if(photoInput)photoInput.onchange=()=>{const f=photoInput.files?.[0];if(!f)return;const reader=new FileReader();reader.onload=()=>{const av=root.querySelector('.profile-hero .avatar');if(av)av.innerHTML=`<img src="${reader.result}" alt="Profile preview">`};reader.readAsDataURL(f)};
@@ -853,7 +903,7 @@ renderAll();
     baseAdminPayments(box);const y=$('#admYear')?.value||String(state.meta.currentYear),rows=rowsFor(y),funds=state.funds[y]||[];
     const card=document.createElement('div');card.className='card';card.innerHTML=`<h2>নতুন জমা গ্রহণ — তহবিল নির্বাচনসহ</h2><div class="notice green">এই ফর্মে জমা Save করলে সদস্যের নির্বাচিত মাসের জমা, নির্বাচিত তহবিল এবং Annual/ড্যাশবোর্ড হিসাব স্বয়ংক্রিয়ভাবে update হবে।</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>সদস্য</label><select id="txMember">${rows.map(r=>{const a=accountForName(r.name);return `<option value="${esc(r.id)}">${esc(a?.memberId||r.id)} — ${esc(r.name)}</option>`}).join('')}</select></div><div class="field"><label>মাস</label><select id="txMonth">${MONTHS.map((m,i)=>`<option value="${i}" ${String(y)===String(state.meta.currentYear)&&i===Number(state.meta.reportMonth)-1?'selected':''}>${m}</option>`).join('')}</select></div><div class="field"><label>Amount</label><input id="txAmount" type="number" min="1" step="1" value="${num(state.meta.monthlyDefault)}"></div><div class="field"><label>কোন তহবিলে জমা</label><select id="txFund">${funds.map(f=>`<option value="${esc(f.id)}">${esc(f.label)} — ${money(f.amount)}</option>`).join('')}</select></div></div><div class="actions" style="margin-top:12px"><button class="btn" id="addDepositTxn" ${rows.length&&funds.length?'':'disabled'}>জমা যোগ করুন</button></div>${!funds.length?'<div class="notice red" style="margin-top:10px">এই বছরে তহবিল নেই। আগে Admin → তহবিল Edit থেকে তহবিল যোগ করুন।</div>':''}<hr class="sep"><h3>সাম্প্রতিক Deposit Transactions</h3>${state.depositTransactions.filter(t=>String(t.year)===String(y)).slice(0,12).map(t=>`<div class="txn-line"><span>${formatDateTime(t.at)}</span><span>${esc(t.memberId||t.memberName)} • ${MONTHS[t.month]||''}</span><b>${money(t.amount)}</b><span>${esc(t.fundLabel)}</span></div>`).join('')||'<div class="empty">নতুন transaction নেই</div>'}`;
     box.insertBefore(card,box.firstChild);
-    const btn=$('#addDepositTxn');if(btn)btn.onclick=()=>{const row=rows.find(r=>r.id===$('#txMember').value),fund=funds.find(f=>f.id===$('#txFund').value),m=Number($('#txMonth').value),a=num($('#txAmount').value);if(!row||!fund||a<=0)return toast('সদস্য, তহবিল ও amount সঠিকভাবে দিন',true);addDepositTransaction(y,row,m,a,fund);saveState(`${y}: ${row.name} ${MONTHS[m]} deposit ${a} -> ${fund.label}`);toast('জমা, তহবিল ও Grand Total auto update হয়েছে')};
+    const btn=$('#addDepositTxn');if(btn)btn.onclick=()=>{const row=rows.find(r=>r.id===$('#txMember').value),fund=funds.find(f=>f.id===$('#txFund').value),m=Number($('#txMonth').value),a=num($('#txAmount').value);if(!row||!fund||a<=0)return toast('সদস্য, তহবিল ও amount সঠিকভাবে দিন',true);addDepositTransaction(y,row,m,a,fund);saveState(`${y}: ${row.name} ${MONTHS[m]} deposit ${a} -> ${fund.label}`,{preferClientFunds:true});toast('জমা, সদস্য হিসাব, তহবিল ও Grand Total auto update হয়েছে')};
   };
 
   const baseRenderMembers=renderMembers;
