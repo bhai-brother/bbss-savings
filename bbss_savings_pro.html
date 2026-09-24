@@ -441,6 +441,8 @@ function bbssUpdateLoginInterface(){
 const MONTHS=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
 let adminUnlocked=false;
 let activeAdminSection='settings';
+// Shared auth session state must exist before the first renderDashboard() call.
+let currentSession=null;
 
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -835,7 +837,8 @@ renderAll();
 (function(){
   const AUTH_SESSION_KEY='bbss_auth_session_v1';
   const DEFAULT_MEMBER_HASH='03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4'; // SHA-256 of 1234
-  let currentSession=null;
+  // currentSession is shared with the base UI render functions above.
+
 
   function norm(v){return String(v||'').trim().toLowerCase()}
   function initials(name){return String(name||'BB').split(/\s+/).filter(Boolean).slice(0,2).map(x=>x[0]).join('').toUpperCase()||'BB'}
